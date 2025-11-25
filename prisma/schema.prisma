@@ -1,0 +1,132 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"] // Bu satırı ekleyin
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  EDITOR
+  ANALYST
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  passwordHash  String
+  role          Role      @default(EDITOR)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  posts         Post[]
+}
+
+model Page {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  content     Json?    // Structured content for the page
+  // SEO Fields
+  metaTitle   String?
+  metaDesc    String?
+  canonical   String?
+  index       Boolean  @default(true)
+  follow      Boolean  @default(true)
+  ogTitle     String?
+  ogDesc      String?
+  ogImage     String?
+  
+  published   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model HomepageHero {
+  id                String   @id @default(cuid())
+  headline          String
+  subheadline       String?
+  ctaPrimaryLabel   String?
+  ctaPrimaryUrl     String?
+  ctaSecondaryLabel String?
+  ctaSecondaryUrl   String?
+  badgeText         String?
+  backgroundStyle   String?  // "animated-gradient", "static-gradient", "solid"
+  updatedAt         DateTime @updatedAt
+}
+
+model Redirect {
+  id          String   @id @default(cuid())
+  sourcePath  String   @unique
+  targetPath  String
+  type        Int      @default(301) // 301 or 302
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model NotFoundLog {
+  id          String   @id @default(cuid())
+  path        String
+  referrer    String?
+  count       Int      @default(1)
+  lastHitAt   DateTime @default(now())
+}
+
+model Post {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  excerpt     String?
+  content     String?  // Rich text content
+  coverImage  String?
+  category    String?
+  // SEO Fields for Blog
+  metaTitle   String?
+  metaDesc    String?
+  
+  published   Boolean  @default(false)
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String?
+  message   String
+  status    String   @default("NEW") // NEW, READ, ARCHIVED
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SeoAnalysis {
+  id          String   @id @default(cuid())
+  domain      String
+  email       String?
+  score       Int
+  results     Json     // Detailed analysis results
+  createdAt   DateTime @default(now())
+}
+
+model MarketingTool {
+  id        String   @id @default(cuid())
+  name      String
+  type      String   // ADS, ANALYTICS, SOCIAL
+  data      Json?    // Configuration or notes
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SiteSetting {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       String
+  updatedAt   DateTime @updatedAt
+}

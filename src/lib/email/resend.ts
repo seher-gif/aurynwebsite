@@ -1,21 +1,21 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY || 're_123');
 
 interface SendSEOReportParams {
-    to: string;
-    domain: string;
-    score: number;
-    analysis: any;
+  to: string;
+  domain: string;
+  score: number;
+  analysis: any;
 }
 
 export async function sendSEOReport({ to, domain, score, analysis }: SendSEOReportParams) {
-    try {
-        const { data, error } = await resend.emails.send({
-            from: 'Auryn Dijital <onboarding@resend.dev>',
-            to: [to],
-            subject: `${domain} - Detaylı SEO Analiz Raporu`,
-            html: `
+  try {
+    const { data, error } = await resend.emails.send({
+      from: 'Auryn Dijital <onboarding@resend.dev>',
+      to: [to],
+      subject: `${domain} - Detaylı SEO Analiz Raporu`,
+      html: `
         <!DOCTYPE html>
         <html>
         <head>
@@ -103,16 +103,16 @@ export async function sendSEOReport({ to, domain, score, analysis }: SendSEORepo
         </body>
         </html>
       `,
-        });
+    });
 
-        if (error) {
-            console.error('Resend email error:', error);
-            return { success: false, error };
-        }
-
-        return { success: true, data };
-    } catch (error) {
-        console.error('Failed to send email:', error);
-        return { success: false, error };
+    if (error) {
+      console.error('Resend email error:', error);
+      return { success: false, error };
     }
+
+    return { success: true, data };
+  } catch (error) {
+    console.error('Failed to send email:', error);
+    return { success: false, error };
+  }
 }

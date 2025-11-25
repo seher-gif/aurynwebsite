@@ -62,6 +62,10 @@ export const metadata: Metadata = {
   },
 };
 
+import Providers from "@/components/providers/session-provider";
+
+// ... (imports remain the same)
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -75,7 +79,9 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="antialiased">
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );

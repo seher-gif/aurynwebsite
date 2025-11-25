@@ -1,4 +1,3 @@
-import { Role } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 import 'dotenv/config'
 import { prisma } from '../src/lib/prisma'
@@ -15,7 +14,7 @@ async function main() {
       email,
       name: 'Admin User',
       passwordHash: hashedPassword,
-      role: Role.ADMIN,
+      role: 'ADMIN' as any,
     },
   })
 

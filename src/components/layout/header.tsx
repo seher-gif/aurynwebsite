@@ -10,6 +10,7 @@ const navigation = [
     { name: "Anasayfa", href: "/" },
     { name: "Hakkımızda", href: "/hakkimizda" },
     { name: "Hizmetler", href: "/hizmetler" },
+    { name: "Referanslar", href: "/referanslar" },
     { name: "Blog", href: "/blog" },
     { name: "İletişim", href: "/iletisim" },
 ];

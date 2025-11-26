@@ -13,7 +13,9 @@ import {
     Users,
     LogOut,
     Search,
-    Megaphone
+    Megaphone,
+    Briefcase,
+    BookOpen
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 
@@ -21,6 +23,9 @@ const navigation = [
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
     { name: "Sayfa Yönetimi", href: "/admin/pages", icon: FileText },
     { name: "Blog Yönetimi", href: "/admin/blog", icon: PenTool },
+    { name: "Blog Yönetimi", href: "/admin/blog", icon: PenTool },
+    { name: "Müşteriler", href: "/admin/clients", icon: Briefcase },
+    { name: "Vaka Çalışmaları", href: "/admin/case-studies", icon: BookOpen },
     { name: "Dijital Araçlar", href: "/admin/tools", icon: Megaphone },
     { name: "SEO & Site Skoru", href: "/admin/seo-score", icon: BarChart },
     { name: "SEO Analiz Sonuçları", href: "/admin/seo-results", icon: Search },

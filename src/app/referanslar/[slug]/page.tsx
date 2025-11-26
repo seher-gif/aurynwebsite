@@ -8,14 +8,20 @@ import { ArrowLeft, Calendar, Tag } from "lucide-react";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-    const caseStudies = await prisma.caseStudy.findMany({
-        where: { published: true },
-        select: { slug: true },
-    });
+    try {
+        const caseStudies = await prisma.caseStudy.findMany({
+            where: { published: true },
+            select: { slug: true },
+        });
 
-    return caseStudies.map((cs: any) => ({
-        slug: cs.slug,
-    }));
+        return caseStudies.map((cs: any) => ({
+            slug: cs.slug,
+        }));
+    } catch (error) {
+        // Return empty array if table doesn't exist yet
+        console.log('CaseStudy table not found, skipping static generation');
+        return [];
+    }
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {

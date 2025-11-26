@@ -124,6 +124,32 @@ model MarketingTool {
   updatedAt DateTime @updatedAt
 }
 
+model Client {
+  id        String   @id @default(cuid())
+  name      String
+  logo      String   // Logo URL (base64 or external)
+  website   String?
+  order     Int      @default(0)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CaseStudy {
+  id          String   @id @default(cuid())
+  title       String
+  client      String
+  slug        String   @unique
+  excerpt     String
+  content     String   @db.Text
+  coverImage  String?
+  results     Json?    // Results metrics (e.g., %150 traffic increase)
+  category    String   // SEO, Google Ads, Social Media, etc.
+  published   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 model SiteSetting {
   id          String   @id @default(cuid())
   key         String   @unique

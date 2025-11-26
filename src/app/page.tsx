@@ -176,7 +176,7 @@ export default async function Home() {
                     Auryn, sonsuzluğu ve birbirine bağlılığı simgeler. Biz de dijital dünyada markanız için sürdürülebilir ve uzun vadeli başarıyı hedefliyoruz. Veri ve içgörüyü birleştirerek, markanızın potansiyelini ortaya çıkarıyoruz.
                   </p>
                   <div className="mt-10">
-                    <Button variant="outline" className="border-white/20 text-white hover:bg-white/10" asChild>
+                    <Button variant="gradient" className="shadow-lg" asChild>
                       <Link href="/hakkimizda">Daha Fazlasını Oku</Link>
                     </Button>
                   </div>

@@ -40,28 +40,28 @@ async function calculateSEOScore() {
     let scoreCount = 0;
 
     // Meta descriptions check (30 points max)
-    const pagesWithMeta = pages.filter(p => p.metaDesc && p.metaDesc.length > 50);
-    const postsWithMeta = posts.filter(p => p.metaDesc && p.metaDesc.length > 50);
+    const pagesWithMeta = pages.filter((p: any) => p.metaDesc && p.metaDesc.length > 50);
+    const postsWithMeta = posts.filter((p: any) => p.metaDesc && p.metaDesc.length > 50);
     const metaScore = ((pagesWithMeta.length + postsWithMeta.length) / (pages.length + posts.length)) * 30;
     totalScore += metaScore;
     scoreCount++;
 
     // Meta titles check (20 points max)
-    const pagesWithTitle = pages.filter(p => p.metaTitle && p.metaTitle.length > 30);
-    const postsWithTitle = posts.filter(p => p.metaTitle && p.metaTitle.length > 30);
+    const pagesWithTitle = pages.filter((p: any) => p.metaTitle && p.metaTitle.length > 30);
+    const postsWithTitle = posts.filter((p: any) => p.metaTitle && p.metaTitle.length > 30);
     const titleScore = ((pagesWithTitle.length + postsWithTitle.length) / (pages.length + posts.length)) * 20;
     totalScore += titleScore;
     scoreCount++;
 
     // Index/Follow optimization (15 points max)
-    const pagesWithSEO = pages.filter(p => p.index && p.follow);
+    const pagesWithSEO = pages.filter((p: any) => p.index && p.follow);
     const seoScore = (pagesWithSEO.length / pages.length) * 15;
     totalScore += seoScore;
     scoreCount++;
 
     // Recent analysis average (35 points max)
     if (recentAnalyses.length > 0) {
-        const avgAnalysisScore = recentAnalyses.reduce((sum, a) => sum + a.score, 0) / recentAnalyses.length;
+        const avgAnalysisScore = recentAnalyses.reduce((sum: number, a: any) => sum + a.score, 0) / recentAnalyses.length;
         totalScore += (avgAnalysisScore / 100) * 35;
         scoreCount++;
     } else {
@@ -83,8 +83,8 @@ async function calculateSEOScore() {
 
     // Issues detection
     const issues = [];
-    const pagesWithoutMeta = pages.filter(p => !p.metaDesc || p.metaDesc.length < 50);
-    const pagesWithoutTitle = pages.filter(p => !p.metaTitle || p.metaTitle.length < 30);
+    const pagesWithoutMeta = pages.filter((p: any) => !p.metaDesc || p.metaDesc.length < 50);
+    const pagesWithoutTitle = pages.filter((p: any) => !p.metaTitle || p.metaTitle.length < 30);
 
     if (pagesWithoutMeta.length > 0) {
         issues.push({
@@ -104,7 +104,7 @@ async function calculateSEOScore() {
         });
     }
 
-    const pagesNotIndexed = pages.filter(p => !p.index);
+    const pagesNotIndexed = pages.filter((p: any) => !p.index);
     if (pagesNotIndexed.length > 0) {
         issues.push({
             id: 3,
@@ -348,8 +348,8 @@ export default async function SEOScorePage() {
                                     <div className="flex-1">
                                         <p className="text-sm text-white">{item.text}</p>
                                         <p className={`text-xs mt-1 ${item.priority === "high" ? "text-red-400" :
-                                                item.priority === "medium" ? "text-yellow-400" :
-                                                    "text-green-400"
+                                            item.priority === "medium" ? "text-yellow-400" :
+                                                "text-green-400"
                                             }`}>
                                             {item.priority === "high" ? "Yüksek Öncelik" :
                                                 item.priority === "medium" ? "Orta Öncelik" :
@@ -369,7 +369,7 @@ export default async function SEOScorePage() {
                         <p className="text-gray-400">Henüz analiz bulunmuyor.</p>
                     ) : (
                         <div className="space-y-3">
-                            {analyses.slice(0, 5).map((analysis) => (
+                            {analyses.slice(0, 5).map((analysis: any) => (
                                 <div key={analysis.id} className="flex items-center justify-between p-4 bg-gray-700/50 rounded-lg hover:bg-gray-700 transition-colors">
                                     <div>
                                         <p className="font-medium text-white">{analysis.domain}</p>

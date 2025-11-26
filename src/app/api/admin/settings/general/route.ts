@@ -21,10 +21,10 @@ export async function GET(request: NextRequest) {
 
         // Convert array to object
         const settings = {
-            siteTitle: settingsData.find(s => s.key === 'siteTitle')?.value || 'Auryn Dijital',
-            siteDescription: settingsData.find(s => s.key === 'siteDescription')?.value || 'Veri Odaklı Dijital Pazarlama & SEO',
-            siteUrl: settingsData.find(s => s.key === 'siteUrl')?.value || 'https://auryndijital.com',
-            contactEmail: settingsData.find(s => s.key === 'contactEmail')?.value || 'info@auryndijital.com',
+            siteTitle: settingsData.find((s: any) => s.key === 'siteTitle')?.value || 'Auryn Dijital',
+            siteDescription: settingsData.find((s: any) => s.key === 'siteDescription')?.value || 'Veri Odaklı Dijital Pazarlama & SEO',
+            siteUrl: settingsData.find((s: any) => s.key === 'siteUrl')?.value || 'https://auryndijital.com',
+            contactEmail: settingsData.find((s: any) => s.key === 'contactEmail')?.value || 'info@auryndijital.com',
         };
 
         return NextResponse.json(settings);

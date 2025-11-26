@@ -31,7 +31,7 @@ export default async function SEOResultsPage() {
                 </Card>
             ) : (
                 <div className="space-y-4">
-                    {analyses.map((analysis) => {
+                    {analyses.map((analysis: any) => {
                         const results = analysis.results as any;
                         return (
                             <Card key={analysis.id} className="hover:shadow-md transition-shadow">

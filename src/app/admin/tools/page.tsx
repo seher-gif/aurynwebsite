@@ -38,7 +38,7 @@ export default async function DigitalToolsPage() {
                 </Card>
             ) : (
                 <div className="grid gap-4 md:grid-cols-2">
-                    {tools.map((tool) => {
+                    {tools.map((tool: any) => {
                         const data = tool.data as any;
                         return (
                             <Card key={tool.id} className="hover:shadow-md transition-shadow">

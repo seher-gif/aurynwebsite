@@ -59,7 +59,7 @@ export function Header() {
                 </div>
                 <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-x-4">
                     <Button variant="outline" className={cn(
-                        "border-white/20 hover:bg-white/10 transition-colors",
+                        "bg-transparent border-white/20 hover:bg-white/10 transition-colors",
                         scrolled ? "text-white hover:text-white" : "text-white hover:text-white"
                     )} asChild>
                         <Link href="/seo-analysis">SEO Analizi</Link>
@@ -101,7 +101,7 @@ export function Header() {
                                 ))}
                             </div>
                             <div className="py-6 flex flex-col gap-y-4">
-                                <Button variant="outline" className="w-full border-white/20 text-white hover:bg-white/10" asChild>
+                                <Button variant="outline" className="w-full bg-transparent border-white/20 text-white hover:bg-white/10" asChild>
                                     <Link href="/seo-analysis">SEO Analizi</Link>
                                 </Button>
                                 <Button className="w-full bg-gradient-to-r from-auryn-magenta to-auryn-purple text-white border-0" asChild>

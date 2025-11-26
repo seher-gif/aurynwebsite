@@ -78,7 +78,7 @@ export default async function Home() {
                   <Button size="lg" className="bg-gradient-to-r from-auryn-magenta to-auryn-purple hover:opacity-90 text-white border-0 h-12 px-8 text-base rounded-xl transition-transform hover:scale-105" asChild>
                     <Link href={heroData?.ctaPrimaryUrl || "/iletisim"}>{heroData?.ctaPrimaryLabel || "Hemen Başlayın"}</Link>
                   </Button>
-                  <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10 h-12 px-8 text-base rounded-xl" asChild>
+                  <Button size="lg" variant="outline" className="bg-transparent border-white/20 text-white hover:bg-white/10 h-12 px-8 text-base rounded-xl" asChild>
                     <Link href={heroData?.ctaSecondaryUrl || "/hizmetler"}>
                       {heroData?.ctaSecondaryLabel || "Hizmetlerimiz"} <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>

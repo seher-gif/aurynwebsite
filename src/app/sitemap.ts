@@ -28,7 +28,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         select: { slug: true, updatedAt: true },
     })
 
-    const dynamicPages = pages.map((page) => ({
+    const dynamicPages = pages.map((page: any) => ({
         url: `${baseUrl}/${page.slug}`,
         lastModified: page.updatedAt,
         changeFrequency: 'weekly' as const,

@@ -5,8 +5,8 @@ import { Plus, Edit, Trash2, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
-export default async function CaseStudiesPage() {
-    let caseStudies: any[] = [];
+export default async function ClientsPage() {
+    let clients: any[] = [];
     try {
         clients = await prisma.client.findMany({
             orderBy: { order: "asc" },

@@ -5,9 +5,14 @@ import { Plus, Edit, FileText } from "lucide-react";
 import Link from "next/link";
 
 export default async function CaseStudiesPage() {
-    const caseStudies = await prisma.caseStudy.findMany({
-        orderBy: { createdAt: "desc" },
-    });
+    let caseStudies = [];
+    try {
+        caseStudies = await prisma.caseStudy.findMany({
+            orderBy: { createdAt: "desc" },
+        });
+    } catch (error) {
+        console.log('CaseStudy table not found yet');
+    }
 
     return (
         <div>

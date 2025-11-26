@@ -12,15 +12,26 @@ export const metadata = {
 };
 
 export default async function ReferanslarPage() {
-    const clients = await prisma.client.findMany({
-        where: { active: true },
-        orderBy: { order: "asc" },
-    });
+    let clients = [];
+    let caseStudies = [];
 
-    const caseStudies = await prisma.caseStudy.findMany({
-        where: { published: true },
-        orderBy: { createdAt: "desc" },
-    });
+    try {
+        clients = await prisma.client.findMany({
+            where: { active: true },
+            orderBy: { order: "asc" },
+        });
+    } catch (error) {
+        console.log('Client table not found yet');
+    }
+
+    try {
+        caseStudies = await prisma.caseStudy.findMany({
+            where: { published: true },
+            orderBy: { createdAt: "desc" },
+        });
+    } catch (error) {
+        console.log('CaseStudy table not found yet');
+    }
 
     return (
         <div className="bg-white">

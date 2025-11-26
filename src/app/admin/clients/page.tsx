@@ -6,19 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default async function CaseStudiesPage() {
-    let caseStudies = [];
-    try {
-        caseStudies = await prisma.caseStudy.findMany({
-            orderBy: { createdAt: "desc" },
-        });
-    } catch (error) {
-        console.log('CaseStudy table not found yet');
-    }
-    // The original code already had a try-catch for clients.
-    // The instruction provided a snippet that seems to replace the clients logic with case studies.
-    // I am applying the provided snippet as faithfully as possible, correcting the syntax error.
-    // This means the ClientsPage is effectively transformed into a CaseStudiesPage based on the instruction.
-    let clients = []; // This line is kept from the original, but will be unused if the rest of the code is not adapted.
+    let caseStudies: any[] = [];
     try {
         clients = await prisma.client.findMany({
             orderBy: { order: "asc" },

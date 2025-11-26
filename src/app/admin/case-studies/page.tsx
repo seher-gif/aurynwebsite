@@ -5,7 +5,7 @@ import { Plus, Edit, FileText } from "lucide-react";
 import Link from "next/link";
 
 export default async function CaseStudiesPage() {
-    let caseStudies = [];
+    let caseStudies: any[] = [];
     try {
         caseStudies = await prisma.caseStudy.findMany({
             orderBy: { createdAt: "desc" },

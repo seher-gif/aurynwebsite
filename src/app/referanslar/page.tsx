@@ -12,8 +12,8 @@ export const metadata = {
 };
 
 export default async function ReferanslarPage() {
-    let clients = [];
-    let caseStudies = [];
+    let clients: any[] = [];
+    let caseStudies: any[] = [];
 
     try {
         clients = await prisma.client.findMany({

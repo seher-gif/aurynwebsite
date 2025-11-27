@@ -18,6 +18,20 @@ async function main() {
     },
   })
 
+  // Create references page if it doesn't exist
+  await prisma.page.upsert({
+    where: { slug: 'referanslar' },
+    update: {},
+    create: {
+      slug: 'referanslar',
+      title: 'Referanslar',
+      content: 'Müşterilerimiz ve başarı hikayelerimiz.',
+      metaTitle: 'Referanslar - Auryn Dijital',
+      metaDesc: 'Auryn Dijital olarak çalıştığımız markalar ve başarı hikayelerimiz.',
+      published: true,
+    },
+  })
+
   console.log({ user })
 }
 

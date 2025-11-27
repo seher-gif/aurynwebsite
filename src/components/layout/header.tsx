@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const navigation = [
     { name: "Anasayfa", href: "/" },
@@ -34,8 +35,8 @@ export function Header() {
         )}>
             <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
                 <div className="flex lg:flex-1">
-                    <Link href="/" className="-m-1.5 p-1.5 text-2xl font-bold tracking-tighter text-white">
-                        AURYN<span className="text-auryn-magenta">.</span>
+                    <Link href="/" className="-m-1.5 p-1.5">
+                        <Image src="/auryn-logo.png" alt="Auryn Dijital" width={120} height={40} className="h-10 w-auto" />
                     </Link>
                 </div>
                 <div className="flex lg:hidden">
@@ -75,8 +76,8 @@ export function Header() {
             <div className={cn("lg:hidden", mobileMenuOpen ? "fixed inset-0 z-50" : "hidden")}>
                 <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-black px-6 py-6 sm:max-w-sm border-l border-white/10">
                     <div className="flex items-center justify-between">
-                        <Link href="/" className="-m-1.5 p-1.5 text-2xl font-bold tracking-tighter text-white">
-                            AURYN<span className="text-auryn-magenta">.</span>
+                        <Link href="/" className="-m-1.5 p-1.5">
+                            <Image src="/auryn-logo.png" alt="Auryn Dijital" width={120} height={40} className="h-10 w-auto" />
                         </Link>
                         <button
                             type="button"

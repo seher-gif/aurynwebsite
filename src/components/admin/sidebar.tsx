@@ -23,7 +23,6 @@ const navigation = [
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
     { name: "Sayfa Yönetimi", href: "/admin/pages", icon: FileText },
     { name: "Blog Yönetimi", href: "/admin/blog", icon: PenTool },
-    { name: "Blog Yönetimi", href: "/admin/blog", icon: PenTool },
     { name: "Müşteriler", href: "/admin/clients", icon: Briefcase },
     { name: "Vaka Çalışmaları", href: "/admin/case-studies", icon: BookOpen },
     { name: "Dijital Araçlar", href: "/admin/tools", icon: Megaphone },

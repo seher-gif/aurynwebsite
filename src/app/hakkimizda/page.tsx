@@ -1,4 +1,3 @@
-```
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Button } from "@/components/ui/button";
@@ -45,9 +44,9 @@ export default function HakkimizdaPage() {
                             </p>
                         </div>
                         <div className="relative rounded-3xl aspect-video overflow-hidden group">
-                            <Image 
-                                src="/office-2.jpg" 
-                                alt="Auryn Dijital Ekip" 
+                            <Image
+                                src="/office-2.jpg"
+                                alt="Auryn Dijital Ekip"
                                 fill
                                 className="object-cover"
                             />

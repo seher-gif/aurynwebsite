@@ -1,0 +1,110 @@
+
+> shimmering-gravity@0.1.0 build
+> next build
+
+   ▲ Next.js 16.0.3 (Turbopack)
+   - Environments: .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 8.8s
+   Running TypeScript ...
+   Collecting page data using 9 workers ...
+CaseStudy table not found, skipping static generation
+   Generating static pages using 9 workers (0/61) ...
+prisma:query SELECT "public"."MarketingTool"."id", "public"."MarketingTool"."name", "public"."MarketingTool"."type", "public"."MarketingTool"."data", "public"."MarketingTool"."createdAt", "public"."MarketingTool"."updatedAt" FROM "public"."MarketingTool" WHERE 1=1 ORDER BY "public"."MarketingTool"."createdAt" DESC OFFSET $1
+   Generating static pages using 9 workers (15/61) 
+   Generating static pages using 9 workers (30/61) 
+CaseStudy table not found yet
+prisma:query SELECT "public"."HomepageHero"."id", "public"."HomepageHero"."headline", "public"."HomepageHero"."subheadline", "public"."HomepageHero"."ctaPrimaryLabel", "public"."HomepageHero"."ctaPrimaryUrl", "public"."HomepageHero"."ctaSecondaryLabel", "public"."HomepageHero"."ctaSecondaryUrl", "public"."HomepageHero"."badgeText", "public"."HomepageHero"."backgroundStyle", "public"."HomepageHero"."updatedAt" FROM "public"."HomepageHero" WHERE 1=1 LIMIT $1 OFFSET $2
+   Generating static pages using 9 workers (45/61) 
+Client table not found yet
+prisma:query SELECT "public"."SeoAnalysis"."id", "public"."SeoAnalysis"."domain", "public"."SeoAnalysis"."email", "public"."SeoAnalysis"."score", "public"."SeoAnalysis"."results", "public"."SeoAnalysis"."createdAt" FROM "public"."SeoAnalysis" WHERE 1=1 ORDER BY "public"."SeoAnalysis"."createdAt" DESC OFFSET $1
+Client table not found yet
+prisma:query SELECT "public"."Page"."id", "public"."Page"."slug", "public"."Page"."title", "public"."Page"."content", "public"."Page"."metaTitle", "public"."Page"."metaDesc", "public"."Page"."canonical", "public"."Page"."index", "public"."Page"."follow", "public"."Page"."ogTitle", "public"."Page"."ogDesc", "public"."Page"."ogImage", "public"."Page"."published", "public"."Page"."createdAt", "public"."Page"."updatedAt" FROM "public"."Page" WHERE "public"."Page"."published" = $1 OFFSET $2
+CaseStudy table not found yet
+prisma:query SELECT "public"."Post"."id", "public"."Post"."title", "public"."Post"."slug", "public"."Post"."excerpt", "public"."Post"."content", "public"."Post"."coverImage", "public"."Post"."category", "public"."Post"."metaTitle", "public"."Post"."metaDesc", "public"."Post"."published", "public"."Post"."authorId", "public"."Post"."createdAt", "public"."Post"."updatedAt" FROM "public"."Post" WHERE "public"."Post"."published" = $1 OFFSET $2
+prisma:query SELECT "public"."SeoAnalysis"."id", "public"."SeoAnalysis"."domain", "public"."SeoAnalysis"."email", "public"."SeoAnalysis"."score", "public"."SeoAnalysis"."results", "public"."SeoAnalysis"."createdAt" FROM "public"."SeoAnalysis" WHERE "public"."SeoAnalysis"."createdAt" >= $1 ORDER BY "public"."SeoAnalysis"."createdAt" DESC OFFSET $2
+prisma:query SELECT "public"."Page"."id", "public"."Page"."slug", "public"."Page"."updatedAt" FROM "public"."Page" WHERE "public"."Page"."published" = $1 OFFSET $2
+prisma:query SELECT "public"."SeoAnalysis"."id", "public"."SeoAnalysis"."domain", "public"."SeoAnalysis"."email", "public"."SeoAnalysis"."score", "public"."SeoAnalysis"."results", "public"."SeoAnalysis"."createdAt" FROM "public"."SeoAnalysis" WHERE ("public"."SeoAnalysis"."createdAt" >= $1 AND "public"."SeoAnalysis"."createdAt" < $2) OFFSET $3
+prisma:query SELECT "public"."SeoAnalysis"."id", "public"."SeoAnalysis"."domain", "public"."SeoAnalysis"."email", "public"."SeoAnalysis"."score", "public"."SeoAnalysis"."results", "public"."SeoAnalysis"."createdAt" FROM "public"."SeoAnalysis" WHERE 1=1 ORDER BY "public"."SeoAnalysis"."createdAt" DESC LIMIT $1 OFFSET $2
+ ✓ Generating static pages using 9 workers (61/61) in 3.4s
+   Finalizing page optimization ...
+
+Route (app)                           Revalidate  Expire
+┌ ○ /                                         1h      1y
+├ ○ /_not-found
+├ ƒ /[...slug]
+├ ○ /about
+├ ○ /admin
+├ ○ /admin/blog
+├ ○ /admin/blog/new
+├ ○ /admin/case-studies
+├ ○ /admin/case-studies/new
+├ ○ /admin/clients
+├ ○ /admin/clients/new
+├ ○ /admin/homepage
+├ ○ /admin/messages
+├ ○ /admin/pages
+├ ƒ /admin/pages/[id]
+├ ○ /admin/profile
+├ ○ /admin/redirects
+├ ○ /admin/seo-results
+├ ○ /admin/seo-score
+├ ○ /admin/settings
+├ ○ /admin/settings/branding
+├ ○ /admin/settings/general
+├ ○ /admin/tools
+├ ○ /admin/tools/new
+├ ○ /admin/users
+├ ƒ /api/admin/404-logs
+├ ƒ /api/admin/blog
+├ ƒ /api/admin/case-studies
+├ ƒ /api/admin/clients
+├ ƒ /api/admin/homepage-hero
+├ ƒ /api/admin/pages
+├ ƒ /api/admin/pages/[id]
+├ ƒ /api/admin/profile
+├ ƒ /api/admin/redirects
+├ ƒ /api/admin/redirects/[id]
+├ ƒ /api/admin/settings/branding
+├ ƒ /api/admin/settings/general
+├ ƒ /api/auth/[...nextauth]
+├ ƒ /api/contact
+├ ƒ /api/log-404
+├ ƒ /api/seed
+├ ƒ /api/seo/analyze
+├ ƒ /api/seo/detailed-report
+├ ○ /blog
+├ ƒ /blog/[slug]
+├ ○ /contact
+├ ○ /gizlilik-politikasi
+├ ○ /hakkimizda
+├ ○ /hizmetler
+├ ○ /hizmetler/google-ads-yonetimi
+├ ○ /hizmetler/icerik-pazarlamasi
+├ ○ /hizmetler/meta-ads
+├ ○ /hizmetler/raporlama-analiz
+├ ○ /hizmetler/seo-optimizasyonu
+├ ○ /hizmetler/sosyal-medya-yonetimi
+├ ○ /iletisim
+├ ○ /kariyer
+├ ○ /kullanim-kosullari
+├ ○ /kvkk-aydinlatma-metni
+├ ○ /login
+├ ○ /referanslar
+├ ● /referanslar/[slug]
+├ ○ /robots.txt
+├ ○ /seo-analysis
+├ ○ /services
+└ ○ /sitemap.xml
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

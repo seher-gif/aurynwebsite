@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Search, TrendingUp, Globe, PenTool, Megaphone, BarChart2 } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { OrganizationSchema, LocalBusinessSchema } from "@/components/seo/schema";

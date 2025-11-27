@@ -184,9 +184,15 @@ export default async function Home() {
               </div>
               <div className="flex items-start justify-end lg:order-last">
                 <div className="relative rounded-2xl bg-gray-800/50 p-2 ring-1 ring-inset ring-white/10 lg:-m-4 lg:rounded-3xl lg:p-4 backdrop-blur-sm">
-                  <div className="aspect-[4/3] w-[400px] sm:w-[600px] rounded-xl bg-gradient-to-br from-gray-800 to-black flex items-center justify-center text-gray-500 border border-white/5 relative overflow-hidden group">
+                  <div className="aspect-[4/3] w-[400px] sm:w-[600px] rounded-xl relative overflow-hidden group">
+                    <Image
+                      src="/office-1.jpg"
+                      alt="Auryn Dijital Ofis"
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/30"></div>
                     <div className="absolute inset-0 bg-gradient-to-br from-auryn-magenta/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <span className="relative z-10">Görsel Alanı</span>
                   </div>
                 </div>
               </div>

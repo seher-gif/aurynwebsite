@@ -1,7 +1,9 @@
+```
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function HakkimizdaPage() {
     return (
@@ -42,10 +44,15 @@ export default function HakkimizdaPage() {
                                 Amacımız sadece reklam vermek veya SEO yapmak değil; markanızın özünü anlayarak, onu dijital dünyada en doğru şekilde konumlandırmaktır. Veriyi içgörüye, içgörüyü stratejiye dönüştürüyoruz.
                             </p>
                         </div>
-                        <div className="relative rounded-3xl bg-gray-900/50 aspect-video flex items-center justify-center text-gray-500 border border-white/10 overflow-hidden group">
+                        <div className="relative rounded-3xl aspect-video overflow-hidden group">
+                            <Image 
+                                src="/office-2.jpg" 
+                                alt="Auryn Dijital Ekip" 
+                                fill
+                                className="object-cover"
+                            />
+                            <div className="absolute inset-0 bg-black/30"></div>
                             <div className="absolute inset-0 bg-gradient-to-br from-auryn-magenta/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                            {/* Placeholder Image */}
-                            <span className="relative z-10 font-medium">Ofis / Ekip Görseli</span>
                         </div>
                     </div>
                 </div>

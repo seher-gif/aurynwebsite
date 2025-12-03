@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import {
@@ -33,14 +34,23 @@ const navigation = [
     { name: "Ayarlar", href: "/admin/settings", icon: Settings },
 ];
 
+
+
 export function AdminSidebar() {
     const pathname = usePathname();
 
     return (
         <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4">
             <div className="flex h-16 shrink-0 items-center">
-                <div className="text-2xl font-bold text-white tracking-tighter">
-                    AURYN<span className="text-auryn-magenta">.</span> <span className="text-xs font-normal text-gray-400 ml-2">Admin</span>
+                <div className="flex items-center gap-2">
+                    <Image
+                        src="/auryn-logo.png"
+                        alt="Auryn Logo"
+                        width={120}
+                        height={40}
+                        className="h-8 w-auto"
+                    />
+                    <span className="text-xs font-normal text-gray-400">Admin</span>
                 </div>
             </div>
             <nav className="flex flex-1 flex-col">

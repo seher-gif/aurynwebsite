@@ -1,0 +1,20 @@
+{
+  "node": {
+    "401dfa5146e3d52be5e3d5d333fbe7d4f9381c8c3e": {
+      "workers": {
+        "app/admin/tools/page": {
+          "moduleId": 52487,
+          "async": false,
+          "exportedName": "deleteMarketingTool",
+          "filename": "src/lib/actions/admin.ts"
+        }
+      },
+      "layer": {
+        "app/admin/tools/page": "action-browser"
+      },
+      "exportedName": "deleteMarketingTool",
+      "filename": "src/lib/actions/admin.ts"
+    }
+  },
+  "edge": {}
+}

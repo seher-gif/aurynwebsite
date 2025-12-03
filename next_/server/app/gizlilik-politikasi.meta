@@ -1,0 +1,15 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/gizlilik-politikasi/layout,_N_T_/gizlilik-politikasi/page,_N_T_/gizlilik-politikasi"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/gizlilik-politikasi/__PAGE__",
+    "/gizlilik-politikasi",
+    "/_index",
+    "/_head"
+  ]
+}

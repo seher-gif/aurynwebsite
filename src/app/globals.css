@@ -1,44 +1,31 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+:root {
+  --background: #ffffff;
+  --foreground: #020817;
+  --card: #ffffff;
+  --card-foreground: #020817;
+  --popover: #ffffff;
+  --popover-foreground: #020817;
+  --primary: #0f172a;
+  --primary-foreground: #f8fafc;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #f1f5f9;
+  --accent-foreground: #0f172a;
+  --destructive: #ef4444;
+  --destructive-foreground: #f8fafc;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #020817;
+  --radius: 0.5rem;
 
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-
-  --color-auryn-magenta: #e51e51;
-  --color-auryn-dark: #c41a45;
-  --color-auryn-purple: #9089fc;
-  --color-auryn-light: #e8416a;
-
-  --font-heading: var(--font-montserrat), sans-serif;
-  --font-body: var(--font-poppins), sans-serif;
-
-  --radius-lg: var(--radius);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-sm: calc(var(--radius) - 4px);
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
 }
 
 :root {
@@ -107,43 +94,45 @@
 }
 
 /* Premium Brand Utilities */
-@utility gradient-text {
-  background: linear-gradient(135deg, #e51e51 0%, #9089fc 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+@layer utilities {
+  .gradient-text {
+    background: linear-gradient(135deg, #e51e51 0%, #9089fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 
-@utility gradient-magenta-purple {
-  background: linear-gradient(135deg, #e51e51 0%, #9089fc 100%);
-}
+  .gradient-magenta-purple {
+    background: linear-gradient(135deg, #e51e51 0%, #9089fc 100%);
+  }
 
-@utility glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
 
-@utility glass-strong {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
 
-@utility glow-magenta {
-  box-shadow: 0 0 20px rgba(229, 30, 81, 0.3), 0 0 40px rgba(229, 30, 81, 0.1);
-}
+  .glow-magenta {
+    box-shadow: 0 0 20px rgba(229, 30, 81, 0.3), 0 0 40px rgba(229, 30, 81, 0.1);
+  }
 
-@utility glow-purple {
-  box-shadow: 0 0 20px rgba(144, 137, 252, 0.3), 0 0 40px rgba(144, 137, 252, 0.1);
-}
+  .glow-purple {
+    box-shadow: 0 0 20px rgba(144, 137, 252, 0.3), 0 0 40px rgba(144, 137, 252, 0.1);
+  }
 
-@utility hover-lift {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
 
-  &:hover {
+  .hover-lift:hover {
     transform: translateY(-4px);
   }
 }

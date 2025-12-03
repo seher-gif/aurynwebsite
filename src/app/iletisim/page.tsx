@@ -47,8 +47,8 @@ export default function IletisimPage() {
                                             <a href="tel:05319409065" className="text-gray-400 hover:text-auryn-magenta transition-colors">0531 940 90 65</a>
                                         </div>
                                     </div>
-                                    <div className="flex items-center gap-4 group">
-                                        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-auryn-magenta/10 group-hover:bg-auryn-magenta/20 transition-colors">
+                                    <div className="flex items-start gap-4 group">
+                                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-auryn-magenta/10 group-hover:bg-auryn-magenta/20 transition-colors">
                                             <MapPin className="h-6 w-6 text-auryn-magenta" />
                                         </div>
                                         <div>

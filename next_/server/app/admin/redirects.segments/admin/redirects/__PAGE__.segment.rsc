@@ -1,0 +1,7 @@
+1:"$Sreact.fragment"
+2:I[39979,["/_next/static/chunks/a69199e52146cdcd.js","/_next/static/chunks/2a22d4977b4f487b.js","/_next/static/chunks/195c216f52dae3f8.js","/_next/static/chunks/ac52b06f7ca14aaa.js","/_next/static/chunks/dc2aa6b903b22a5c.js","/_next/static/chunks/329d638fd0e509ae.js"],"RedirectsList"]
+3:I[86269,["/_next/static/chunks/a69199e52146cdcd.js","/_next/static/chunks/2a22d4977b4f487b.js","/_next/static/chunks/195c216f52dae3f8.js","/_next/static/chunks/ac52b06f7ca14aaa.js","/_next/static/chunks/dc2aa6b903b22a5c.js","/_next/static/chunks/329d638fd0e509ae.js"],"NotFoundLogs"]
+4:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/247eb132b7f7b574.js"],"OutletBoundary"]
+5:"$Sreact.suspense"
+0:{"buildId":"KIjiNFVqPqu1H-cR4J25M","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"space-y-8","children":[["$","h1",null,{"className":"text-2xl font-bold tracking-tight text-gray-900","children":"Yönlendirmeler ve 404 Kayıtları"}],["$","div",null,{"className":"grid gap-8 lg:grid-cols-2","children":[["$","$L2",null,{}],["$","$L3",null,{}]]}]]}],[["$","script","script-0",{"src":"/_next/static/chunks/ac52b06f7ca14aaa.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/dc2aa6b903b22a5c.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/329d638fd0e509ae.js","async":true}]],["$","$L4",null,{"children":["$","$5",null,{"name":"Next.MetadataOutlet","children":"$@6"}]}]]}],"loading":null,"isPartial":false}
+6:null

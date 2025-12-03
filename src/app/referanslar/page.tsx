@@ -39,7 +39,7 @@ export default async function ReferanslarPage() {
 
             {/* Hero Section */}
             <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-black py-24">
-                <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
+                <div className="absolute inset-0 opacity-10"></div>
                 <div className="relative max-w-7xl mx-auto px-6 lg:px-8 text-center">
                     <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
                         Referanslar & <span className="text-transparent bg-clip-text bg-gradient-to-r from-auryn-magenta to-auryn-light">Vaka Çalışmaları</span>

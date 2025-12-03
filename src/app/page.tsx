@@ -31,7 +31,7 @@ export default async function Home() {
   const heroData = await getHeroData();
 
   return (
-    <div className="bg-black min-h-screen text-white">
+    <div className="bg-black min-h-screen text-white overflow-x-hidden">
       <OrganizationSchema />
       <LocalBusinessSchema />
       <WhatsAppFloat />
@@ -48,7 +48,7 @@ export default async function Home() {
 
           <div className="py-24 sm:py-32 lg:pb-40 relative z-10">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
-              <div className="mx-auto max-w-3xl text-center">
+              <div className="mx-auto max-w-4xl text-center px-4">
                 {heroData?.badgeText && (
                   <div className="mb-8 flex justify-center">
                     <div className="relative rounded-full px-4 py-1.5 text-sm leading-6 text-gray-300 ring-1 ring-white/10 hover:ring-auryn-magenta/50 transition-all bg-white/5 backdrop-blur-sm">

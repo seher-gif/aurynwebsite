@@ -24,19 +24,33 @@ export function Header() {
         const handleScroll = () => {
             setScrolled(window.scrollY > 20);
         };
+
+        // Initial check
+        handleScroll();
+
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
     return (
-        <header className={cn(
-            "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-            scrolled ? "bg-black/80 backdrop-blur-md border-b border-white/10" : "bg-transparent"
-        )}>
-            <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+        <header
+            data-test="my-header"
+            suppressHydrationWarning
+            className={cn(
+                "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+                scrolled ? "bg-black/80 backdrop-blur-md border-b border-white/10" : "bg-transparent"
+            )}
+        >
+            <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
                 <div className="flex lg:flex-1">
-                    <Link href="/" className="-m-1.5 p-1.5">
-                        <Image src="/auryn-logo.png" alt="Auryn Dijital" width={120} height={40} className="h-10 w-auto" />
+                    <Link href="/" className="-m-1.5 p-0" suppressHydrationWarning>
+                        <Image
+                            src="/auryn-logo.png"
+                            alt="Auryn Dijital"
+                            width={400}
+                            height={134}
+                            className="h-40 w-auto"
+                        />
                     </Link>
                 </div>
                 <div className="flex lg:hidden">
@@ -77,7 +91,7 @@ export function Header() {
                 <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-black px-6 py-6 sm:max-w-sm border-l border-white/10">
                     <div className="flex items-center justify-between">
                         <Link href="/" className="-m-1.5 p-1.5">
-                            <Image src="/auryn-logo.png" alt="Auryn Dijital" width={120} height={40} className="h-10 w-auto" />
+                            <Image src="/auryn-logo.png" alt="Auryn Dijital" width={200} height={67} className="h-14 w-auto" />
                         </Link>
                         <button
                             type="button"
@@ -117,4 +131,3 @@ export function Header() {
         </header>
     );
 }
-

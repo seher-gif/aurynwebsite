@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Instagram, Linkedin } from "lucide-react";
 
 const navigation = {
@@ -44,8 +45,8 @@ export function Footer() {
             <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
                 <div className="xl:grid xl:grid-cols-3 xl:gap-8">
                     <div className="space-y-8">
-                        <Link href="/" className="text-2xl font-bold text-white tracking-tighter">
-                            AURYN<span className="text-auryn-magenta">.</span>
+                        <Link href="/" className="-m-1.5 p-1.5 mb-4 inline-block">
+                            <Image src="/auryn-logo.png" alt="Auryn Dijital" width={400} height={134} className="h-48 w-auto" />
                         </Link>
                         <p className="text-sm leading-6 text-gray-400 max-w-xs">
                             Veri odaklı dijital performans ajansı. Markanızı dijital dünyada büyütüyoruz.

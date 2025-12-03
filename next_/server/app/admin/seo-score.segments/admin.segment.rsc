@@ -1,0 +1,5 @@
+1:"$Sreact.fragment"
+2:I[99284,["/_next/static/chunks/a69199e52146cdcd.js","/_next/static/chunks/2a22d4977b4f487b.js","/_next/static/chunks/195c216f52dae3f8.js"],"AdminSidebar"]
+3:I[39756,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/247eb132b7f7b574.js"],"default"]
+4:I[37457,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/247eb132b7f7b574.js"],"default"]
+0:{"buildId":"KIjiNFVqPqu1H-cR4J25M","rsc":["$","$1","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/2a22d4977b4f487b.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/195c216f52dae3f8.js","async":true}]],["$","div",null,{"className":"flex h-screen overflow-hidden bg-gray-100","children":[["$","div",null,{"className":"hidden md:flex md:w-72 md:flex-col","children":["$","$L2",null,{}]}],["$","div",null,{"className":"flex flex-1 flex-col overflow-y-auto","children":["$","main",null,{"className":"flex-1 py-10 px-4 sm:px-6 lg:px-8","children":["$","$L3",null,{"parallelRouterKey":"children","template":["$","$L4",null,{}]}]}]}]]}]]}],"loading":null,"isPartial":false}

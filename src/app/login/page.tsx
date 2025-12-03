@@ -1,12 +1,20 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { useFormStatus } from "react-dom";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { authenticate } from "@/lib/actions";
 
 export default function LoginPage() {
     const [errorMessage, dispatch] = useActionState(authenticate, undefined);
+    const router = useRouter();
+
+    useEffect(() => {
+        if (errorMessage === null) {
+            router.push('/admin');
+        }
+    }, [errorMessage, router]);
 
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-gray-50 h-screen">

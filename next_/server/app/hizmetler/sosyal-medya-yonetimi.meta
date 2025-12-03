@@ -1,0 +1,16 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/hizmetler/layout,_N_T_/hizmetler/sosyal-medya-yonetimi/layout,_N_T_/hizmetler/sosyal-medya-yonetimi/page,_N_T_/hizmetler/sosyal-medya-yonetimi"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/hizmetler/sosyal-medya-yonetimi/__PAGE__",
+    "/hizmetler/sosyal-medya-yonetimi",
+    "/hizmetler",
+    "/_index",
+    "/_head"
+  ]
+}

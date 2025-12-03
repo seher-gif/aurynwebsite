@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { useFormStatus } from "react-dom";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -10,16 +10,24 @@ export default function LoginPage() {
     const [errorMessage, dispatch] = useActionState(authenticate, undefined);
     const router = useRouter();
     const searchParams = useSearchParams();
+    const redirectedRef = useRef(false);
 
     useEffect(() => {
-        if (errorMessage === null) {
+        // Only redirect if login was successful (errorMessage is null)
+        // and we haven't already attempted a redirect
+        if (errorMessage === null && !redirectedRef.current) {
+            redirectedRef.current = true;
+            
             // Get the callback URL from query params, default to /admin
             const callbackUrl = searchParams.get('callbackUrl') || '/admin';
             
-            // Use a setTimeout to ensure the session is properly established
+            console.log('[Login Success] Redirecting to:', callbackUrl);
+            
+            // Wait a bit for the session to be fully established
+            // then redirect to the callback URL
             setTimeout(() => {
                 router.push(callbackUrl);
-            }, 100);
+            }, 200);
         }
     }, [errorMessage, router, searchParams]);
 

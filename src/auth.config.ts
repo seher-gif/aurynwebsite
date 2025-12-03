@@ -64,18 +64,22 @@ export const authConfig = {
             const isOnAdmin = nextUrl.pathname.startsWith('/admin');
             const isOnLogin = nextUrl.pathname.startsWith('/login');
             
-            // Prevent redirect loop: already logged in users should not be on /login
+            // If on login page and already logged in, redirect to admin
             if (isOnLogin && isLoggedIn) {
-                // Don't redirect here - let the client handle it in the login page component
-                // This prevents infinite redirect loops in middleware
-                return true; // Allow access to /login even if logged in
+                return Response.redirect(new URL('/admin', nextUrl.origin));
             }
             
             // If on admin page, require authentication
             if (isOnAdmin) {
-                if (isLoggedIn) return true;
-                // Redirect to login with callbackUrl parameter
-                return false; // Middleware will redirect to login
+                // User is authenticated, allow access
+                if (isLoggedIn) {
+                    return true;
+                }
+                
+                // User is not authenticated, redirect to login with callbackUrl
+                const loginUrl = new URL('/login', nextUrl.origin);
+                loginUrl.searchParams.set('callbackUrl', nextUrl.href);
+                return Response.redirect(loginUrl);
             }
             
             // Allow access to all other pages

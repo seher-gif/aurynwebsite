@@ -2,19 +2,26 @@
 
 import { useActionState, useEffect } from "react";
 import { useFormStatus } from "react-dom";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { authenticate } from "@/lib/actions";
 
 export default function LoginPage() {
     const [errorMessage, dispatch] = useActionState(authenticate, undefined);
     const router = useRouter();
+    const searchParams = useSearchParams();
 
     useEffect(() => {
         if (errorMessage === null) {
-            router.push('/admin');
+            // Get the callback URL from query params, default to /admin
+            const callbackUrl = searchParams.get('callbackUrl') || '/admin';
+            
+            // Use a setTimeout to ensure the session is properly established
+            setTimeout(() => {
+                router.push(callbackUrl);
+            }, 100);
         }
-    }, [errorMessage, router]);
+    }, [errorMessage, router, searchParams]);
 
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-gray-50 h-screen">

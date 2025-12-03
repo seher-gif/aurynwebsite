@@ -4,12 +4,14 @@ import { prisma } from '../src/lib/prisma'
 
 async function main() {
   const email = 'seher@auryndijital.com' // Using 'seher@auryndijital.com' as the login identifier
-  const password = '1234'
+  const password = '5Zz$FDj8tkV7tgU@ur@Cgw^$NASc' // New password
   const hashedPassword = await bcrypt.hash(password, 10)
 
   const user = await prisma.user.upsert({
     where: { email },
-    update: {},
+    update: {
+      passwordHash: hashedPassword,
+    },
     create: {
       email,
       name: 'Admin User',

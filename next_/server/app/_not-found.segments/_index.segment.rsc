@@ -1,7 +1,0 @@
-1:"$Sreact.fragment"
-2:I[67181,["/_next/static/chunks/a69199e52146cdcd.js"],"default"]
-3:I[39756,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/247eb132b7f7b574.js"],"default"]
-4:I[37457,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/247eb132b7f7b574.js"],"default"]
-5:I[29306,["/_next/static/chunks/a69199e52146cdcd.js","/_next/static/chunks/6b1d6f643b03c063.js","/_next/static/chunks/5c350d4e394d103c.js","/_next/static/chunks/195c216f52dae3f8.js"],"default"]
-:HL["/_next/static/chunks/dc43a3d34a010261.css","style"]
-0:{"buildId":"KIjiNFVqPqu1H-cR4J25M","rsc":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/dc43a3d34a010261.css","precedence":"next"}],["$","script","script-0",{"src":"/_next/static/chunks/a69199e52146cdcd.js","async":true}]],["$","html",null,{"lang":"tr","className":"geist_9c1fd2b9-module__We3PEq__variable geist_mono_e0f6b80d-module__yeUymq__variable","children":[["$","head",null,{"children":[["$","meta",null,{"name":"viewport","content":"width=device-width, initial-scale=1, maximum-scale=5"}],["$","link",null,{"rel":"dns-prefetch","href":"https://fonts.googleapis.com"}],["$","link",null,{"rel":"preconnect","href":"https://fonts.gstatic.com","crossOrigin":"anonymous"}]]}],["$","body",null,{"className":"antialiased","children":["$","$L2",null,{"children":["$","$L3",null,{"parallelRouterKey":"children","template":["$","$L4",null,{}],"notFound":[["$","$L5",null,{}],[]]}]}]}]]}]]}],"loading":null,"isPartial":false}

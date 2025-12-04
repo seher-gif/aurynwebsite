@@ -19,6 +19,8 @@ interface BlogPost {
     };
 }
 
+export const dynamic = "force-dynamic";
+
 export default function BlogManagementPage() {
     const [posts, setPosts] = useState<BlogPost[]>([]);
     const [loading, setLoading] = useState(true);

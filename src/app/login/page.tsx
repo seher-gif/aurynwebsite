@@ -6,6 +6,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { authenticate } from "@/lib/actions";
 
+export const dynamic = "force-dynamic";
+
 export default function LoginPage() {
     const [errorMessage, dispatch] = useActionState(authenticate, undefined);
     const router = useRouter();
@@ -17,12 +19,12 @@ export default function LoginPage() {
         // and we haven't already attempted a redirect
         if (errorMessage === null && !redirectedRef.current) {
             redirectedRef.current = true;
-            
+
             // Get the callback URL from query params, default to /admin
             const callbackUrl = searchParams.get('callbackUrl') || '/admin';
-            
+
             console.log('[Login Success] Redirecting to:', callbackUrl);
-            
+
             // Wait a bit for the session to be fully established
             // then redirect to the callback URL
             setTimeout(() => {

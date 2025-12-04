@@ -16,6 +16,7 @@ export interface SEOMetric {
 
 export interface SEOAnalysisResult {
     score: number;
+    summary: string;
     metrics: SEOMetric[];
 }
 
@@ -108,6 +109,7 @@ export async function analyzeSEOWithAI(input: SEOAnalysisInput): Promise<SEOAnal
         İSTENEN JSON FORMATI:
         {
             "score": number,
+            "summary": "Genel bir değerlendirme özeti (maksimum 2-3 cümle).",
             "metrics": [
                 {
                     "label": "Kısa Kategori Adı (Örn: Meta Başlık Stratejisi)",
@@ -143,6 +145,7 @@ export async function analyzeSEOWithAI(input: SEOAnalysisInput): Promise<SEOAnal
         // Return fallback result if analysis fails
         return {
             score: 0,
+            summary: "Analiz sırasında bir hata oluştu.",
             metrics: [
                 {
                     label: "Analiz Hatası",

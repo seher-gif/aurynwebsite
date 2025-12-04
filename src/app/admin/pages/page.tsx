@@ -14,6 +14,8 @@ interface Page {
     published: boolean;
 }
 
+export const dynamic = "force-dynamic";
+
 export default function AdminPagesList() {
     const [pages, setPages] = useState<Page[]>([]);
     const [loading, setLoading] = useState(true);

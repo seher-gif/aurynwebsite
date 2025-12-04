@@ -5,6 +5,8 @@ import { Plus, Edit, Trash2, Code } from "lucide-react";
 import Link from "next/link";
 import { DeleteToolButton } from "@/components/admin/delete-tool-button";
 
+export const dynamic = "force-dynamic";
+
 export default async function DigitalToolsPage() {
     const tools = await prisma.marketingTool.findMany({
         orderBy: { createdAt: "desc" },

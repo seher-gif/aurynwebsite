@@ -1,5 +1,7 @@
 import { HomepageHeroForm } from "@/components/admin/homepage-hero-form";
 
+export const dynamic = "force-dynamic";
+
 export default function AdminHomepageSettings() {
     return (
         <div className="space-y-6">

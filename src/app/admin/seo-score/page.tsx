@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Search, TrendingUp, AlertCircle, CheckCircle, AlertTriangle, XCircle, Download } from "lucide-react";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 // Function to calculate SEO score based on database metrics
 async function calculateSEOScore() {
     const now = new Date();

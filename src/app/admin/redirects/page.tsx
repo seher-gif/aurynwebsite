@@ -1,6 +1,8 @@
 import { RedirectsList } from "@/components/admin/redirects-list";
 import { NotFoundLogs } from "@/components/admin/not-found-logs";
 
+export const dynamic = "force-dynamic";
+
 export default function AdminRedirectsPage() {
     return (
         <div className="space-y-8">

@@ -5,6 +5,8 @@ import { Plus, Edit, Trash2, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
+export const dynamic = "force-dynamic";
+
 export default async function ClientsPage() {
     let clients: any[] = [];
     try {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useRef } from "react";
+import { Suspense, useActionState, useEffect, useRef } from "react";
 import { useFormStatus } from "react-dom";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -8,7 +8,7 @@ import { authenticate } from "@/lib/actions";
 
 export const dynamic = "force-dynamic";
 
-export default function LoginPage() {
+function LoginForm() {
     const [errorMessage, dispatch] = useActionState(authenticate, undefined);
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -92,6 +92,14 @@ export default function LoginPage() {
                 </form>
             </div>
         </div>
+    );
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={<div className="flex items-center justify-center h-screen">Yükleniyor...</div>}>
+            <LoginForm />
+        </Suspense>
     );
 }
 

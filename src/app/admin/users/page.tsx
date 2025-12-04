@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { UserPlus, Shield, Mail } from "lucide-react";
+import Link from "next/link";
 
 export default function UsersPage() {
     return (
@@ -56,15 +57,17 @@ export default function UsersPage() {
                 </CardHeader>
                 <CardContent>
                     <div className="space-y-4">
-                        <div className="flex items-center justify-between p-4 border rounded-lg">
-                            <div>
-                                <p className="font-medium text-gray-900">Admin User</p>
-                                <p className="text-sm text-gray-600">seher@auryndijital.com</p>
+                        <Link href="/admin/users/edit/seher@auryndijital.com">
+                            <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 cursor-pointer transition">
+                                <div>
+                                    <p className="font-medium text-gray-900">Admin User</p>
+                                    <p className="text-sm text-gray-600">seher@auryndijital.com</p>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <span className="px-2 py-1 text-xs font-semibold text-white bg-auryn-magenta rounded">ADMIN</span>
+                                </div>
                             </div>
-                            <div className="flex items-center gap-2">
-                                <span className="px-2 py-1 text-xs font-semibold text-white bg-auryn-magenta rounded">ADMIN</span>
-                            </div>
-                        </div>
+                        </Link>
                     </div>
                 </CardContent>
             </Card>

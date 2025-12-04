@@ -31,7 +31,6 @@ export async function POST(request: NextRequest) {
         const emailResult = await sendSEOReport({
             to: email,
             domain,
-            score: analysis.score,
             analysis,
         });
 

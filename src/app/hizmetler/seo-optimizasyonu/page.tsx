@@ -36,7 +36,7 @@ export default function SEOOptimizasyonuPage() {
                                         <Link href="/iletisim">Teklif Alın</Link>
                                     </Button>
                                     <Button variant="outline" size="lg" asChild>
-                                        <Link href="/seo-analysis">Ücretsiz SEO Analizi</Link>
+                                        <Link href="/seo-analizi">Ücretsiz SEO Analizi</Link>
                                     </Button>
                                 </div>
                             </div>
@@ -78,7 +78,7 @@ export default function SEOOptimizasyonuPage() {
                             </p>
                             <div className="mt-10 flex items-center justify-center gap-x-6">
                                 <Button variant="secondary" size="lg" asChild className="bg-white text-auryn-magenta hover:bg-gray-100">
-                                    <Link href="/seo-analysis">Ücretsiz Analiz <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                                    <Link href="/seo-analizi">Ücretsiz Analiz <ArrowRight className="ml-2 h-4 w-4" /></Link>
                                 </Button>
                             </div>
                         </div>

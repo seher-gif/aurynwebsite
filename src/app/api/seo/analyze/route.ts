@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 import * as cheerio from "cheerio";
 
 // Google PageSpeed Insights API anahtarı (.env.local dosyasına eklenecek)
@@ -79,6 +80,15 @@ export async function POST(request: NextRequest) {
             opportunities: pagespeedData.opportunities,
             metrics: customMetrics,
         };
+
+        // Veritabanına kaydet
+        await prisma.seoAnalysis.create({
+            data: {
+                domain: normalizedUrl,
+                score: overallScore,
+                results: result as any, // Json type compatibility
+            },
+        });
 
         return NextResponse.json(result);
     } catch (error: any) {

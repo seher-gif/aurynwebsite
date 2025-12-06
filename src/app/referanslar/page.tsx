@@ -38,7 +38,7 @@ export default async function ReferanslarPage() {
             <Header />
 
             {/* Hero Section */}
-            <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-black pt-40 pb-24">
+            <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-black pt-56 pb-24">
                 <div className="absolute inset-0 opacity-10"></div>
                 <div className="relative max-w-7xl mx-auto px-6 lg:px-8 text-center">
                     <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">

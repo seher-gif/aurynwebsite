@@ -34,11 +34,11 @@ export default async function ReferanslarPage() {
     }
 
     return (
-        <div className="bg-white">
+        <div className="bg-black min-h-screen text-white">
             <Header />
 
             {/* Hero Section */}
-            <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-black py-24">
+            <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-black pt-40 pb-24">
                 <div className="absolute inset-0 opacity-10"></div>
                 <div className="relative max-w-7xl mx-auto px-6 lg:px-8 text-center">
                     <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
@@ -52,13 +52,13 @@ export default async function ReferanslarPage() {
 
             {/* Client Logos */}
             {clients.length > 0 && (
-                <section className="py-16 bg-gray-50">
+                <section className="py-16 bg-gray-900/30 border-y border-white/5">
                     <div className="max-w-7xl mx-auto px-6 lg:px-8">
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold tracking-tight text-gray-900">
+                            <h2 className="text-3xl font-bold tracking-tight text-white">
                                 Güvenilir İş Ortaklarımız
                             </h2>
-                            <p className="mt-4 text-lg text-gray-600">
+                            <p className="mt-4 text-lg text-gray-400">
                                 Birlikte büyüdüğümüz markalar
                             </p>
                         </div>
@@ -66,7 +66,7 @@ export default async function ReferanslarPage() {
                             {clients.map((client: any) => (
                                 <div
                                     key={client.id}
-                                    className="flex items-center justify-center p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow"
+                                    className="flex items-center justify-center p-6 bg-gray-800/50 backdrop-blur-sm rounded-xl border border-white/5 hover:border-auryn-magenta/30 transition-all"
                                 >
                                     {client.website ? (
                                         <a href={client.website} target="_blank" rel="noopener noreferrer">
@@ -96,13 +96,13 @@ export default async function ReferanslarPage() {
 
             {/* Case Studies */}
             {caseStudies.length > 0 && (
-                <section className="py-24 bg-white">
+                <section className="py-24 bg-black">
                     <div className="max-w-7xl mx-auto px-6 lg:px-8">
                         <div className="text-center mb-16">
-                            <h2 className="text-3xl font-bold tracking-tight text-gray-900">
+                            <h2 className="text-3xl font-bold tracking-tight text-white">
                                 Başarı Hikayeleri
                             </h2>
-                            <p className="mt-4 text-lg text-gray-600">
+                            <p className="mt-4 text-lg text-gray-400">
                                 Müşterilerimizle birlikte elde ettiğimiz somut sonuçlar
                             </p>
                         </div>
@@ -110,7 +110,7 @@ export default async function ReferanslarPage() {
                             {caseStudies.map((caseStudy: any) => (
                                 <div
                                     key={caseStudy.id}
-                                    className="group relative bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+                                    className="group relative bg-gray-900/40 backdrop-blur-sm rounded-2xl border border-white/5 hover:border-auryn-magenta/30 overflow-hidden transition-all"
                                 >
                                     {caseStudy.coverImage && (
                                         <div className="relative h-48 overflow-hidden">
@@ -118,6 +118,7 @@ export default async function ReferanslarPage() {
                                                 src={caseStudy.coverImage}
                                                 alt={caseStudy.title}
                                                 fill
+                                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                                 className="object-cover group-hover:scale-105 transition-transform duration-300"
                                             />
                                         </div>
@@ -128,13 +129,13 @@ export default async function ReferanslarPage() {
                                                 {caseStudy.category}
                                             </span>
                                         </div>
-                                        <h3 className="text-xl font-bold text-gray-900 mb-2">
+                                        <h3 className="text-xl font-bold text-white mb-2">
                                             {caseStudy.title}
                                         </h3>
-                                        <p className="text-sm text-gray-600 mb-1">
+                                        <p className="text-sm text-gray-400 mb-1">
                                             {caseStudy.client}
                                         </p>
-                                        <p className="text-gray-600 mb-4 line-clamp-3">
+                                        <p className="text-gray-400 mb-4 line-clamp-3">
                                             {caseStudy.excerpt}
                                         </p>
                                         <Link href={`/referanslar/${caseStudy.slug}`}>

@@ -49,7 +49,7 @@ export function Header() {
                             alt="Auryn Dijital"
                             width={400}
                             height={134}
-                            className="h-40 w-auto"
+                            className="h-20 w-auto"
                         />
                     </Link>
                 </div>

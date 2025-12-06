@@ -19,7 +19,7 @@ export function WhatsAppFloat() {
                 width={64}
                 height={64}
                 className="h-full w-full rounded-full object-cover"
-                loading="lazy"
+                unoptimized
             />
         </a>
     );

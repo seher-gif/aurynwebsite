@@ -104,7 +104,7 @@ export default async function Home() {
             </p>
           </div>
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none relative z-10">
-            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-2 lg:max-w-none lg:grid-cols-3">
               {[
                 {
                   name: 'SEO Optimizasyonu',
@@ -192,6 +192,7 @@ export default async function Home() {
                       fill
                       className="object-cover"
                       priority
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                     <div className="absolute inset-0 bg-black/30"></div>
                     <div className="absolute inset-0 bg-gradient-to-br from-auryn-magenta/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -201,8 +202,8 @@ export default async function Home() {
             </div>
           </div>
         </div>
-      </main>
+      </main >
       <Footer />
-    </div>
+    </div >
   );
 }

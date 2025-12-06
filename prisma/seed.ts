@@ -1,6 +1,9 @@
 import bcrypt from 'bcryptjs'
 import 'dotenv/config'
 import { prisma } from '../src/lib/prisma'
+// import { PrismaClient } from '@prisma/client'
+
+// const prisma = new PrismaClient()
 
 async function main() {
   const email = 'seher@auryndijital.com' // Using 'seher@auryndijital.com' as the login identifier

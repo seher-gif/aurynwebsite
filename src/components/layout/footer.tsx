@@ -8,6 +8,7 @@ const navigation = {
     hizmetler: [
         { name: "SEO Optimizasyonu", href: "/hizmetler/seo-optimizasyonu" },
         { name: "Google Ads Yönetimi", href: "/hizmetler/google-ads-yonetimi" },
+        { name: "Performans Pazarlama", href: "/performans-pazarlama-reklam-yonetimi" },
         { name: "Sosyal Medya Yönetimi", href: "/hizmetler/sosyal-medya-yonetimi" },
         { name: "İçerik Pazarlaması", href: "/hizmetler/icerik-pazarlamasi" },
         { name: "Meta Ads", href: "/hizmetler/meta-ads" },

@@ -68,31 +68,43 @@ export function Footer() {
                             <h3 className="text-sm font-bold leading-6 text-transparent bg-clip-text bg-gradient-to-r from-auryn-magenta to-auryn-purple">Partnerlerimiz</h3>
                             <div className="grid grid-cols-2 gap-3">
                                 <div className="bg-white rounded-lg p-3 flex items-center justify-center hover:scale-105 transition-transform">
-                                    <img
+                                    <Image
                                         src="/partners/meta-business-partner.png"
                                         alt="Meta Business Partner"
+                                        width={100}
+                                        height={48}
                                         className="w-full h-auto max-h-12 object-contain"
+                                        loading="lazy"
                                     />
                                 </div>
                                 <div className="bg-purple-900/20 rounded-lg p-3 flex items-center justify-center hover:scale-105 transition-transform border border-purple-500/20">
-                                    <img
+                                    <Image
                                         src="/partners/semrush-partner.jpg"
                                         alt="Semrush Partner"
+                                        width={100}
+                                        height={48}
                                         className="w-full h-auto max-h-12 object-contain"
+                                        loading="lazy"
                                     />
                                 </div>
                                 <div className="bg-white rounded-lg p-3 flex items-center justify-center hover:scale-105 transition-transform">
-                                    <img
+                                    <Image
                                         src="/partners/yandex-partner.png"
                                         alt="Yandex Partner"
+                                        width={100}
+                                        height={48}
                                         className="w-full h-auto max-h-12 object-contain"
+                                        loading="lazy"
                                     />
                                 </div>
                                 <div className="bg-gradient-to-br from-yellow-100 to-purple-100 rounded-lg p-3 flex items-center justify-center hover:scale-105 transition-transform">
-                                    <img
+                                    <Image
                                         src="/partners/ikas-partner.jpg"
                                         alt="ikas Partner"
+                                        width={100}
+                                        height={48}
                                         className="w-full h-auto max-h-12 object-contain"
+                                        loading="lazy"
                                     />
                                 </div>
                             </div>

@@ -1,6 +1,7 @@
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -45,10 +46,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         <div className="mt-6 text-sm text-gray-400">{post.date}</div>
 
                         <figure className="mt-10">
-                            <img
+                            <Image
                                 className="aspect-video rounded-xl bg-gray-900 object-cover ring-1 ring-white/10"
                                 src={post.imageUrl}
                                 alt={post.title}
+                                width={1200}
+                                height={675}
+                                priority
                             />
                         </figure>
 

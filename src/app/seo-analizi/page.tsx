@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import { CheckCircle, XCircle, AlertTriangle } from "lucide-react";
 
 interface SEOMetric {
@@ -267,11 +268,14 @@ export default function SEOAnalysisPage() {
                                 <h3 className="text-2xl font-semibold text-white mb-6">Sayfa Görünümleri</h3>
                                 <div className="flex gap-4 overflow-x-auto pb-4">
                                     {analysis.screenshots.slice(0, 8).map((screenshot, index) => (
-                                        <img
+                                        <Image
                                             key={index}
                                             src={screenshot.src}
                                             alt={screenshot.alt}
+                                            width={300}
+                                            height={192}
                                             className="h-48 w-auto rounded-lg border-2 border-gray-800 flex-shrink-0 hover:border-auryn-magenta/50 transition-colors"
+                                            loading="lazy"
                                         />
                                     ))}
                                 </div>
@@ -407,31 +411,43 @@ export default function SEOAnalysisPage() {
                                         </p>
                                         <div className="grid grid-cols-2 gap-6">
                                             <div className="bg-white rounded-xl p-6 flex items-center justify-center hover:scale-105 transition-transform">
-                                                <img
+                                                <Image
                                                     src="/partners/meta-business-partner.png"
                                                     alt="Meta Business Partner"
+                                                    width={120}
+                                                    height={80}
                                                     className="w-full h-auto max-h-20 object-contain"
+                                                    loading="lazy"
                                                 />
                                             </div>
                                             <div className="bg-purple-900/20 rounded-xl p-6 flex items-center justify-center hover:scale-105 transition-transform border border-purple-500/20">
-                                                <img
+                                                <Image
                                                     src="/partners/semrush-partner.jpg"
                                                     alt="Semrush Certified Agency Partner"
+                                                    width={120}
+                                                    height={80}
                                                     className="w-full h-auto max-h-20 object-contain"
+                                                    loading="lazy"
                                                 />
                                             </div>
                                             <div className="bg-white rounded-xl p-6 flex items-center justify-center hover:scale-105 transition-transform">
-                                                <img
+                                                <Image
                                                     src="/partners/yandex-partner.png"
                                                     alt="Yandex Partner"
+                                                    width={120}
+                                                    height={80}
                                                     className="w-full h-auto max-h-20 object-contain"
+                                                    loading="lazy"
                                                 />
                                             </div>
                                             <div className="bg-gradient-to-br from-yellow-100 to-purple-100 rounded-xl p-6 flex items-center justify-center hover:scale-105 transition-transform">
-                                                <img
+                                                <Image
                                                     src="/partners/ikas-partner.jpg"
                                                     alt="ikas Partner"
+                                                    width={120}
+                                                    height={80}
                                                     className="w-full h-auto max-h-20 object-contain"
+                                                    loading="lazy"
                                                 />
                                             </div>
                                         </div>

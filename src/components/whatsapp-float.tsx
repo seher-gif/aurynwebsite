@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 
 
 export function WhatsAppFloat() {
@@ -12,10 +13,13 @@ export function WhatsAppFloat() {
             className="fixed bottom-6 right-6 z-50 flex h-16 w-16 items-center justify-center rounded-full shadow-lg hover:scale-110 transition-all"
             aria-label="WhatsApp ile iletişime geç"
         >
-            <img
+            <Image
                 src="/whatsapp-gradient.jpg"
                 alt="WhatsApp"
+                width={64}
+                height={64}
                 className="h-full w-full rounded-full object-cover"
+                loading="lazy"
             />
         </a>
     );

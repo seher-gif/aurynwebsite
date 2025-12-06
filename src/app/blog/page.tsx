@@ -3,6 +3,7 @@
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -75,10 +76,13 @@ export default function BlogPage() {
                                 {posts.map((post) => (
                                     <article key={post.id} className="flex flex-col items-start justify-between group bg-gradient-to-br from-gray-900 to-black rounded-2xl p-4 border border-auryn-magenta/20 hover:border-auryn-magenta/50 transition-all hover:-translate-y-2 hover:shadow-2xl hover:shadow-auryn-magenta/20">
                                         <div className="relative w-full overflow-hidden rounded-xl">
-                                            <img
+                                            <Image
                                                 src={post.coverImage || "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2426&q=80"}
                                                 alt={post.title}
+                                                width={800}
+                                                height={600}
                                                 className="aspect-[16/9] w-full bg-gray-900 object-cover sm:aspect-[2/1] lg:aspect-[3/2] group-hover:scale-105 transition-transform duration-500"
+                                                loading="lazy"
                                             />
                                             <div className="absolute inset-0 ring-1 ring-inset ring-white/10" />
                                         </div>

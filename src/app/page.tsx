@@ -191,6 +191,7 @@ export default async function Home() {
                       alt="Auryn Dijital Ofis"
                       fill
                       className="object-cover"
+                      priority
                     />
                     <div className="absolute inset-0 bg-black/30"></div>
                     <div className="absolute inset-0 bg-gradient-to-br from-auryn-magenta/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>

@@ -5,8 +5,9 @@ import { auth } from "@/auth";
 // GET - Fetch single blog post
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
+    const { id } = await params;
     try {
         const session = await auth();
         if (!session || session.user.role !== "ADMIN") {
@@ -14,7 +15,7 @@ export async function GET(
         }
 
         const post = await prisma.post.findUnique({
-            where: { id: params.id },
+            where: { id },
             include: {
                 author: {
                     select: {
@@ -45,8 +46,9 @@ export async function GET(
 // PUT - Update blog post
 export async function PUT(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
+    const { id } = await params;
     try {
         const session = await auth();
         if (!session || session.user.role !== "ADMIN") {
@@ -68,7 +70,7 @@ export async function PUT(
         const existing = await prisma.post.findFirst({
             where: {
                 slug,
-                id: { not: params.id },
+                id: { not: id },
             },
         });
 
@@ -80,7 +82,7 @@ export async function PUT(
         }
 
         const updatedPost = await prisma.post.update({
-            where: { id: params.id },
+            where: { id },
             data: {
                 title,
                 slug,
@@ -107,8 +109,9 @@ export async function PUT(
 // DELETE - Delete blog post
 export async function DELETE(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
+    const { id } = await params;
     try {
         const session = await auth();
         if (!session || session.user.role !== "ADMIN") {
@@ -116,7 +119,7 @@ export async function DELETE(
         }
 
         await prisma.post.delete({
-            where: { id: params.id },
+            where: { id },
         });
 
         return NextResponse.json({ success: true });

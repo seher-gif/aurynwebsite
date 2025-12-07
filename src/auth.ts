@@ -37,6 +37,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                     }
                     console.log('User found:', { id: user.id, email: user.email, role: user.role });
 
+                    if (!user.passwordHash) {
+                        console.log('User has no password hash set.');
+                        return null;
+                    }
                     const passwordsMatch = await bcrypt.compare(password, user.passwordHash);
                     console.log('Password match result:', passwordsMatch);
 

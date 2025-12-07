@@ -47,6 +47,9 @@ export async function PUT(req: Request) {
         };
 
         if (validatedData.newPassword) {
+            if (!user.passwordHash) {
+                return NextResponse.json({ error: "Şifre oluşturulamadı: Mevcut şifre bulunamadı." }, { status: 400 });
+            }
             const isPasswordValid = await bcrypt.compare(validatedData.currentPassword!, user.passwordHash);
             if (!isPasswordValid) {
                 return NextResponse.json({ error: "Mevcut şifre yanlış" }, { status: 400 });

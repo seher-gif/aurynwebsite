@@ -45,6 +45,11 @@ export async function POST(request: NextRequest) {
                     message: `Detaylı SEO analiz raporu talep edildi. Domain: ${domain}, Puan: ${analysis.score}. Email gönderimi başarısız oldu, manuel takip gerekiyor.`,
                 },
             });
+
+            return NextResponse.json(
+                { success: false, error: "Rapor e-postası gönderilemedi. Lütfen daha sonra tekrar deneyin." },
+                { status: 502 }
+            );
         }
 
         return NextResponse.json({ success: true });

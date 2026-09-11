@@ -154,6 +154,10 @@ export function SeoAnalyzer({ locale = "tr" }: { locale?: Locale }) {
             if (response.ok) {
                 alert(t.reportSent);
                 setShowEmailPrompt(false);
+            } else {
+                const errorData = await response.json().catch(() => null);
+                console.error('Failed to send report:', errorData);
+                alert(errorData?.error || t.reportFailed);
             }
         } catch (error) {
             console.error('Failed to send report:', error);

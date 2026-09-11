@@ -17,6 +17,8 @@ export interface LocalizedPost {
     createdAt: Date;
     updatedAt: Date;
     authorName: string;
+    /** This post's slug in the other locale, when a translation exists. */
+    otherLocaleSlug: string | null;
 }
 
 function localize(post: PostWithAuthor, locale: Locale): LocalizedPost {
@@ -34,6 +36,7 @@ function localize(post: PostWithAuthor, locale: Locale): LocalizedPost {
         createdAt: post.createdAt,
         updatedAt: post.updatedAt,
         authorName: post.author.name || "Auryn Dijital",
+        otherLocaleSlug: isEn ? post.slug : post.slugEn,
     };
 }
 

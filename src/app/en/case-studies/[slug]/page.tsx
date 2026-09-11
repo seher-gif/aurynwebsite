@@ -30,6 +30,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         title: `${caseStudy.title}`,
         description: caseStudy.excerpt,
         ogImage: caseStudy.coverImage || undefined,
+        alternatePath: caseStudy.otherLocaleSlug ? `/referanslar/${caseStudy.otherLocaleSlug}` : null,
     });
 }
 

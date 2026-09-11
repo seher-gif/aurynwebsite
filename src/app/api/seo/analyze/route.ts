@@ -13,6 +13,7 @@ interface SEOMetric {
     label: string;
     status: SEOMetricStatus;
     message: string;
+    recommendation?: string;
 }
 
 interface PageSpeedScore {
@@ -257,6 +258,15 @@ const ANALYSIS_STRINGS = {
         httpsMissing: "Site güvenli bağlantı (HTTPS) kullanmıyor. SEO için önemli.",
         htmlAnalysis: "HTML Analizi",
         htmlError: (msg: string) => `HTML analizi sırasında hata: ${msg}`,
+        recTitleMissing: "Ana anahtar kelimenizi içeren, 30-60 karakter aralığında benzersiz bir sayfa başlığı ekleyin.",
+        recTitleLength: "Başlığı 30-60 karakter aralığına getirin; çok kısa başlıklar fırsatı kaçırır, çok uzun başlıklar Google tarafından kesilir.",
+        recMetaDescMissing: "Sayfanın içeriğini özetleyen, tıklamayı teşvik eden 120-160 karakterlik bir meta açıklama yazın.",
+        recMetaDescLength: "Meta açıklamayı 120-160 karakter aralığına getirin ki arama sonuçlarında kesilmeden tam görünsün.",
+        recH1Missing: "Sayfanın ana konusunu net şekilde belirten bir H1 başlığı ekleyin.",
+        recH1Multiple: "Sayfada yalnızca bir H1 bırakın, diğer başlıkları H2/H3 olarak yeniden düzenleyin.",
+        recImageAlt: "Eksik alt metinleri, görselin içeriğini ve varsa ilgili anahtar kelimeyi tanımlayacak şekilde doldurun.",
+        recMobile: "Sayfaya `<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">` etiketini ekleyerek mobil uyumluluğu sağlayın.",
+        recHttps: "Sitenizi SSL sertifikasıyla HTTPS'e taşıyın; Google hem güvenlik hem sıralama için bunu bekliyor.",
     },
     en: {
         title: "Title Tag",
@@ -286,6 +296,15 @@ const ANALYSIS_STRINGS = {
         httpsMissing: "Site does not use a secure (HTTPS) connection. Important for SEO.",
         htmlAnalysis: "HTML Analysis",
         htmlError: (msg: string) => `Error during HTML analysis: ${msg}`,
+        recTitleMissing: "Add a unique page title, 30-60 characters long, that includes your primary keyword.",
+        recTitleLength: "Adjust the title to 30-60 characters - too short wastes an opportunity, too long gets truncated by Google.",
+        recMetaDescMissing: "Write a 120-160 character meta description that summarizes the page and encourages clicks.",
+        recMetaDescLength: "Adjust the meta description to 120-160 characters so it displays in full in search results.",
+        recH1Missing: "Add an H1 heading that clearly states the page's main topic.",
+        recH1Multiple: "Keep a single H1 on the page and demote the others to H2/H3.",
+        recImageAlt: "Fill in the missing alt text, describing the image content and the relevant keyword where appropriate.",
+        recMobile: "Add `<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">` to make the page mobile-friendly.",
+        recHttps: "Move your site to HTTPS with an SSL certificate - Google expects this for both security and ranking.",
     },
 };
 
@@ -303,17 +322,17 @@ async function analyzeHTML(url: string, locale: Locale): Promise<SEOMetric[]> {
         const metaDescription = $('meta[name="description"]').attr("content") || "";
 
         if (!title) {
-            metrics.push({ label: t.title, status: "error", message: t.titleMissing });
+            metrics.push({ label: t.title, status: "error", message: t.titleMissing, recommendation: t.recTitleMissing });
         } else if (title.length < 30 || title.length > 60) {
-            metrics.push({ label: t.title, status: "warning", message: t.titleBadLength(title.length) });
+            metrics.push({ label: t.title, status: "warning", message: t.titleBadLength(title.length), recommendation: t.recTitleLength });
         } else {
             metrics.push({ label: t.title, status: "success", message: t.titleGood(title.length) });
         }
 
         if (!metaDescription) {
-            metrics.push({ label: t.metaDesc, status: "error", message: t.metaDescMissing });
+            metrics.push({ label: t.metaDesc, status: "error", message: t.metaDescMissing, recommendation: t.recMetaDescMissing });
         } else if (metaDescription.length < 120 || metaDescription.length > 160) {
-            metrics.push({ label: t.metaDesc, status: "warning", message: t.metaDescBadLength(metaDescription.length) });
+            metrics.push({ label: t.metaDesc, status: "warning", message: t.metaDescBadLength(metaDescription.length), recommendation: t.recMetaDescLength });
         } else {
             metrics.push({ label: t.metaDesc, status: "success", message: t.metaDescGood(metaDescription.length) });
         }
@@ -321,9 +340,9 @@ async function analyzeHTML(url: string, locale: Locale): Promise<SEOMetric[]> {
         // 2. Başlık (Heading) Analizi
         const h1Count = $("h1").length;
         if (h1Count === 0) {
-            metrics.push({ label: t.h1, status: "error", message: t.h1Missing });
+            metrics.push({ label: t.h1, status: "error", message: t.h1Missing, recommendation: t.recH1Missing });
         } else if (h1Count > 1) {
-            metrics.push({ label: t.h1, status: "warning", message: t.h1Multiple(h1Count) });
+            metrics.push({ label: t.h1, status: "warning", message: t.h1Multiple(h1Count), recommendation: t.recH1Multiple });
         } else {
             metrics.push({ label: t.h1, status: "success", message: t.h1Good });
         }
@@ -341,7 +360,7 @@ async function analyzeHTML(url: string, locale: Locale): Promise<SEOMetric[]> {
         if (images.length === 0) {
             metrics.push({ label: t.images, status: "warning", message: t.imagesNone });
         } else if (missingAltCount > 0) {
-            metrics.push({ label: t.imageAlt, status: "error", message: t.imageAltMissing(missingAltCount) });
+            metrics.push({ label: t.imageAlt, status: "error", message: t.imageAltMissing(missingAltCount), recommendation: t.recImageAlt });
         } else {
             metrics.push({ label: t.imageAlt, status: "success", message: t.imageAltGood(images.length) });
         }
@@ -358,7 +377,7 @@ async function analyzeHTML(url: string, locale: Locale): Promise<SEOMetric[]> {
         // 5. Mobile Viewport
         const viewport = $('meta[name="viewport"]').attr("content");
         if (!viewport) {
-            metrics.push({ label: t.mobile, status: "error", message: t.mobileMissing });
+            metrics.push({ label: t.mobile, status: "error", message: t.mobileMissing, recommendation: t.recMobile });
         } else {
             metrics.push({ label: t.mobile, status: "success", message: t.mobileGood });
         }
@@ -367,7 +386,7 @@ async function analyzeHTML(url: string, locale: Locale): Promise<SEOMetric[]> {
         if (url.startsWith("https://")) {
             metrics.push({ label: t.https, status: "success", message: t.httpsGood });
         } else {
-            metrics.push({ label: t.https, status: "error", message: t.httpsMissing });
+            metrics.push({ label: t.https, status: "error", message: t.httpsMissing, recommendation: t.recHttps });
         }
 
     } catch (error: any) {

@@ -31,16 +31,32 @@ interface PageMetadataInput {
     description: string;
     ogImage?: string;
     noindex?: boolean;
+    /**
+     * Explicit counterpart path in the other locale, for dynamic (database-driven)
+     * content like blog posts or case studies that aren't in the static ROUTE_PAIRS
+     * table. When omitted, falls back to looking `path` up in ROUTE_PAIRS.
+     */
+    alternatePath?: string | null;
 }
 
 /**
  * Builds a complete, self-referencing-canonical Metadata object for a page,
  * including hreflang alternates to its counterpart in the other locale
- * (when one exists in ROUTE_PAIRS).
+ * (either the explicit `alternatePath`, or one found in ROUTE_PAIRS).
  */
-export function pageMetadata({ locale, path, title, description, ogImage, noindex }: PageMetadataInput): Metadata {
+export function pageMetadata({ locale, path, title, description, ogImage, noindex, alternatePath }: PageMetadataInput): Metadata {
     const canonicalUrl = `${SITE_URL}${path}`;
-    const languages = buildLanguageAlternates(path, locale);
+    const languages = alternatePath !== undefined
+        ? (() => {
+            const trPath = locale === "tr" ? path : alternatePath;
+            const enPath = locale === "en" ? path : alternatePath;
+            const result: Record<string, string> = {};
+            if (trPath) result["tr-TR"] = trPath;
+            if (enPath) result["en-US"] = enPath;
+            if (trPath) result["x-default"] = trPath;
+            return result;
+        })()
+        : buildLanguageAlternates(path, locale);
     const image = ogImage || `${SITE_URL}/auryn-logo.png`;
 
     // The root layout's title.template ("%s | Auryn Dijital") only applies to

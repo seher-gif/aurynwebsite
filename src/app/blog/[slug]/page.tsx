@@ -24,6 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         title: post.metaTitle || `${post.title}`,
         description: post.metaDesc || post.excerpt,
         ogImage: post.coverImage || undefined,
+        alternatePath: post.otherLocaleSlug ? `/en/blog/${post.otherLocaleSlug}` : null,
     });
 }
 

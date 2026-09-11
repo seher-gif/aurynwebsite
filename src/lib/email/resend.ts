@@ -6,6 +6,7 @@ export interface SEOMetric {
   label: string;
   status: "success" | "warning" | "error";
   message: string;
+  recommendation?: string;
 }
 
 export interface SEOAnalysisResult {

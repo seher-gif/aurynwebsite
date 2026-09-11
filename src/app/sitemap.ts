@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next'
 import { prisma } from '@/lib/prisma'
-import { ROUTE_PAIRS, getAlternatePath } from '@/lib/i18n/routes'
+import { ROUTE_PAIRS } from '@/lib/i18n/routes'
 import { getPublishedPosts } from '@/lib/blog/data'
 import { getPublishedCaseStudies } from '@/lib/case-studies/data'
 
@@ -49,10 +49,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     try {
         const [trPosts, enPosts] = await Promise.all([getPublishedPosts('tr'), getPublishedPosts('en')])
         for (const post of trPosts) {
-            blogEntries.push(entry(`/blog/${post.slug}`, { lastModified: post.updatedAt, priority: 0.6, alternatePath: null }))
+            const alternatePath = post.otherLocaleSlug ? `/en/blog/${post.otherLocaleSlug}` : null
+            blogEntries.push(entry(`/blog/${post.slug}`, { lastModified: post.updatedAt, priority: 0.6, alternatePath }))
         }
         for (const post of enPosts) {
-            blogEntries.push(entry(`/en/blog/${post.slug}`, { lastModified: post.updatedAt, priority: 0.6, alternatePath: null }))
+            const alternatePath = post.otherLocaleSlug ? `/blog/${post.otherLocaleSlug}` : null
+            blogEntries.push(entry(`/en/blog/${post.slug}`, { lastModified: post.updatedAt, priority: 0.6, alternatePath }))
         }
     } catch (error) {
         console.error('Failed to fetch posts for sitemap:', error)
@@ -66,10 +68,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             getPublishedCaseStudies('en'),
         ])
         for (const cs of trCaseStudies) {
-            caseStudyEntries.push(entry(`/referanslar/${cs.slug}`, { lastModified: cs.updatedAt, priority: 0.6, alternatePath: null }))
+            const alternatePath = cs.otherLocaleSlug ? `/en/case-studies/${cs.otherLocaleSlug}` : null
+            caseStudyEntries.push(entry(`/referanslar/${cs.slug}`, { lastModified: cs.updatedAt, priority: 0.6, alternatePath }))
         }
         for (const cs of enCaseStudies) {
-            caseStudyEntries.push(entry(`/en/case-studies/${cs.slug}`, { lastModified: cs.updatedAt, priority: 0.6, alternatePath: null }))
+            const alternatePath = cs.otherLocaleSlug ? `/referanslar/${cs.otherLocaleSlug}` : null
+            caseStudyEntries.push(entry(`/en/case-studies/${cs.slug}`, { lastModified: cs.updatedAt, priority: 0.6, alternatePath }))
         }
     } catch (error) {
         console.error('Failed to fetch case studies for sitemap:', error)

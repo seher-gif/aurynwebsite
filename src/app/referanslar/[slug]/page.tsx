@@ -44,6 +44,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
         title: `${caseStudy.title}`,
         description: caseStudy.excerpt,
         ogImage: caseStudy.coverImage || undefined,
+        alternatePath: caseStudy.slugEn ? `/en/case-studies/${caseStudy.slugEn}` : null,
     });
 }
 

@@ -112,6 +112,45 @@ const styles = StyleSheet.create({
         color: COLORS.lightGray,
         textAlign: "center",
     },
+    recCard: {
+        flexDirection: "row",
+        marginBottom: 10,
+        padding: 12,
+        borderRadius: 6,
+        backgroundColor: "#f8f8f8",
+    },
+    recBadge: {
+        width: 20,
+        height: 20,
+        borderRadius: 10,
+        alignItems: "center",
+        justifyContent: "center",
+        marginRight: 10,
+        marginTop: 1,
+    },
+    recBadgeText: {
+        fontSize: 10,
+        fontWeight: 700,
+        color: "#ffffff",
+    },
+    recBody: {
+        flex: 1,
+    },
+    recLabel: {
+        fontSize: 10,
+        fontWeight: 700,
+        marginBottom: 3,
+    },
+    recText: {
+        fontSize: 10,
+        color: COLORS.gray,
+        lineHeight: 1.4,
+    },
+    noRecText: {
+        fontSize: 10,
+        color: COLORS.gray,
+        marginBottom: 20,
+    },
 });
 
 function statusColor(status: SEOMetric["status"]) {
@@ -154,6 +193,36 @@ function SeoReportDocument({ domain, analysis, generatedAt = new Date() }: SeoRe
                         </Text>
                     </View>
                 </View>
+
+                <Text style={styles.sectionTitle}>Öncelikli Öneriler</Text>
+                {(() => {
+                    const recommendations = analysis.metrics
+                        .filter((m) => m.recommendation)
+                        .sort((a, b) => (a.status === "error" ? -1 : 1) - (b.status === "error" ? -1 : 1));
+
+                    if (recommendations.length === 0) {
+                        return (
+                            <Text style={styles.noRecText}>
+                                Tebrikler, ölçülen kriterlerde acil bir aksiyon gerektiren bulgu tespit edilmedi.
+                            </Text>
+                        );
+                    }
+
+                    return recommendations.map((metric, index) => {
+                        const c = statusColor(metric.status);
+                        return (
+                            <View key={index} style={styles.recCard} wrap={false}>
+                                <View style={[styles.recBadge, { backgroundColor: c.border }]}>
+                                    <Text style={styles.recBadgeText}>{index + 1}</Text>
+                                </View>
+                                <View style={styles.recBody}>
+                                    <Text style={[styles.recLabel, { color: c.text }]}>{metric.label}</Text>
+                                    <Text style={styles.recText}>{metric.recommendation}</Text>
+                                </View>
+                            </View>
+                        );
+                    });
+                })()}
 
                 <Text style={styles.sectionTitle}>Detaylı Bulgular</Text>
                 {analysis.metrics.map((metric, index) => {

@@ -16,6 +16,8 @@ export interface LocalizedCaseStudy {
     category: string;
     createdAt: Date;
     updatedAt: Date;
+    /** This case study's slug in the other locale, when a translation exists. */
+    otherLocaleSlug: string | null;
 }
 
 function localize(cs: CaseStudyRow, locale: Locale): LocalizedCaseStudy {
@@ -32,6 +34,7 @@ function localize(cs: CaseStudyRow, locale: Locale): LocalizedCaseStudy {
         category: cs.category,
         createdAt: cs.createdAt,
         updatedAt: cs.updatedAt,
+        otherLocaleSlug: isEn ? cs.slug : cs.slugEn,
     };
 }
 

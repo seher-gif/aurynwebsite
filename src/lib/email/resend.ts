@@ -130,10 +130,19 @@ function renderMetricItem(metric: SEOMetric): string {
 
 export async function sendSEOReport({ to, domain, analysis }: SendSEOReportParams) {
   try {
+    const { generateSeoReportPdf } = await import('@/lib/pdf/seo-report-pdf');
+    const pdfBuffer = await generateSeoReportPdf({ domain, analysis });
+
     const { data, error } = await resend.emails.send({
       from: 'Auryn Dijital <no-reply@auryndijital.com>',
       to: [to],
       subject: `${domain} - Profesyonel SEO Analiz Raporu`,
+      attachments: [
+        {
+          filename: `auryn-seo-raporu-${domain.replace(/[^a-z0-9.-]/gi, '_')}.pdf`,
+          content: pdfBuffer,
+        },
+      ],
       html: `
         <!DOCTYPE html>
         <html>
@@ -150,24 +159,18 @@ export async function sendSEOReport({ to, domain, analysis }: SendSEOReportParam
           </div>
 
           <!-- Score Section -->
-          <div style="background: white; padding: 40px; text-align: center;">
+          <div style="background: white; padding: 40px; text-align: center; border-radius: 0 0 10px 10px;">
             <h2 style="color: #333; margin: 0 0 20px 0;">Genel SEO Puanınız</h2>
             <div style="display: inline-block; background: linear-gradient(135deg, #e51e51 0%, #9089fc 100%); border-radius: 50%; width: 180px; height: 180px; line-height: 180px; box-shadow: 0 8px 16px rgba(0,0,0,0.15);">
               <span style="font-size: 56px; font-weight: bold; color: white;">${analysis.score}</span>
               <span style="font-size: 24px; color: rgba(255,255,255,0.9);">/100</span>
             </div>
-            <p style="margin: 25px 0 0 0; color: #666; font-size: 16px;">Domain: <strong>${domain}</strong></p>
-          </div>
-
-          <!-- Metrics Section -->
-          <div style="background: white; padding: 40px; margin-top: 2px;">
-            <h2 style="color: #e51e51; margin: 0 0 30px 0; padding-bottom: 15px; border-bottom: 3px solid #e51e51;">📊 Detaylı Analiz Raporu</h2>
-            
-            ${analysis.metrics.map(metric => renderMetricItem(metric)).join('')}
+            <p style="margin: 25px 0 0 0; color: #666; font-size: 16px;">Domain: <strong>${escapeHtml(domain)}</strong></p>
+            <p style="margin: 20px 0 0 0; color: #666; font-size: 15px;">📎 Detaylı bulgularınızı içeren PDF raporu bu e-postaya eklenmiştir.</p>
           </div>
 
           <!-- CTA Section -->
-          <div style="background: linear-gradient(135deg, #e51e51 0%, #9089fc 100%); padding: 40px; text-align: center; border-radius: 0 0 10px 10px; margin-top: 2px;">
+          <div style="background: linear-gradient(135deg, #e51e51 0%, #9089fc 100%); padding: 40px; text-align: center; border-radius: 10px; margin-top: 20px;">
             <h3 style="color: white; margin: 0 0 15px 0;">Sitenizi Optimize Etmek İster misiniz?</h3>
             <p style="color: rgba(255,255,255,0.9); margin: 0 0 25px 0; font-size: 16px;">Uzman ekibimizle tanışın ve SEO stratejinizi bir üst seviyeye taşıyın.</p>
             <a href="https://auryndijital.com/iletisim" style="display: inline-block; background: white; color: #e51e51; padding: 18px 40px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">

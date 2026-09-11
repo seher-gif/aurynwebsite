@@ -27,7 +27,7 @@ const STRINGS = {
 
 export function BlogList({ posts, locale }: { posts: LocalizedPost[]; locale: Locale }) {
     const t = STRINGS[locale];
-    const DEFAULT_COVER = "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2426&q=80";
+    const DEFAULT_COVER = "/blog-covers/default.svg";
 
     return (
         <div className="bg-black min-h-screen text-white">

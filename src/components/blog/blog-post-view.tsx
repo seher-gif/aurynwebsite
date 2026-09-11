@@ -18,7 +18,7 @@ const STRINGS = {
     },
 };
 
-const DEFAULT_COVER = "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2426&q=80";
+const DEFAULT_COVER = "/blog-covers/default.svg";
 
 export function BlogPostView({ post, locale }: { post: LocalizedPost; locale: Locale }) {
     const t = STRINGS[locale];

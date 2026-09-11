@@ -32,7 +32,7 @@ export async function sendContactNotification({
   message,
 }: ContactNotificationParams) {
   return resend.emails.send({
-    from: 'Auryn İletişim <onboarding@resend.dev>',
+    from: 'Auryn İletişim <no-reply@auryndijital.com>',
     to: [to],
     replyTo: email,
     subject: `Yeni İletişim Mesajı: ${escapeHtml(subject || 'Genel')}`,
@@ -58,7 +58,7 @@ interface SeoDbFailureParams {
 
 export async function notifySeoAnalysisDbFailure({ to, domain, score }: SeoDbFailureParams) {
   return resend.emails.send({
-    from: 'Auryn SEO <onboarding@resend.dev>',
+    from: 'Auryn SEO <no-reply@auryndijital.com>',
     to: [to],
     subject: `Yeni SEO Analizi (DB kayıt hatası): ${escapeHtml(domain)}`,
     html: `
@@ -121,7 +121,7 @@ function renderMetricItem(metric: SEOMetric): string {
 export async function sendSEOReport({ to, domain, analysis }: SendSEOReportParams) {
   try {
     const { data, error } = await resend.emails.send({
-      from: 'Auryn Dijital <onboarding@resend.dev>',
+      from: 'Auryn Dijital <no-reply@auryndijital.com>',
       to: [to],
       subject: `${domain} - Profesyonel SEO Analiz Raporu`,
       html: `
@@ -199,7 +199,7 @@ export async function sendSEOReportEmail(email: string, url: string, analysisDat
     const metrics = analysisData.metrics || [];
 
     const { data, error } = await resend.emails.send({
-      from: 'Auryn Dijital <onboarding@resend.dev>',
+      from: 'Auryn Dijital <no-reply@auryndijital.com>',
       to: [email],
       subject: `${url} - Detaylı SEO Analiz Raporu`,
       html: `

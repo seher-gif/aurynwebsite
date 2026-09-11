@@ -6,13 +6,18 @@ import Image from "next/image";
 import { ArrowRight, Search, TrendingUp, Globe, PenTool, Megaphone, BarChart2 } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { OrganizationSchema, LocalBusinessSchema } from "@/components/seo/schema";
+import { JsonLd } from "@/components/seo/json-ld";
+import { websiteSchema } from "@/lib/seo/schema";
+import { pageMetadata } from "@/lib/seo/site";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Ana Sayfa",
-  description: "Veri odaklı SEO, Google Ads ve sosyal medya stratejileriyle işletmenizin büyüme potansiyelini açığa çıkarıyoruz.",
-};
+export const metadata: Metadata = pageMetadata({
+  locale: "tr",
+  path: "/",
+  title: "Auryn Dijital - Veri Odaklı Dijital Pazarlama & SEO",
+  description: "Arama performansı, reklam yönetimi, içerik ve analitiği birleştiren veri odaklı dijital pazarlama ve SEO danışmanlığı.",
+});
 
 // Revalidate every hour for fresh content
 export const revalidate = 3600;
@@ -34,6 +39,7 @@ export default async function Home() {
     <div className="bg-black min-h-screen text-white overflow-x-hidden">
       <OrganizationSchema />
       <LocalBusinessSchema />
+      <JsonLd data={websiteSchema("tr")} />
       <WhatsAppFloat />
       <Header />
 

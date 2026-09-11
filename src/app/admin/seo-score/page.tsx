@@ -8,157 +8,172 @@ export const dynamic = "force-dynamic";
 
 // Function to calculate SEO score based on database metrics
 async function calculateSEOScore() {
-    const now = new Date();
-    const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    try {
+        const now = new Date();
+        const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
 
-    // Get all pages for analysis
-    const pages = await prisma.page.findMany({
-        where: { published: true },
-    });
+        // Get all pages for analysis
+        const pages = await prisma.page.findMany({
+            where: { published: true },
+        });
 
-    // Get blog posts
-    const posts = await prisma.post.findMany({
-        where: { published: true },
-    });
+        // Get blog posts
+        const posts = await prisma.post.findMany({
+            where: { published: true },
+        });
 
-    // Get recent SEO analyses
-    const recentAnalyses = await prisma.seoAnalysis.findMany({
-        where: {
-            createdAt: { gte: lastMonth },
-        },
-        orderBy: { createdAt: "desc" },
-    });
+        // Get recent SEO analyses
+        const recentAnalyses = await prisma.seoAnalysis.findMany({
+            where: {
+                createdAt: { gte: lastMonth },
+            },
+            orderBy: { createdAt: "desc" },
+        });
 
-    // Get previous month's analyses for comparison
-    const previousMonth = new Date(now.getFullYear(), now.getMonth() - 2, 1);
-    const oldAnalyses = await prisma.seoAnalysis.findMany({
-        where: {
-            createdAt: { gte: previousMonth, lt: lastMonth },
-        },
-    });
+        // Get previous month's analyses for comparison
+        const previousMonth = new Date(now.getFullYear(), now.getMonth() - 2, 1);
+        const oldAnalyses = await prisma.seoAnalysis.findMany({
+            where: {
+                createdAt: { gte: previousMonth, lt: lastMonth },
+            },
+        });
 
-    // Calculate scores
-    let totalScore = 0;
-    let scoreCount = 0;
+        // Calculate scores
+        let totalScore = 0;
+        let scoreCount = 0;
 
-    // Meta descriptions check (30 points max)
-    const pagesWithMeta = pages.filter((p: any) => p.metaDesc && p.metaDesc.length > 50);
-    const postsWithMeta = posts.filter((p: any) => p.metaDesc && p.metaDesc.length > 50);
-    const metaScore = ((pagesWithMeta.length + postsWithMeta.length) / (pages.length + posts.length)) * 30;
-    totalScore += metaScore;
-    scoreCount++;
-
-    // Meta titles check (20 points max)
-    const pagesWithTitle = pages.filter((p: any) => p.metaTitle && p.metaTitle.length > 30);
-    const postsWithTitle = posts.filter((p: any) => p.metaTitle && p.metaTitle.length > 30);
-    const titleScore = ((pagesWithTitle.length + postsWithTitle.length) / (pages.length + posts.length)) * 20;
-    totalScore += titleScore;
-    scoreCount++;
-
-    // Index/Follow optimization (15 points max)
-    const pagesWithSEO = pages.filter((p: any) => p.index && p.follow);
-    const seoScore = (pagesWithSEO.length / pages.length) * 15;
-    totalScore += seoScore;
-    scoreCount++;
-
-    // Recent analysis average (35 points max)
-    if (recentAnalyses.length > 0) {
-        const avgAnalysisScore = recentAnalyses.reduce((sum: number, a: any) => sum + a.score, 0) / recentAnalyses.length;
-        totalScore += (avgAnalysisScore / 100) * 35;
+        // Meta descriptions check (30 points max)
+        const pagesWithMeta = pages.filter((p: any) => p.metaDesc && p.metaDesc.length > 50);
+        const postsWithMeta = posts.filter((p: any) => p.metaDesc && p.metaDesc.length > 50);
+        const metaScore = ((pagesWithMeta.length + postsWithMeta.length) / (pages.length + posts.length)) * 30;
+        totalScore += metaScore;
         scoreCount++;
-    } else {
-        totalScore += 20; // Default baseline
+
+        // Meta titles check (20 points max)
+        const pagesWithTitle = pages.filter((p: any) => p.metaTitle && p.metaTitle.length > 30);
+        const postsWithTitle = posts.filter((p: any) => p.metaTitle && p.metaTitle.length > 30);
+        const titleScore = ((pagesWithTitle.length + postsWithTitle.length) / (pages.length + posts.length)) * 20;
+        totalScore += titleScore;
         scoreCount++;
+
+        // Index/Follow optimization (15 points max)
+        const pagesWithSEO = pages.filter((p: any) => p.index && p.follow);
+        const seoScore = (pagesWithSEO.length / pages.length) * 15;
+        totalScore += seoScore;
+        scoreCount++;
+
+        // Recent analysis average (35 points max)
+        if (recentAnalyses.length > 0) {
+            const avgAnalysisScore = recentAnalyses.reduce((sum: number, a: any) => sum + a.score, 0) / recentAnalyses.length;
+            totalScore += (avgAnalysisScore / 100) * 35;
+            scoreCount++;
+        } else {
+            totalScore += 20; // Default baseline
+            scoreCount++;
+        }
+
+        const finalScore = Math.round(totalScore);
+
+        // Calculate detailed metrics
+        const speedScore = 92; // Would integrate with Lighthouse API in production
+        const accessibilityScore = Math.round((pagesWithMeta.length / pages.length) * 100);
+        const bestPracticesScore = Math.round(((pagesWithTitle.length + pagesWithSEO.length) / (pages.length * 2)) * 100);
+
+        // Calculate trends
+        const speedChange = "+5.2%";
+        const accessibilityChange = accessibilityScore > 95 ? "+1.5%" : "-0.5%";
+        const bestPracticesChange = bestPracticesScore > 90 ? "+2.1%" : "-0.8%";
+
+        // Issues detection
+        const issues = [];
+        const pagesWithoutMeta = pages.filter((p: any) => !p.metaDesc || p.metaDesc.length < 50);
+        const pagesWithoutTitle = pages.filter((p: any) => !p.metaTitle || p.metaTitle.length < 30);
+
+        if (pagesWithoutMeta.length > 0) {
+            issues.push({
+                id: 1,
+                text: `Meta description olmayan ${pagesWithoutMeta.length} sayfa var.`,
+                priority: "medium",
+                status: "warning",
+            });
+        }
+
+        if (pagesWithoutTitle.length > 0) {
+            issues.push({
+                id: 2,
+                text: `Meta title olmayan ${pagesWithoutTitle.length} sayfa var.`,
+                priority: "medium",
+                status: "warning",
+            });
+        }
+
+        const pagesNotIndexed = pages.filter((p: any) => !p.index);
+        if (pagesNotIndexed.length > 0) {
+            issues.push({
+                id: 3,
+                text: `${pagesNotIndexed.length} sayfa arama motorlarında indexlenmemiş.`,
+                priority: "high",
+                status: "error",
+            });
+        }
+
+        if (posts.length === 0) {
+            issues.push({
+                id: 4,
+                text: "Blog içeriği eklenmeli (SEO için önemli).",
+                priority: "medium",
+                status: "warning",
+            });
+        }
+
+        // Add success items
+        if (pagesWithMeta.length === pages.length) {
+            issues.push({
+                id: 5,
+                text: "Tüm sayfalar meta description'a sahip.",
+                priority: "low",
+                status: "success",
+            });
+        }
+
+        if (pagesWithSEO.length === pages.length) {
+            issues.push({
+                id: 6,
+                text: "Mobil-uyumluluk testi yapılmıştır.",
+                priority: "low",
+                status: "success",
+            });
+        }
+
+        return {
+            score: finalScore,
+            speedScore,
+            accessibilityScore,
+            bestPracticesScore,
+            speedChange,
+            accessibilityChange,
+            bestPracticesChange,
+            issues,
+            summary: finalScore >= 85
+                ? "Harika! Siteniz genel olarak iyi bir SEO performansına sahip. Küçük iyileştirmelerle daha da iyileştirebilir."
+                : finalScore >= 70
+                    ? "İyi durumda! Bazı alanlarda iyileştirme yaparak SEO performansınızı artırabilirsiniz."
+                    : "SEO performansınızı artırmak için kritik alanlara odaklanmanız gerekiyor.",
+        };
+    } catch (error) {
+        console.error("Failed to calculate SEO score:", error);
+        return {
+            score: 0,
+            speedScore: 0,
+            accessibilityScore: 0,
+            bestPracticesScore: 0,
+            speedChange: "-",
+            accessibilityChange: "-",
+            bestPracticesChange: "-",
+            issues: [],
+            summary: "Veritabanına erişilemediği için SEO skoru hesaplanamadı.",
+        };
     }
-
-    const finalScore = Math.round(totalScore);
-
-    // Calculate detailed metrics
-    const speedScore = 92; // Would integrate with Lighthouse API in production
-    const accessibilityScore = Math.round((pagesWithMeta.length / pages.length) * 100);
-    const bestPracticesScore = Math.round(((pagesWithTitle.length + pagesWithSEO.length) / (pages.length * 2)) * 100);
-
-    // Calculate trends
-    const speedChange = "+5.2%";
-    const accessibilityChange = accessibilityScore > 95 ? "+1.5%" : "-0.5%";
-    const bestPracticesChange = bestPracticesScore > 90 ? "+2.1%" : "-0.8%";
-
-    // Issues detection
-    const issues = [];
-    const pagesWithoutMeta = pages.filter((p: any) => !p.metaDesc || p.metaDesc.length < 50);
-    const pagesWithoutTitle = pages.filter((p: any) => !p.metaTitle || p.metaTitle.length < 30);
-
-    if (pagesWithoutMeta.length > 0) {
-        issues.push({
-            id: 1,
-            text: `Meta description olmayan ${pagesWithoutMeta.length} sayfa var.`,
-            priority: "medium",
-            status: "warning",
-        });
-    }
-
-    if (pagesWithoutTitle.length > 0) {
-        issues.push({
-            id: 2,
-            text: `Meta title olmayan ${pagesWithoutTitle.length} sayfa var.`,
-            priority: "medium",
-            status: "warning",
-        });
-    }
-
-    const pagesNotIndexed = pages.filter((p: any) => !p.index);
-    if (pagesNotIndexed.length > 0) {
-        issues.push({
-            id: 3,
-            text: `${pagesNotIndexed.length} sayfa arama motorlarında indexlenmemiş.`,
-            priority: "high",
-            status: "error",
-        });
-    }
-
-    if (posts.length === 0) {
-        issues.push({
-            id: 4,
-            text: "Blog içeriği eklenmeli (SEO için önemli).",
-            priority: "medium",
-            status: "warning",
-        });
-    }
-
-    // Add success items
-    if (pagesWithMeta.length === pages.length) {
-        issues.push({
-            id: 5,
-            text: "Tüm sayfalar meta description'a sahip.",
-            priority: "low",
-            status: "success",
-        });
-    }
-
-    if (pagesWithSEO.length === pages.length) {
-        issues.push({
-            id: 6,
-            text: "Mobil-uyumluluk testi yapılmıştır.",
-            priority: "low",
-            status: "success",
-        });
-    }
-
-    return {
-        score: finalScore,
-        speedScore,
-        accessibilityScore,
-        bestPracticesScore,
-        speedChange,
-        accessibilityChange,
-        bestPracticesChange,
-        issues,
-        summary: finalScore >= 85
-            ? "Harika! Siteniz genel olarak iyi bir SEO performansına sahip. Küçük iyileştirmelerle daha da iyileştirebilir."
-            : finalScore >= 70
-                ? "İyi durumda! Bazı alanlarda iyileştirme yaparak SEO performansınızı artırabilirsiniz."
-                : "SEO performansınızı artırmak için kritik alanlara odaklanmanız gerekiyor.",
-    };
 }
 
 export default async function SEOScorePage() {
@@ -166,10 +181,15 @@ export default async function SEOScorePage() {
     const seoMetrics = await calculateSEOScore();
 
     // Get SEO analysis stats
-    const analyses = await prisma.seoAnalysis.findMany({
-        orderBy: { createdAt: "desc" },
-        take: 10,
-    });
+    let analyses: any[] = [];
+    try {
+        analyses = await prisma.seoAnalysis.findMany({
+            orderBy: { createdAt: "desc" },
+            take: 10,
+        });
+    } catch (error) {
+        console.error("Failed to fetch recent SEO analyses:", error);
+    }
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">

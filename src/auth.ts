@@ -4,6 +4,9 @@ import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
+import { isRateLimited, recordAttempt, clearAttempts } from '@/lib/security/rate-limit';
+
+const LOGIN_RATE_LIMIT = { windowMs: 15 * 60 * 1000, max: 5, lockoutMs: 15 * 60 * 1000 };
 
 async function getUser(email: string) {
     try {
@@ -21,35 +24,37 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     providers: [
         Credentials({
             async authorize(credentials) {
-                console.log('Authorize called with:', { email: credentials?.email });
                 const parsedCredentials = z
                     .object({ email: z.string().email(), password: z.string().min(4) })
                     .safeParse(credentials);
 
-                if (parsedCredentials.success) {
-                    const { email, password } = parsedCredentials.data;
-                    console.log('Credentials parsed successfully for:', email);
-
-                    const user = await getUser(email);
-                    if (!user) {
-                        console.log('User not found in database.');
-                        return null;
-                    }
-                    console.log('User found:', { id: user.id, email: user.email, role: user.role });
-
-                    if (!user.passwordHash) {
-                        console.log('User has no password hash set.');
-                        return null;
-                    }
-                    const passwordsMatch = await bcrypt.compare(password, user.passwordHash);
-                    console.log('Password match result:', passwordsMatch);
-
-                    if (passwordsMatch) return user;
-                } else {
-                    console.log('Credential validation failed:', parsedCredentials.error);
+                if (!parsedCredentials.success) {
+                    return null;
                 }
-                console.log('Invalid credentials');
-                return null;
+
+                const { email, password } = parsedCredentials.data;
+                const rateLimitKey = `login:${email.toLowerCase()}`;
+
+                // Blunt brute-force/credential-stuffing against a known admin email.
+                if (isRateLimited(rateLimitKey, LOGIN_RATE_LIMIT)) {
+                    console.warn(`Login rate limit hit for ${email}`);
+                    return null;
+                }
+
+                const user = await getUser(email);
+                if (!user || !user.passwordHash) {
+                    recordAttempt(rateLimitKey, LOGIN_RATE_LIMIT);
+                    return null;
+                }
+
+                const passwordsMatch = await bcrypt.compare(password, user.passwordHash);
+                if (!passwordsMatch) {
+                    recordAttempt(rateLimitKey, LOGIN_RATE_LIMIT);
+                    return null;
+                }
+
+                clearAttempts(rateLimitKey);
+                return user;
             },
         }),
     ],

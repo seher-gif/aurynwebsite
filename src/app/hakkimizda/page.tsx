@@ -3,10 +3,25 @@ import { Footer } from "@/components/layout/footer";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/site";
+import { JsonLd } from "@/components/seo/json-ld";
+import { breadcrumbSchema } from "@/lib/seo/schema";
+
+export const metadata: Metadata = pageMetadata({
+    locale: "tr",
+    path: "/hakkimizda",
+    title: "Hakkımızda",
+    description: "Auryn Dijital, veri odaklılık, şeffaflık ve sürdürülebilir büyüme prensipleriyle çalışan bir performans pazarlama ve SEO ajansıdır.",
+});
 
 export default function HakkimizdaPage() {
     return (
         <div className="bg-black min-h-screen text-white">
+            <JsonLd data={breadcrumbSchema([
+                { name: "Anasayfa", path: "/" },
+                { name: "Hakkımızda", path: "/hakkimizda" },
+            ])} />
             <Header />
             <main className="isolate">
                 {/* Hero */}

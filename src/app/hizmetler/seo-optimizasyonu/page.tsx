@@ -4,15 +4,32 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight, TrendingUp, Search, FileText, BarChart, Globe, CheckCircle, ChevronDown } from "lucide-react";
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/site";
+import { JsonLd } from "@/components/seo/json-ld";
+import { breadcrumbSchema, serviceSchema } from "@/lib/seo/schema";
 
-export const metadata: Metadata = {
-    title: "Kurumsal SEO Danışmanlığı ve Veri Odaklı Arama Motoru Optimizasyonu | AURYN Dijital",
+export const metadata: Metadata = pageMetadata({
+    locale: "tr",
+    path: "/hizmetler/seo-optimizasyonu",
+    title: "Kurumsal SEO Danışmanlığı ve Veri Odaklı Arama Motoru Optimizasyonu",
     description: "Antalya ve İstanbul odaklı profesyonel SEO danışmanı hizmetleri. Growth Hacking teknikleriyle arama motoru optimizasyonu, teknik SEO ve içerik stratejileriyle organik trafiğinizi ve cironuzu artırın.",
-};
+});
 
 export default function SEOPage() {
     return (
         <div className="bg-black min-h-screen">
+            <JsonLd data={breadcrumbSchema([
+                { name: "Anasayfa", path: "/" },
+                { name: "Hizmetler", path: "/hizmetler" },
+                { name: "SEO Optimizasyonu", path: "/hizmetler/seo-optimizasyonu" },
+            ])} />
+            <JsonLd data={serviceSchema({
+                locale: "tr",
+                name: "SEO Optimizasyonu",
+                description: "Teknik SEO, içerik stratejisi ve otorite inşası ile sürdürülebilir organik büyüme.",
+                path: "/hizmetler/seo-optimizasyonu",
+                serviceType: "Search Engine Optimization",
+            })} />
             <Header />
 
             {/* Hero */}

@@ -5,11 +5,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/site";
+import { JsonLd } from "@/components/seo/json-ld";
+import { breadcrumbSchema } from "@/lib/seo/schema";
 
-export const metadata = {
-    title: "Referanslar & Vaka Çalışmaları | Auryn Dijital",
+export const metadata: Metadata = pageMetadata({
+    locale: "tr",
+    path: "/referanslar",
+    title: "Referanslar & Vaka Çalışmaları",
     description: "Başarılı projelerimiz ve müşterilerimizle elde ettiğimiz sonuçlar. SEO, Google Ads ve dijital pazarlama vaka çalışmalarımızı inceleyin.",
-};
+});
 
 export default async function ReferanslarPage() {
     let clients: any[] = [];
@@ -35,13 +41,16 @@ export default async function ReferanslarPage() {
 
     return (
         <div className="bg-black min-h-screen text-white">
+            <JsonLd data={breadcrumbSchema([
+                { name: "Anasayfa", path: "/" },
+                { name: "Referanslar", path: "/referanslar" },
+            ])} />
             <Header />
 
             {/* Hero Section */}
             <section className="relative bg-black pt-40 pb-20 lg:pt-52 lg:pb-32 overflow-hidden">
                 {/* Background Elements */}
                 <div className="absolute top-0 inset-x-0 h-[500px] bg-gradient-to-b from-auryn-magenta/10 via-transparent to-transparent opacity-50 blur-3xl" />
-                <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-20 pointer-events-none"></div>
 
                 <div className="relative max-w-7xl mx-auto px-6 lg:px-8 text-center z-10">
                     <div className="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium text-auryn-magenta ring-1 ring-inset ring-auryn-magenta/20 bg-auryn-magenta/5 mb-6 backdrop-blur-sm">

@@ -4,15 +4,32 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight, BarChart3, TrendingUp, Database, Eye, CheckCircle, ChevronDown } from "lucide-react";
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/site";
+import { JsonLd } from "@/components/seo/json-ld";
+import { breadcrumbSchema, serviceSchema } from "@/lib/seo/schema";
 
-export const metadata: Metadata = {
-    title: "Dijital Veri Analizi, Ölçümleme ve Performans Raporlama | AURYN Dijital",
+export const metadata: Metadata = pageMetadata({
+    locale: "tr",
+    path: "/hizmetler/raporlama-analiz",
+    title: "Dijital Veri Analizi, Ölçümleme ve Performans Raporlama",
     description: "Veriye dayalı büyüme stratejileri. Google Analytics 4 (GA4), Looker Studio ve dönüşüm takibi hizmetleri ile pazarlama bütçenizin getirisini şeffaf bir şekilde ölçümlüyoruz.",
-};
+});
 
 export default function ReportingAnalyticsPage() {
     return (
         <div className="bg-black min-h-screen">
+            <JsonLd data={breadcrumbSchema([
+                { name: "Anasayfa", path: "/" },
+                { name: "Hizmetler", path: "/hizmetler" },
+                { name: "Raporlama & Analiz", path: "/hizmetler/raporlama-analiz" },
+            ])} />
+            <JsonLd data={serviceSchema({
+                locale: "tr",
+                name: "Raporlama & Analiz",
+                description: "GA4 kurulumu, dönüşüm takibi ve Looker Studio ile şeffaf performans raporlaması.",
+                path: "/hizmetler/raporlama-analiz",
+                serviceType: "Marketing Analytics",
+            })} />
             <Header />
 
             {/* Hero */}

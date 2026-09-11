@@ -2,10 +2,25 @@ import { ContactForm } from "@/components/forms/contact-form";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Mail, MapPin, Phone } from "lucide-react";
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/site";
+import { JsonLd } from "@/components/seo/json-ld";
+import { breadcrumbSchema } from "@/lib/seo/schema";
+
+export const metadata: Metadata = pageMetadata({
+    locale: "tr",
+    path: "/iletisim",
+    title: "İletişim",
+    description: "SEO, Google Ads ve dijital pazarlama projeleriniz için Auryn Dijital ile iletişime geçin. Antalya ofisimizden size dönüş yapalım.",
+});
 
 export default function IletisimPage() {
     return (
         <div className="bg-black min-h-screen text-white">
+            <JsonLd data={breadcrumbSchema([
+                { name: "Anasayfa", path: "/" },
+                { name: "İletişim", path: "/iletisim" },
+            ])} />
             <Header />
             <main className="isolate">
                 <div className="relative isolate px-6 py-24 sm:py-32 lg:px-8">

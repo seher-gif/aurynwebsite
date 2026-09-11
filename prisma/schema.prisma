@@ -132,7 +132,15 @@ model Post {
   // SEO Fields for Blog
   metaTitle   String?
   metaDesc    String?
-  
+
+  // English translation (optional). When absent, the post is Turkish-only.
+  titleEn     String?
+  slugEn      String?  @unique
+  excerptEn   String?
+  contentEn   String?
+  metaTitleEn String?
+  metaDescEn  String?
+
   published   Boolean  @default(false)
   authorId    String
   author      User     @relation(fields: [authorId], references: [id])
@@ -147,6 +155,7 @@ model ContactMessage {
   name      String
   email     String
   phone     String?
+  company   String?
   subject   String?
   message   String
   status    String   @default("NEW") // NEW, READ, ARCHIVED
@@ -193,6 +202,13 @@ model CaseStudy {
   coverImage  String?
   results     Json?    // Results metrics (e.g., %150 traffic increase)
   category    String   // SEO, Google Ads, Social Media, etc.
+
+  // English translation (optional). When absent, the case study is Turkish-only.
+  titleEn     String?
+  slugEn      String?  @unique
+  excerptEn   String?
+  contentEn   String?  @db.Text
+
   published   Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

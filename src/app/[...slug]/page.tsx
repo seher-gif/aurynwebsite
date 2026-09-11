@@ -3,6 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Metadata } from "next";
+import { sanitizeRichText } from "@/lib/security/sanitize-html";
 
 interface PageProps {
     params: Promise<{
@@ -79,9 +80,7 @@ export default async function DynamicPage({ params }: PageProps) {
                             {page.title}
                         </h1>
                         <div className="mt-10 max-w-2xl prose prose-lg prose-headings:font-heading">
-                            {/* Render content safely - assuming simple HTML or text for now */}
-                            {/* In a real app, use a markdown parser or rich text renderer */}
-                            <div dangerouslySetInnerHTML={{ __html: page.content as string || "" }} />
+                            <div dangerouslySetInnerHTML={{ __html: sanitizeRichText((page.content as string) || "") }} />
                         </div>
                     </div>
                 </div>

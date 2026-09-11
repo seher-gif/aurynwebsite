@@ -6,7 +6,7 @@ import { ArrowRight, TrendingUp, BarChart3, Target, Zap, ChevronDown } from "luc
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Performans Pazarlama ve Google Ads Yönetimi | ROI Odaklı Ajans | AURYN Dijital",
+    title: "Performans Pazarlama ve Google Ads Yönetimi | ROI Odaklı Ajans",
     description: "Google Ads, Meta ve LinkedIn reklamlarınızda maksimum ROAS hedefliyoruz. Turizm ve B2B sanayi reklamcılığında uzman, ölçülebilir performans yönetimi.",
 };
 

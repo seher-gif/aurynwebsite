@@ -6,6 +6,9 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Calendar, Tag } from "lucide-react";
 import { notFound } from "next/navigation";
+import { pageMetadata } from "@/lib/seo/site";
+import { JsonLd } from "@/components/seo/json-ld";
+import { breadcrumbSchema } from "@/lib/seo/schema";
 
 export async function generateStaticParams() {
     try {
@@ -31,14 +34,17 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
     if (!caseStudy) {
         return {
-            title: "Vaka Çalışması Bulunamadı | Auryn Dijital",
+            title: "Vaka Çalışması Bulunamadı",
         };
     }
 
-    return {
-        title: `${caseStudy.title} | Auryn Dijital`,
+    return pageMetadata({
+        locale: "tr",
+        path: `/referanslar/${params.slug}`,
+        title: `${caseStudy.title}`,
         description: caseStudy.excerpt,
-    };
+        ogImage: caseStudy.coverImage || undefined,
+    });
 }
 
 export default async function CaseStudyDetailPage({ params }: { params: { slug: string } }) {
@@ -61,6 +67,11 @@ export default async function CaseStudyDetailPage({ params }: { params: { slug: 
 
     return (
         <div className="bg-white">
+            <JsonLd data={breadcrumbSchema([
+                { name: "Anasayfa", path: "/" },
+                { name: "Referanslar", path: "/referanslar" },
+                { name: caseStudy.title, path: `/referanslar/${params.slug}` },
+            ])} />
             <Header />
 
             {/* Hero Section */}

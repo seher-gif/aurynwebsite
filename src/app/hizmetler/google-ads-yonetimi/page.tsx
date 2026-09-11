@@ -4,15 +4,32 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight, TrendingUp, Target, Shield, BarChart, CheckCircle, ChevronDown } from "lucide-react";
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/site";
+import { JsonLd } from "@/components/seo/json-ld";
+import { breadcrumbSchema, serviceSchema } from "@/lib/seo/schema";
 
-export const metadata: Metadata = {
-    title: "Google Ads Yönetimi ve Performans Pazarlama Danışmanlığı | AURYN Dijital",
+export const metadata: Metadata = pageMetadata({
+    locale: "tr",
+    path: "/hizmetler/google-ads-yonetimi",
+    title: "Google Ads Yönetimi ve Performans Pazarlama Danışmanlığı",
     description: "Google Ads, Meta ve LinkedIn reklamlarınızda veri odaklı yönetim. Bütçe optimizasyonu, negatif anahtar kelime yönetimi ve dönüşüm odaklı stratejilerle ROI artışı sağlayın.",
-};
+});
 
 export default function GoogleAdsPage() {
     return (
         <div className="bg-black min-h-screen">
+            <JsonLd data={breadcrumbSchema([
+                { name: "Anasayfa", path: "/" },
+                { name: "Hizmetler", path: "/hizmetler" },
+                { name: "Google Ads Yönetimi", path: "/hizmetler/google-ads-yonetimi" },
+            ])} />
+            <JsonLd data={serviceSchema({
+                locale: "tr",
+                name: "Google Ads Yönetimi",
+                description: "Arama, görüntülü reklam ve alışveriş kampanyalarında veri odaklı, ROI hedefli yönetim.",
+                path: "/hizmetler/google-ads-yonetimi",
+                serviceType: "Paid Search Advertising",
+            })} />
             <Header />
 
             {/* Hero */}

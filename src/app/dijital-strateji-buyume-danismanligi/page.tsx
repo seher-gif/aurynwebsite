@@ -10,7 +10,7 @@ import {
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Stratejik Danışmanlık & Büyüme Pazarlaması | AURYN Dijital",
+    title: "Stratejik Danışmanlık & Büyüme Pazarlaması",
     description: "Veri odaklı dijital strateji danışmanlığı ve büyüme pazarlaması hizmetleri. İşletmenizin dijital dönüşümünde stratejik partneriniz.",
 };
 

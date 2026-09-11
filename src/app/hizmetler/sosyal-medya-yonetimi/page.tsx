@@ -4,15 +4,32 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight, Instagram, Facebook, Linkedin, Video, Users, BarChart3, CheckCircle, ChevronDown } from "lucide-react";
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/site";
+import { JsonLd } from "@/components/seo/json-ld";
+import { breadcrumbSchema, serviceSchema } from "@/lib/seo/schema";
 
-export const metadata: Metadata = {
-    title: "Profesyonel Sosyal Medya Yönetimi ve İçerik Stratejisi | AURYN Dijital",
+export const metadata: Metadata = pageMetadata({
+    locale: "tr",
+    path: "/hizmetler/sosyal-medya-yonetimi",
+    title: "Profesyonel Sosyal Medya Yönetimi ve İçerik Stratejisi",
     description: "Markanızın dijital sesini yönetiyoruz. Antalya ve global pazarlar için Instagram, LinkedIn ve YouTube odaklı profesyonel sosyal medya yönetimi ve içerik üretim hizmetleri.",
-};
+});
 
 export default function SocialMediaPage() {
     return (
         <div className="bg-black min-h-screen">
+            <JsonLd data={breadcrumbSchema([
+                { name: "Anasayfa", path: "/" },
+                { name: "Hizmetler", path: "/hizmetler" },
+                { name: "Sosyal Medya Yönetimi", path: "/hizmetler/sosyal-medya-yonetimi" },
+            ])} />
+            <JsonLd data={serviceSchema({
+                locale: "tr",
+                name: "Sosyal Medya Yönetimi",
+                description: "Instagram, LinkedIn ve YouTube için stratejik sosyal medya yönetimi ve içerik üretimi.",
+                path: "/hizmetler/sosyal-medya-yonetimi",
+                serviceType: "Social Media Marketing",
+            })} />
             <Header />
 
             {/* Hero */}

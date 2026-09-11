@@ -1,52 +1,51 @@
+import { ORG, SITE_URL } from "@/lib/seo/site";
+import { JsonLd } from "@/components/seo/json-ld";
+
 export function OrganizationSchema() {
     const schema = {
         "@context": "https://schema.org",
         "@type": "Organization",
-        "name": "Auryn Dijital",
-        "alternateName": "Auryn Digital Marketing",
-        "url": "https://auryndijital.com",
-        "logo": "https://auryndijital.com/logo.png",
+        "@id": `${SITE_URL}/#organization`,
+        "name": ORG.name,
+        "url": SITE_URL,
+        "logo": ORG.logo,
         "description": "Veri odaklı dijital pazarlama ve SEO ajansı. SEO, Google Ads, sosyal medya yönetimi ve dijital pazarlama hizmetleri.",
-        "sameAs": [
-            "https://www.linkedin.com/company/auryn-dijital",
-            "https://www.instagram.com/auryndijital",
-            "https://twitter.com/auryndijital"
-        ],
+        "sameAs": ORG.sameAs,
         "contactPoint": {
             "@type": "ContactPoint",
             "contactType": "customer service",
-            "email": "info@auryndijital.com"
+            "email": ORG.email,
+            "telephone": ORG.phone,
         },
         "address": {
             "@type": "PostalAddress",
-            "addressCountry": "TR",
-            "addressLocality": "İstanbul"
-        }
+            "streetAddress": ORG.address.streetAddress,
+            "addressLocality": ORG.address.addressLocality,
+            "postalCode": ORG.address.postalCode,
+            "addressCountry": ORG.address.addressCountry,
+        },
     };
 
-    return (
-        <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-    );
+    return <JsonLd data={schema} />;
 }
 
 export function LocalBusinessSchema() {
     const schema = {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
-        "@id": "https://auryndijital.com",
-        "name": "Auryn Dijital",
-        "image": "https://auryndijital.com/logo.png",
+        "@id": SITE_URL,
+        "name": ORG.name,
+        "image": ORG.logo,
         "description": "SEO, Google Ads ve dijital pazarlama hizmetleri sunan profesyonel ajans.",
-        "url": "https://auryndijital.com",
-        "telephone": "+90-XXX-XXX-XXXX",
-        "email": "info@auryndijital.com",
+        "url": SITE_URL,
+        "telephone": ORG.phone,
+        "email": ORG.email,
         "address": {
             "@type": "PostalAddress",
-            "addressCountry": "TR",
-            "addressLocality": "İstanbul"
+            "streetAddress": ORG.address.streetAddress,
+            "addressLocality": ORG.address.addressLocality,
+            "postalCode": ORG.address.postalCode,
+            "addressCountry": ORG.address.addressCountry,
         },
         "priceRange": "$$",
         "openingHoursSpecification": {
@@ -57,12 +56,7 @@ export function LocalBusinessSchema() {
         }
     };
 
-    return (
-        <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-    );
+    return <JsonLd data={schema} />;
 }
 
 export function ServiceSchema({ service }: { service: { name: string; description: string; url: string } }) {
@@ -83,12 +77,7 @@ export function ServiceSchema({ service }: { service: { name: string; descriptio
         "url": service.url
     };
 
-    return (
-        <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-    );
+    return <JsonLd data={schema} />;
 }
 
 export function BreadcrumbSchema({ items }: { items: Array<{ name: string; url: string }> }) {
@@ -103,10 +92,5 @@ export function BreadcrumbSchema({ items }: { items: Array<{ name: string; url: 
         }))
     };
 
-    return (
-        <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-    );
+    return <JsonLd data={schema} />;
 }

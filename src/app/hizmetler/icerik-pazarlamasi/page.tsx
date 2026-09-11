@@ -4,15 +4,32 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight, FileText, TrendingUp, Users, Sparkles, CheckCircle, ChevronDown } from "lucide-react";
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/site";
+import { JsonLd } from "@/components/seo/json-ld";
+import { breadcrumbSchema, serviceSchema } from "@/lib/seo/schema";
 
-export const metadata: Metadata = {
-    title: "Kurumsal İçerik Pazarlaması ve Stratejik İçerik Yönetimi | AURYN Dijital",
+export const metadata: Metadata = pageMetadata({
+    locale: "tr",
+    path: "/hizmetler/icerik-pazarlamasi",
+    title: "Kurumsal İçerik Pazarlaması ve Stratejik İçerik Yönetimi",
     description: "Markanızın sesini otoriteye dönüştürün. B2B, Sanayi ve Turizm odaklı profesyonel içerik pazarlama ajansı. SEO uyumlu blog, web metinleri ve hikaye anlatıcılığı hizmetleri.",
-};
+});
 
 export default function ContentMarketingPage() {
     return (
         <div className="bg-black min-h-screen">
+            <JsonLd data={breadcrumbSchema([
+                { name: "Anasayfa", path: "/" },
+                { name: "Hizmetler", path: "/hizmetler" },
+                { name: "İçerik Pazarlaması", path: "/hizmetler/icerik-pazarlamasi" },
+            ])} />
+            <JsonLd data={serviceSchema({
+                locale: "tr",
+                name: "İçerik Pazarlaması",
+                description: "SEO uyumlu blog, web sitesi metinleri ve otorite inşasına yönelik içerik üretimi.",
+                path: "/hizmetler/icerik-pazarlamasi",
+                serviceType: "Content Marketing",
+            })} />
             <Header />
 
             {/* Hero */}

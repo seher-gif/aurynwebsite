@@ -7,9 +7,14 @@ import Link from "next/link";
 export const dynamic = "force-dynamic";
 
 export default async function SEOResultsPage() {
-    const analyses = await prisma.seoAnalysis.findMany({
-        orderBy: { createdAt: "desc" },
-    });
+    let analyses: any[] = [];
+    try {
+        analyses = await prisma.seoAnalysis.findMany({
+            orderBy: { createdAt: "desc" },
+        });
+    } catch (error) {
+        console.error("Failed to fetch SEO analyses:", error);
+    }
 
     return (
         <div>

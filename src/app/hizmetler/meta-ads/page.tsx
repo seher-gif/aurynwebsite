@@ -4,15 +4,32 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight, Target, TrendingUp, Users, Zap, CheckCircle, ChevronDown } from "lucide-react";
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/site";
+import { JsonLd } from "@/components/seo/json-ld";
+import { breadcrumbSchema, serviceSchema } from "@/lib/seo/schema";
 
-export const metadata: Metadata = {
-    title: "Veri Odaklı Meta Ads (Facebook & Instagram) Reklam Yönetimi | AURYN Dijital",
+export const metadata: Metadata = pageMetadata({
+    locale: "tr",
+    path: "/hizmetler/meta-ads",
+    title: "Veri Odaklı Meta Ads (Facebook & Instagram) Reklam Yönetimi",
     description: "Facebook ve Instagram reklamlarınızda maksimum ROAS hedeflyin. İleri seviye hedefleme, yeniden pazarlama ve kreatif stratejilerle satışlarınızı artırın.",
-};
+});
 
 export default function MetaAdsPage() {
     return (
         <div className="bg-black min-h-screen">
+            <JsonLd data={breadcrumbSchema([
+                { name: "Anasayfa", path: "/" },
+                { name: "Hizmetler", path: "/hizmetler" },
+                { name: "Meta Ads", path: "/hizmetler/meta-ads" },
+            ])} />
+            <JsonLd data={serviceSchema({
+                locale: "tr",
+                name: "Meta Ads Yönetimi",
+                description: "Facebook ve Instagram reklamlarında hedefleme, yeniden pazarlama ve kreatif testlerle ROAS odaklı yönetim.",
+                path: "/hizmetler/meta-ads",
+                serviceType: "Social Media Advertising",
+            })} />
             <Header />
 
             {/* Hero */}

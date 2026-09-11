@@ -3,6 +3,17 @@ import { Footer } from "@/components/layout/footer";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { BarChart2, Globe, Megaphone, PenTool, Search, TrendingUp, ArrowRight } from "lucide-react";
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/site";
+import { JsonLd } from "@/components/seo/json-ld";
+import { breadcrumbSchema } from "@/lib/seo/schema";
+
+export const metadata: Metadata = pageMetadata({
+    locale: "tr",
+    path: "/hizmetler",
+    title: "Hizmetlerimiz",
+    description: "SEO, Google Ads, Meta Ads, sosyal medya yönetimi, içerik pazarlaması ve raporlama & analiz. Auryn Dijital'in veri odaklı dijital pazarlama hizmetlerini keşfedin.",
+});
 
 const services = [
     {
@@ -46,6 +57,10 @@ const services = [
 export default function HizmetlerPage() {
     return (
         <div className="bg-black min-h-screen text-white">
+            <JsonLd data={breadcrumbSchema([
+                { name: "Anasayfa", path: "/" },
+                { name: "Hizmetler", path: "/hizmetler" },
+            ])} />
             <Header />
             <main className="isolate">
                 {/* Hero */}

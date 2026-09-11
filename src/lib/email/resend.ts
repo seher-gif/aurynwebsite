@@ -3,6 +3,75 @@ import { SEOAnalysisResult, SEOMetric } from '@/lib/ai/gemini';
 
 const resend = new Resend(process.env.RESEND_API_KEY || 're_123');
 
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+interface ContactNotificationParams {
+  to: string;
+  name: string;
+  email: string;
+  phone?: string | null;
+  company?: string | null;
+  subject?: string | null;
+  message: string;
+}
+
+export async function sendContactNotification({
+  to,
+  name,
+  email,
+  phone,
+  company,
+  subject,
+  message,
+}: ContactNotificationParams) {
+  return resend.emails.send({
+    from: 'Auryn İletişim <onboarding@resend.dev>',
+    to: [to],
+    replyTo: email,
+    subject: `Yeni İletişim Mesajı: ${escapeHtml(subject || 'Genel')}`,
+    html: `
+      <h2>Yeni Mesaj Alındı</h2>
+      <p><strong>Gönderen:</strong> ${escapeHtml(name)}</p>
+      <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+      <p><strong>Telefon:</strong> ${escapeHtml(phone || 'Belirtilmemiş')}</p>
+      <p><strong>Şirket:</strong> ${escapeHtml(company || 'Belirtilmemiş')}</p>
+      <p><strong>Konu:</strong> ${escapeHtml(subject || 'Belirtilmemiş')}</p>
+      <hr />
+      <h3>Mesaj:</h3>
+      <p>${escapeHtml(message).replace(/\n/g, '<br/>')}</p>
+    `,
+  });
+}
+
+interface SeoDbFailureParams {
+  to: string;
+  domain: string;
+  score: number;
+}
+
+export async function notifySeoAnalysisDbFailure({ to, domain, score }: SeoDbFailureParams) {
+  return resend.emails.send({
+    from: 'Auryn SEO <onboarding@resend.dev>',
+    to: [to],
+    subject: `Yeni SEO Analizi (DB kayıt hatası): ${escapeHtml(domain)}`,
+    html: `
+      <h2>Yeni SEO Analizi Yapıldı</h2>
+      <p><strong>Domain:</strong> ${escapeHtml(domain)}</p>
+      <p><strong>Skor:</strong> ${score}/100</p>
+      <p><strong>Zaman:</strong> ${new Date().toLocaleString('tr-TR')}</p>
+      <br />
+      <small>Bu bildirim, veritabanı kayıt hatası nedeniyle gönderilmiştir.</small>
+    `,
+  });
+}
+
 interface SendSEOReportParams {
   to: string;
   domain: string;

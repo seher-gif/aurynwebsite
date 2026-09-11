@@ -1,9 +1,11 @@
 import bcrypt from 'bcryptjs'
 import 'dotenv/config'
-import { prisma } from '../src/lib/prisma'
-// import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 
-// const prisma = new PrismaClient()
+// @ts-ignore - accelerateUrl is valid in Prisma 7.x runtime
+const prisma = new PrismaClient({
+  accelerateUrl: process.env.DATABASE_URL,
+})
 
 async function main() {
   const email = 'seher@auryndijital.com' // Using 'seher@auryndijital.com' as the login identifier

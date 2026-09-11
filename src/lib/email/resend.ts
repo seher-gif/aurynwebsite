@@ -1,7 +1,17 @@
 import { Resend } from 'resend';
-import { SEOAnalysisResult, SEOMetric } from '@/lib/ai/gemini';
 
 const resend = new Resend(process.env.RESEND_API_KEY || 're_123');
+
+export interface SEOMetric {
+  label: string;
+  status: "success" | "warning" | "error";
+  message: string;
+}
+
+export interface SEOAnalysisResult {
+  score: number;
+  metrics: SEOMetric[];
+}
 
 function escapeHtml(value: string): string {
   return value

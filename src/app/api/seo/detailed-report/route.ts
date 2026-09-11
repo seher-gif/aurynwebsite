@@ -1,21 +1,37 @@
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 import { prisma } from "@/lib/prisma";
-import { analyzeSEO } from "@/lib/ai/gemini";
 import { sendSEOReport } from "@/lib/email/resend";
+
+const metricSchema = z.object({
+    label: z.string(),
+    status: z.enum(["success", "warning", "error"]),
+    message: z.string(),
+});
+
+const analysisSchema = z.object({
+    score: z.number(),
+    metrics: z.array(metricSchema),
+}).passthrough();
+
+const bodySchema = z.object({
+    domain: z.string().min(1),
+    email: z.string().email(),
+    analysis: analysisSchema,
+});
 
 export async function POST(request: NextRequest) {
     try {
-        const { domain, email } = await request.json();
+        const payload = bodySchema.safeParse(await request.json());
 
-        if (!domain || !email) {
+        if (!payload.success) {
             return NextResponse.json(
-                { error: "Domain and email are required" },
+                { error: "Domain, email ve analiz verisi gerekli" },
                 { status: 400 }
             );
         }
 
-        // Get detailed AI-powered SEO analysis
-        const analysis = await analyzeSEO({ domain, email });
+        const { domain, email, analysis } = payload.data;
 
         // Save to database
         await prisma.seoAnalysis.create({
@@ -27,7 +43,8 @@ export async function POST(request: NextRequest) {
             },
         });
 
-        // Send email with detailed report
+        // Send email with the report the user already saw on the site -
+        // never re-run a separate analysis pipeline for this.
         const emailResult = await sendSEOReport({
             to: email,
             domain,
@@ -56,7 +73,7 @@ export async function POST(request: NextRequest) {
     } catch (error) {
         console.error("Detailed report failed:", error);
         return NextResponse.json(
-            { error: "Failed to generate report" },
+            { error: "Rapor oluşturulamadı" },
             { status: 500 }
         );
     }

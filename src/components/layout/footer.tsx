@@ -7,6 +7,8 @@ import type { Locale } from "@/lib/i18n/routes";
 
 const NAV: Record<Locale, {
     tagline: string;
+    velluraPrefix: string;
+    velluraSuffix: string;
     partnersLabel: string;
     servicesLabel: string;
     companyLabel: string;
@@ -18,6 +20,8 @@ const NAV: Record<Locale, {
 }> = {
     tr: {
         tagline: "Veri odaklı dijital performans ajansı. Markanızı dijital dünyada büyütüyoruz.",
+        velluraPrefix: "Auryn Dijital, stratejik iletişim ve marka danışmanlığı alanında faaliyet gösteren bağımsız ",
+        velluraSuffix: " çatısı altında yer alır.",
         partnersLabel: "Partnerlerimiz",
         servicesLabel: "Hizmetler",
         companyLabel: "Kurumsal",
@@ -46,6 +50,8 @@ const NAV: Record<Locale, {
     },
     en: {
         tagline: "A data-driven digital performance agency. We grow your brand's digital presence.",
+        velluraPrefix: "Auryn Digital is part of ",
+        velluraSuffix: ", an independent strategic communications and brand advisory group.",
         partnersLabel: "Our Partners",
         servicesLabel: "Services",
         companyLabel: "Company",
@@ -102,6 +108,13 @@ export function Footer({ locale = "tr" }: { locale?: Locale }) {
                             </Link>
                             <p className="text-sm leading-6 text-gray-400 max-w-xs">
                                 {navigation.tagline}
+                            </p>
+                            <p className="text-xs leading-6 text-gray-500 max-w-xs">
+                                {navigation.velluraPrefix}
+                                <a href="https://vellurapr.com" target="_blank" rel="noopener noreferrer" className="text-auryn-magenta hover:underline">
+                                    Vellura
+                                </a>
+                                {navigation.velluraSuffix}
                             </p>
                             <div className="flex space-x-6">
                                 {social.map((item) => (

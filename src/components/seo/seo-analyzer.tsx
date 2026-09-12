@@ -41,6 +41,13 @@ interface SEOAnalysisResult {
     metrics: SEOMetric[];
 }
 
+const PARTNERS = [
+    { name: "Meta", src: "/partners/meta.svg" },
+    { name: "TikTok", src: "/partners/tiktok.svg" },
+    { name: "Yandex", src: "/partners/yandex.svg" },
+    { name: "Google", src: "/partners/google.svg" },
+];
+
 const STRINGS = {
     tr: {
         heroTitlePrefix: "Web Sitenizin SEO Puanını",
@@ -448,18 +455,11 @@ export function SeoAnalyzer({ locale = "tr" }: { locale?: Locale }) {
                                     <h3 className="text-2xl font-bold text-white mb-6 text-center">{t.partnersHeading}</h3>
                                     <p className="text-gray-400 text-sm text-center mb-8">{t.partnersBody}</p>
                                     <div className="grid grid-cols-2 gap-6">
-                                        <div className="bg-white rounded-xl p-6 flex items-center justify-center hover:scale-105 transition-transform">
-                                            <Image src="/partners/meta-business-partner.png" alt="Meta Business Partner" width={120} height={80} className="w-full h-auto max-h-20 object-contain" loading="lazy" />
-                                        </div>
-                                        <div className="bg-purple-900/20 rounded-xl p-6 flex items-center justify-center hover:scale-105 transition-transform border border-purple-500/20">
-                                            <Image src="/partners/semrush-partner.jpg" alt="Semrush Certified Agency Partner" width={120} height={80} className="w-full h-auto max-h-20 object-contain" loading="lazy" />
-                                        </div>
-                                        <div className="bg-white rounded-xl p-6 flex items-center justify-center hover:scale-105 transition-transform">
-                                            <Image src="/partners/yandex-partner.png" alt="Yandex Partner" width={120} height={80} className="w-full h-auto max-h-20 object-contain" loading="lazy" />
-                                        </div>
-                                        <div className="bg-gradient-to-br from-yellow-100 to-purple-100 rounded-xl p-6 flex items-center justify-center hover:scale-105 transition-transform">
-                                            <Image src="/partners/ikas-partner.jpg" alt="ikas Partner" width={120} height={80} className="w-full h-auto max-h-20 object-contain" loading="lazy" />
-                                        </div>
+                                        {PARTNERS.map((partner) => (
+                                            <div key={partner.name} className="bg-white/5 border border-white/10 rounded-xl p-6 flex items-center justify-center hover:border-auryn-magenta/30 hover:bg-white/10 transition-all">
+                                                <Image src={partner.src} alt={`${partner.name} Partner`} width={140} height={70} className="w-full h-auto max-h-16 object-contain" loading="lazy" />
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                             </div>

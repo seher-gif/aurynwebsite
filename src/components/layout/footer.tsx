@@ -77,6 +77,13 @@ const social = [
     { name: "LinkedIn", href: "https://www.linkedin.com/company/auryn-dijital/", icon: Linkedin },
 ];
 
+const PARTNERS = [
+    { name: "Meta", src: "/partners/meta.svg" },
+    { name: "TikTok", src: "/partners/tiktok.svg" },
+    { name: "Yandex", src: "/partners/yandex.svg" },
+    { name: "Google", src: "/partners/google.svg" },
+];
+
 export function Footer({ locale = "tr" }: { locale?: Locale }) {
     const navigation = NAV[locale];
     const homeHref = locale === "tr" ? "/" : "/en";
@@ -108,46 +115,18 @@ export function Footer({ locale = "tr" }: { locale?: Locale }) {
                         <div className="space-y-4">
                             <h3 className="text-sm font-bold leading-6 text-transparent bg-clip-text bg-gradient-to-r from-auryn-magenta to-auryn-purple">{navigation.partnersLabel}</h3>
                             <div className="grid grid-cols-2 gap-3">
-                                <div className="bg-white rounded-lg p-3 flex items-center justify-center hover:scale-105 transition-transform">
-                                    <Image
-                                        src="/partners/meta-business-partner.png"
-                                        alt="Meta Business Partner"
-                                        width={100}
-                                        height={48}
-                                        className="w-full h-auto max-h-12 object-contain"
-                                        loading="lazy"
-                                    />
-                                </div>
-                                <div className="bg-purple-900/20 rounded-lg p-3 flex items-center justify-center hover:scale-105 transition-transform border border-purple-500/20">
-                                    <Image
-                                        src="/partners/semrush-partner.jpg"
-                                        alt="Semrush Partner"
-                                        width={100}
-                                        height={48}
-                                        className="w-full h-auto max-h-12 object-contain"
-                                        loading="lazy"
-                                    />
-                                </div>
-                                <div className="bg-white rounded-lg p-3 flex items-center justify-center hover:scale-105 transition-transform">
-                                    <Image
-                                        src="/partners/yandex-partner.png"
-                                        alt="Yandex Partner"
-                                        width={100}
-                                        height={48}
-                                        className="w-full h-auto max-h-12 object-contain"
-                                        loading="lazy"
-                                    />
-                                </div>
-                                <div className="bg-gradient-to-br from-yellow-100 to-purple-100 rounded-lg p-3 flex items-center justify-center hover:scale-105 transition-transform">
-                                    <Image
-                                        src="/partners/ikas-partner.jpg"
-                                        alt="ikas Partner"
-                                        width={100}
-                                        height={48}
-                                        className="w-full h-auto max-h-12 object-contain"
-                                        loading="lazy"
-                                    />
-                                </div>
+                                {PARTNERS.map((partner) => (
+                                    <div key={partner.name} className="bg-white/5 border border-white/10 rounded-lg p-3 flex items-center justify-center hover:border-auryn-magenta/30 hover:bg-white/10 transition-all">
+                                        <Image
+                                            src={partner.src}
+                                            alt={`${partner.name} Partner`}
+                                            width={120}
+                                            height={60}
+                                            className="w-full h-auto max-h-12 object-contain"
+                                            loading="lazy"
+                                        />
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>

@@ -138,8 +138,8 @@ export default function EnglishHome() {
                                 <div className="relative rounded-2xl bg-gray-800/50 p-2 ring-1 ring-inset ring-white/10 lg:-m-4 lg:rounded-3xl lg:p-4 backdrop-blur-sm">
                                     <div className="aspect-[4/3] w-[400px] sm:w-[600px] rounded-xl relative overflow-hidden group">
                                         <Image
-                                            src="/office-1.jpg"
-                                            alt="Auryn Dijital office"
+                                            src="/brand/story-infinity-en.svg"
+                                            alt="Auryn Dijital - Infinity and Connection"
                                             fill
                                             className="object-cover"
                                             priority

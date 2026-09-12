@@ -60,8 +60,8 @@ export default function HakkimizdaPage() {
                         </div>
                         <div className="relative rounded-3xl aspect-video overflow-hidden group">
                             <Image
-                                src="/office-2.jpg"
-                                alt="Auryn Dijital Ekip"
+                                src="/brand/story-network.svg"
+                                alt="Auryn Dijital - Strateji ve İş Birliği"
                                 fill
                                 className="object-cover"
                             />

@@ -58,8 +58,8 @@ export default function AboutPage() {
                         </div>
                         <div className="relative rounded-3xl aspect-video overflow-hidden group">
                             <Image
-                                src="/office-2.jpg"
-                                alt="Auryn Dijital team"
+                                src="/brand/story-network-en.svg"
+                                alt="Auryn Dijital - Strategy and Partnership"
                                 fill
                                 className="object-cover"
                             />

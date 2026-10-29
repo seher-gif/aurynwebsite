@@ -35,6 +35,7 @@ const NAV: Record<Locale, {
             { name: "İçerik Pazarlaması", href: "/hizmetler/icerik-pazarlamasi" },
             { name: "Meta Ads", href: "/hizmetler/meta-ads" },
             { name: "Raporlama & Analiz", href: "/hizmetler/raporlama-analiz" },
+            { name: "Sağlık Turizmi Pazarlama", href: "/hizmetler/saglik-turizmi-dijital-pazarlama" },
         ],
         company: [
             { name: "Hakkımızda", href: "/hakkimizda" },
@@ -64,6 +65,7 @@ const NAV: Record<Locale, {
             { name: "Social Media Management", href: "/en/services/social-media" },
             { name: "Content Marketing", href: "/en/services/content-marketing" },
             { name: "Analytics & Reporting", href: "/en/services/analytics-reporting" },
+            { name: "Health Tourism Marketing", href: "/en/services/health-tourism-marketing" },
         ],
         company: [
             { name: "About", href: "/en/about" },
@@ -104,7 +106,7 @@ export function Footer({ locale = "tr" }: { locale?: Locale }) {
                     <div className="grid md:grid-cols-2 gap-8">
                         <div className="space-y-8">
                             <Link href={homeHref} className="-m-1.5 p-1.5 mb-4 inline-block">
-                                <Image src="/auryn-logo.png" alt="Auryn Dijital" width={400} height={134} className="h-48 w-auto" />
+                                <Image src="/auryn-logo-wide.png" alt="Auryn Dijital - Dijital Pazarlama & SEO Ajansı" width={815} height={112} className="h-12 w-auto" />
                             </Link>
                             <p className="text-sm leading-6 text-gray-400 max-w-xs">
                                 {navigation.tagline}

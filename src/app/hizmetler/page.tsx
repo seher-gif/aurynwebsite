@@ -2,7 +2,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { BarChart2, Globe, Megaphone, PenTool, Search, TrendingUp, ArrowRight } from "lucide-react";
+import { BarChart2, Globe, HeartPulse, Megaphone, PenTool, Search, TrendingUp, ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo/site";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -51,6 +51,12 @@ const services = [
         description: 'Şeffaf ve detaylı raporlarla performansınızı anlık takip edin. Veri odaklı kararlar alarak stratejinizi sürekli iyileştirin.',
         icon: BarChart2,
         href: '/hizmetler/raporlama-analiz',
+    },
+    {
+        name: 'Sağlık Turizmi Dijital Pazarlama',
+        description: 'Klinik ve hastaneler için çok dilli SEO, Google Ads ve Meta reklamlarıyla uluslararası hasta talebini artırın. Mevzuata ve platform politikalarına uyumlu çalışıyoruz.',
+        icon: HeartPulse,
+        href: '/hizmetler/saglik-turizmi-dijital-pazarlama',
     },
 ];
 

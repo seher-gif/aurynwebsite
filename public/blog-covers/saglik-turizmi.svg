@@ -1,0 +1,14 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e51e51"/>
+      <stop offset="100%" stop-color="#9089fc"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#161616"/>
+  <circle cx="600" cy="290" r="180" fill="none" stroke="url(#g1)" stroke-width="2" opacity="0.5"/>
+  <circle cx="600" cy="290" r="125" fill="none" stroke="url(#g1)" stroke-width="2" opacity="0.65"/>
+  <path d="M470 290 H545 L572 228 L616 352 L645 290 H730" fill="none" stroke="url(#g1)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="600" y="500" font-family="Arial, sans-serif" font-size="48" font-weight="700" fill="#ffffff" text-anchor="middle">Sağlık Turizmi</text>
+  <rect x="555" y="522" width="90" height="6" fill="url(#g1)"/>
+</svg>

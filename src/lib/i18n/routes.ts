@@ -20,6 +20,7 @@ export const ROUTE_PAIRS: Array<{ tr: string; en: string }> = [
     { tr: "/hizmetler/sosyal-medya-yonetimi", en: "/en/services/social-media" },
     { tr: "/hizmetler/icerik-pazarlamasi", en: "/en/services/content-marketing" },
     { tr: "/hizmetler/raporlama-analiz", en: "/en/services/analytics-reporting" },
+    { tr: "/hizmetler/saglik-turizmi-dijital-pazarlama", en: "/en/services/health-tourism-marketing" },
     { tr: "/seo-analizi", en: "/en/seo-analysis" },
     { tr: "/blog", en: "/en/blog" },
     { tr: "/referanslar", en: "/en/case-studies" },

@@ -1,10 +1,9 @@
-import { prisma } from "@/lib/prisma";
-import type { Client } from "@prisma/client";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { ReferencesSection } from "@/components/sections/references";
 import { ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo/site";
@@ -20,17 +19,6 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default async function CaseStudiesPage() {
-    let clients: Client[] = [];
-
-    try {
-        clients = await prisma.client.findMany({
-            where: { active: true },
-            orderBy: { order: "asc" },
-        });
-    } catch (error) {
-        console.log('Client table not found yet');
-    }
-
     const caseStudies = await getPublishedCaseStudies("en");
 
     return (
@@ -60,32 +48,7 @@ export default async function CaseStudiesPage() {
                 </div>
             </section>
 
-            {/* Client Logos */}
-            {clients.length > 0 && (
-                <section className="py-12 bg-black border-y border-white/5">
-                    <div className="max-w-7xl mx-auto px-6 lg:px-8">
-                        <div className="text-center mb-10">
-                            <span className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Trusted By</span>
-                        </div>
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 opacity-70 hover:opacity-100 transition-opacity duration-500">
-                            {clients.map((client) => (
-                                <div
-                                    key={client.id}
-                                    className="flex items-center justify-center p-6 bg-white/5 rounded-xl border border-white/5 hover:border-auryn-magenta/30 transition-all grayscale hover:grayscale-0"
-                                >
-                                    {client.website ? (
-                                        <a href={client.website} target="_blank" rel="noopener noreferrer" className="w-full h-full flex items-center justify-center">
-                                            <Image src={client.logo} alt={client.name} width={150} height={75} className="object-contain max-h-12 w-auto" />
-                                        </a>
-                                    ) : (
-                                        <Image src={client.logo} alt={client.name} width={150} height={75} className="object-contain max-h-12 w-auto" />
-                                    )}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-            )}
+            <ReferencesSection locale="en" />
 
             {/* Case Studies */}
             {caseStudies.length > 0 ? (

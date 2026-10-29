@@ -8,6 +8,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { organizationSchema, websiteSchema } from "@/lib/seo/schema";
 import { pageMetadata } from "@/lib/seo/site";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
+import { ReferencesSection } from "@/components/sections/references";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = pageMetadata({
@@ -114,6 +115,8 @@ export default function EnglishHome() {
                         </dl>
                     </div>
                 </div>
+
+                <ReferencesSection locale="en" />
 
                 {/* Our Story Section */}
                 <div className="bg-gray-900/30 border-y border-white/5 py-24 sm:py-32 relative overflow-hidden">

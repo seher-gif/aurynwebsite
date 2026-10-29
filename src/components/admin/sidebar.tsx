@@ -44,10 +44,10 @@ export function AdminSidebar() {
             <div className="flex h-16 shrink-0 items-center">
                 <div className="flex items-center gap-2">
                     <Image
-                        src="/auryn-logo.png"
+                        src="/auryn-wordmark.png"
                         alt="Auryn Logo"
-                        width={120}
-                        height={40}
+                        width={417}
+                        height={112}
                         className="h-8 w-auto"
                     />
                     <span className="text-xs font-normal text-gray-400">Admin</span>

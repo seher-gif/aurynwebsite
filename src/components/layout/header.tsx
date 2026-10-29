@@ -69,13 +69,22 @@ export function Header({ locale = "tr" }: { locale?: Locale }) {
                 <div className="flex lg:flex-1">
                     <Link href={homeHref} className="-m-1.5 p-0" suppressHydrationWarning>
                         <Image
-                            src="/auryn-logo.png"
+                            src="/auryn-wordmark.png"
                             alt="Auryn Dijital"
-                            width={400}
-                            height={134}
-                            className="h-20 w-auto"
+                            width={417}
+                            height={112}
+                            priority
+                            className="h-11 w-auto max-w-none shrink-0 xl:hidden"
                         />
-                    </Link>
+                        <Image
+                            src="/auryn-logo-wide.png"
+                            alt="Auryn Dijital - Dijital Pazarlama & SEO Ajansı"
+                            width={815}
+                            height={112}
+                            priority
+                            className="hidden h-11 w-auto max-w-none shrink-0 xl:block"
+                        />
+                        </Link>
                 </div>
                 <div className="flex lg:hidden">
                     <button
@@ -87,7 +96,7 @@ export function Header({ locale = "tr" }: { locale?: Locale }) {
                         <Menu className="h-6 w-6" aria-hidden="true" />
                     </button>
                 </div>
-                <div className="hidden lg:flex lg:gap-x-12">
+                <div className="hidden lg:flex lg:gap-x-8 xl:gap-x-12">
                     {navigation.map((item) => (
                         <Link key={item.name} href={item.href} className={cn(
                             "text-sm font-semibold leading-6 transition-colors",
@@ -107,7 +116,7 @@ export function Header({ locale = "tr" }: { locale?: Locale }) {
                         {locale === "tr" ? "EN" : "TR"}
                     </Link>
                     <Button variant="outline" className={cn(
-                        "bg-transparent border-white/20 hover:bg-white/10 transition-colors",
+                        "hidden xl:inline-flex bg-transparent border-white/20 hover:bg-white/10 transition-colors",
                         scrolled ? "text-white hover:text-white" : "text-white hover:text-white"
                     )} asChild>
                         <Link href={t.seoAnalysisHref}>{t.seoAnalysis}</Link>
@@ -123,7 +132,7 @@ export function Header({ locale = "tr" }: { locale?: Locale }) {
                 <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-black px-6 py-6 sm:max-w-sm border-l border-white/10">
                     <div className="flex items-center justify-between">
                         <Link href={homeHref} className="-m-1.5 p-1.5">
-                            <Image src="/auryn-logo.png" alt="Auryn Dijital" width={200} height={67} className="h-14 w-auto" />
+                            <Image src="/auryn-logo-wide.png" alt="Auryn Dijital" width={815} height={112} className="h-10 w-auto" />
                         </Link>
                         <button
                             type="button"

@@ -9,7 +9,7 @@ export const ORG = {
     name: "Auryn Dijital",
     legalName: "Auryn Dijital",
     url: SITE_URL,
-    logo: `${SITE_URL}/auryn-logo.png`,
+    logo: `${SITE_URL}/auryn-icon.png`,
     email: "seher@auryndijital.com",
     phone: "+90-531-940-90-65",
     address: {
@@ -57,7 +57,7 @@ export function pageMetadata({ locale, path, title, description, ogImage, noinde
             return result;
         })()
         : buildLanguageAlternates(path, locale);
-    const image = ogImage || `${SITE_URL}/auryn-logo.png`;
+    const image = ogImage || `${SITE_URL}/auryn-logo-wide.png`;
 
     // The root layout's title.template ("%s | Auryn Dijital") only applies to
     // segments nested below it. "/en" lives one segment deeper (app/en/layout.tsx)

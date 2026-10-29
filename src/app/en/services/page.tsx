@@ -2,7 +2,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { BarChart2, Globe, Megaphone, PenTool, Search, TrendingUp, ArrowRight } from "lucide-react";
+import { BarChart2, Globe, HeartPulse, Megaphone, PenTool, Search, TrendingUp, ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo/site";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -51,6 +51,12 @@ const services = [
         description: "Track performance with transparent, detailed reporting. Make decisions from data and keep refining the strategy.",
         icon: BarChart2,
         href: "/en/services/analytics-reporting",
+    },
+    {
+        name: "Health Tourism Marketing",
+        description: "Grow international patient demand for clinics and hospitals with multilingual SEO, Google Ads and Meta campaigns, built around healthcare regulation and platform policies.",
+        icon: HeartPulse,
+        href: "/en/services/health-tourism-marketing",
     },
 ];
 

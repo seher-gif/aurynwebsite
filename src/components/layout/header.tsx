@@ -70,19 +70,11 @@ export function Header({ locale = "tr" }: { locale?: Locale }) {
                     <Link href={homeHref} className="-m-1.5 p-0" suppressHydrationWarning>
                         <Image
                             src="/auryn-wordmark.png"
-                            alt="Auryn Dijital"
+                            alt="Auryn Dijital - Dijital Pazarlama & SEO Ajansı"
                             width={417}
                             height={112}
                             priority
-                            className="h-11 w-auto max-w-none shrink-0 xl:hidden"
-                        />
-                        <Image
-                            src="/auryn-logo-wide.png"
-                            alt="Auryn Dijital - Dijital Pazarlama & SEO Ajansı"
-                            width={815}
-                            height={112}
-                            priority
-                            className="hidden h-11 w-auto max-w-none shrink-0 xl:block"
+                            className="h-12 w-auto max-w-none shrink-0"
                         />
                         </Link>
                 </div>
@@ -132,7 +124,7 @@ export function Header({ locale = "tr" }: { locale?: Locale }) {
                 <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-black px-6 py-6 sm:max-w-sm border-l border-white/10">
                     <div className="flex items-center justify-between">
                         <Link href={homeHref} className="-m-1.5 p-1.5">
-                            <Image src="/auryn-logo-wide.png" alt="Auryn Dijital" width={815} height={112} className="h-10 w-auto" />
+                            <Image src="/auryn-wordmark.png" alt="Auryn Dijital" width={417} height={112} className="h-10 w-auto max-w-none" />
                         </Link>
                         <button
                             type="button"

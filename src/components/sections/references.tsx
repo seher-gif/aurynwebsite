@@ -55,9 +55,9 @@ export async function ReferencesSection({ locale = "tr" }: { locale?: Locale }) 
                     return (
                         <li
                             key={client.id}
-                            className="group w-[calc(50%-0.5rem)] sm:w-52 lg:w-56 rounded-2xl bg-white ring-1 ring-white/10 shadow-lg shadow-black/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-auryn-magenta/20"
+                            className="group w-[calc(50%-0.5rem)] sm:w-52 lg:w-56 rounded-2xl bg-gradient-to-b from-white/[0.06] to-white/[0.02] ring-1 ring-white/10 transition-all duration-300 hover:-translate-y-1 hover:ring-auryn-magenta/40 hover:from-white/[0.09]"
                         >
-                            <div className="relative mx-auto h-24 sm:h-28 m-5 sm:m-6">
+                            <div className="relative mx-auto h-20 sm:h-24 m-6 sm:m-7">
                                 {client.website ? (
                                     <a href={client.website} target="_blank" rel="noopener noreferrer nofollow" aria-label={client.name} className="absolute inset-0 block">
                                         {img}

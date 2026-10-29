@@ -106,7 +106,7 @@ export function Footer({ locale = "tr" }: { locale?: Locale }) {
                     <div className="grid md:grid-cols-2 gap-8">
                         <div className="space-y-8">
                             <Link href={homeHref} className="-m-1.5 p-1.5 mb-4 inline-block">
-                                <Image src="/auryn-logo-wide.png" alt="Auryn Dijital - Dijital Pazarlama & SEO Ajansı" width={815} height={112} className="h-12 w-auto" />
+                                <Image src="/auryn-logo-wide.png" alt="Auryn Dijital - Dijital Pazarlama & SEO Ajansı" width={815} height={112} className="h-auto w-full max-w-[300px]" />
                             </Link>
                             <p className="text-sm leading-6 text-gray-400 max-w-xs">
                                 {navigation.tagline}

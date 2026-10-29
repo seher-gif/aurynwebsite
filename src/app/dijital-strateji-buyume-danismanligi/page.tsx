@@ -8,11 +8,14 @@ import {
     BarChart2
 } from "lucide-react";
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+    locale: "tr",
+    path: "/dijital-strateji-buyume-danismanligi",
     title: "Stratejik Danışmanlık & Büyüme Pazarlaması",
     description: "Veri odaklı dijital strateji danışmanlığı ve büyüme pazarlaması hizmetleri. İşletmenizin dijital dönüşümünde stratejik partneriniz.",
-};
+});
 
 export default function StrategicConsultingPage() {
     return (

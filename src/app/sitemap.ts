@@ -25,6 +25,9 @@ function entry(path: string, opts: { lastModified?: Date; priority?: number; alt
     }
 }
 
+// Kendi rotası olan ya da başka bir sayfanın kopyası olan CMS kayıtları
+const EXCLUDED_PAGE_SLUGS = new Set(['ana-sayfa', 'seo-analysis'])
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Statik TR/EN sayfa çiftleri (hreflang ile birlikte)
     const staticEntries: MetadataRoute.Sitemap = []
@@ -34,6 +37,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
 
     // Diğer statik sayfalar (henüz İngilizce karşılığı olmayan)
+    const landingRoutes = [
+        '/antalya-dijital-pazarlama-ajansi',
+        '/istanbul-dijital-pazarlama-ajansi',
+        '/performans-pazarlama-reklam-yonetimi',
+        '/dijital-strateji-buyume-danismanligi',
+    ]
+    for (const route of landingRoutes) {
+        staticEntries.push(entry(route, { priority: 0.7, alternatePath: null }))
+    }
+
     const otherStaticRoutes = [
         '/kariyer',
         '/gizlilik-politikasi',
@@ -43,6 +56,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     for (const route of otherStaticRoutes) {
         staticEntries.push(entry(route, { priority: 0.5, alternatePath: null }))
     }
+
+    const staticPaths = new Set(staticEntries.map((e) => new URL(e.url).pathname))
 
     // Blog yazıları (TR + EN)
     const blogEntries: MetadataRoute.Sitemap = []
@@ -89,8 +104,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
         dynamicPages = pages
             .map((page) => (page.slug.startsWith('/') ? page.slug.slice(1) : page.slug))
-            // Zaten yukarıda eklenen rotaları tekrar eklemeyelim
+            // Zaten yukarıda eklenen rotaları ve kopya içerik üreten kayıtları tekrar eklemeyelim
             .filter((slug) => !ROUTE_PAIRS.some((p) => p.tr === `/${slug}`))
+            .filter((slug) => !staticPaths.has(`/${slug}`))
+            .filter((slug) => !EXCLUDED_PAGE_SLUGS.has(slug))
             .map((slug) => entry(`/${slug}`, { priority: 0.7, alternatePath: null }))
     } catch (error) {
         console.error('Failed to fetch dynamic pages for sitemap:', error)

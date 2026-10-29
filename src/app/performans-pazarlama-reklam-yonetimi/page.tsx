@@ -4,11 +4,14 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight, TrendingUp, BarChart3, Target, Zap, ChevronDown } from "lucide-react";
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+    locale: "tr",
+    path: "/performans-pazarlama-reklam-yonetimi",
     title: "Performans Pazarlama ve Google Ads Yönetimi | ROI Odaklı Ajans",
     description: "Google Ads, Meta ve LinkedIn reklamlarınızda maksimum ROAS hedefliyoruz. Turizm ve B2B sanayi reklamcılığında uzman, ölçülebilir performans yönetimi.",
-};
+});
 
 export default function PerformansPazarlamaPage() {
     return (

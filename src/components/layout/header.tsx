@@ -14,6 +14,7 @@ const NAV: Record<Locale, { name: string; href: string }[]> = {
         { name: "Anasayfa", href: "/" },
         { name: "Hakkımızda", href: "/hakkimizda" },
         { name: "Hizmetler", href: "/hizmetler" },
+        { name: "Sağlık Turizmi", href: "/hizmetler/saglik-turizmi-dijital-pazarlama" },
         { name: "Referanslar", href: "/referanslar" },
         { name: "Blog", href: "/blog" },
         { name: "İletişim", href: "/iletisim" },
@@ -22,6 +23,7 @@ const NAV: Record<Locale, { name: string; href: string }[]> = {
         { name: "Home", href: "/en" },
         { name: "About", href: "/en/about" },
         { name: "Services", href: "/en/services" },
+        { name: "Health Tourism", href: "/en/services/health-tourism-marketing" },
         { name: "Case Studies", href: "/en/case-studies" },
         { name: "Blog", href: "/en/blog" },
         { name: "Contact", href: "/en/contact" },
@@ -65,8 +67,8 @@ export function Header({ locale = "tr" }: { locale?: Locale }) {
                 scrolled ? "bg-black/80 backdrop-blur-md border-b border-white/10" : "bg-transparent"
             )}
         >
-            <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
-                <div className="flex lg:flex-1">
+            <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 xl:px-8" aria-label="Global">
+                <div className="flex xl:flex-1">
                     <Link href={homeHref} className="-m-1.5 p-0" suppressHydrationWarning>
                         <Image
                             src="/auryn-wordmark.png"
@@ -78,7 +80,7 @@ export function Header({ locale = "tr" }: { locale?: Locale }) {
                         />
                         </Link>
                 </div>
-                <div className="flex lg:hidden">
+                <div className="flex xl:hidden">
                     <button
                         type="button"
                         className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white"
@@ -88,7 +90,7 @@ export function Header({ locale = "tr" }: { locale?: Locale }) {
                         <Menu className="h-6 w-6" aria-hidden="true" />
                     </button>
                 </div>
-                <div className="hidden lg:flex lg:gap-x-8 xl:gap-x-12">
+                <div className="hidden xl:flex xl:gap-x-6 2xl:gap-x-10">
                     {navigation.map((item) => (
                         <Link key={item.name} href={item.href} className={cn(
                             "text-sm font-semibold leading-6 transition-colors",
@@ -98,7 +100,7 @@ export function Header({ locale = "tr" }: { locale?: Locale }) {
                         </Link>
                     ))}
                 </div>
-                <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-x-4">
+                <div className="hidden xl:flex xl:flex-1 xl:justify-end items-center gap-x-4">
                     <Link
                         href={switcherHref}
                         className="flex items-center gap-1.5 text-sm font-semibold text-white/80 hover:text-auryn-magenta transition-colors"
@@ -108,7 +110,7 @@ export function Header({ locale = "tr" }: { locale?: Locale }) {
                         {locale === "tr" ? "EN" : "TR"}
                     </Link>
                     <Button variant="outline" className={cn(
-                        "hidden xl:inline-flex bg-transparent border-white/20 hover:bg-white/10 transition-colors",
+                        "hidden 2xl:inline-flex bg-transparent border-white/20 hover:bg-white/10 transition-colors",
                         scrolled ? "text-white hover:text-white" : "text-white hover:text-white"
                     )} asChild>
                         <Link href={t.seoAnalysisHref}>{t.seoAnalysis}</Link>
@@ -120,7 +122,7 @@ export function Header({ locale = "tr" }: { locale?: Locale }) {
             </nav>
 
             {/* Mobile Menu */}
-            <div className={cn("lg:hidden", mobileMenuOpen ? "fixed inset-0 z-50" : "hidden")}>
+            <div className={cn("xl:hidden", mobileMenuOpen ? "fixed inset-0 z-50" : "hidden")}>
                 <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-black px-6 py-6 sm:max-w-sm border-l border-white/10">
                     <div className="flex items-center justify-between">
                         <Link href={homeHref} className="-m-1.5 p-1.5">

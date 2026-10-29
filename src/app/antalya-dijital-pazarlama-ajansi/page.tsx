@@ -5,11 +5,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, CheckCircle, MapPin, Award, Sparkles, TrendingUp } from "lucide-react";
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/site";
 
-export const metadata: Metadata = {
-    title: "Antalya Dijital Pazarlama Ajansı | SEO, Google Ads & Sosyal Medya | AURYN",
+export const metadata: Metadata = pageMetadata({
+    locale: "tr",
+    path: "/antalya-dijital-pazarlama-ajansi",
+    title: "Antalya Dijital Pazarlama Ajansı | SEO, Google Ads & Sosyal Medya",
     description: "Antalya'nın önde gelen dijital pazarlama ajansı. Turizm odaklı SEO, performans reklamcılığı ve sosyal medya yönetimi hizmetleriyle markanızı büyütüyoruz.",
-};
+});
 
 export default function AntalyaPage() {
     return (

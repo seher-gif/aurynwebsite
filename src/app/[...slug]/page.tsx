@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { notFound, redirect } from "next/navigation";
+import { notFound, redirect, permanentRedirect } from "next/navigation";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Metadata } from "next";
@@ -58,6 +58,7 @@ export default async function DynamicPage({ params }: PageProps) {
     });
 
     if (redirectRule) {
+        if (redirectRule.type === 301) permanentRedirect(redirectRule.targetPath);
         redirect(redirectRule.targetPath);
     }
 

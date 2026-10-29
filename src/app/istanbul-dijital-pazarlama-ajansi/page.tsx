@@ -4,11 +4,14 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight, CheckCircle, Building2, Cpu, Globe, BarChart3, Users2, Rocket } from "lucide-react";
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/site";
 
-export const metadata: Metadata = {
-    title: "İstanbul Dijital Pazarlama Ajansı | B2B & Kurumsal Çözümler | AURYN",
+export const metadata: Metadata = pageMetadata({
+    locale: "tr",
+    path: "/istanbul-dijital-pazarlama-ajansi",
+    title: "İstanbul Dijital Pazarlama Ajansı | B2B & Kurumsal Çözümler",
     description: "İstanbul'da B2B, sanayi ve teknoloji firmaları için profesyonel dijital pazarlama hizmetleri. LinkedIn uzmanı, ihracat odaklı stratejiler.",
-};
+});
 
 export default function IstanbulPage() {
     return (

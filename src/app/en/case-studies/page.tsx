@@ -11,6 +11,9 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 import { getPublishedCaseStudies } from "@/lib/case-studies/data";
 
+// Case studies live in the database: render on request so new ones appear without a redeploy.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = pageMetadata({
     locale: "en",
     path: "/en/case-studies",

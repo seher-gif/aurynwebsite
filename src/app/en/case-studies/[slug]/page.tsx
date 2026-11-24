@@ -10,6 +10,10 @@ import { pageMetadata } from "@/lib/seo/site";
 import { JsonLd } from "@/components/seo/json-ld";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 import { getCaseStudyBySlug, getPublishedCaseStudies } from "@/lib/case-studies/data";
+import { CaseStudyReport, hasCaseStudyReport } from "@/components/case-study/case-study-report";
+
+// Case studies live in the database: render on request so new ones appear without a redeploy.
+export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
     const items = await getPublishedCaseStudies("en");
@@ -94,7 +98,9 @@ export default async function CaseStudyDetailPage({ params }: { params: Promise<
                     <div className="prose prose-lg max-w-none">
                         <h2 className="text-2xl font-bold text-gray-900 mb-4">Project Overview</h2>
                         <p className="text-gray-600 text-lg mb-8">{caseStudy.excerpt}</p>
-                        <div className="whitespace-pre-wrap text-gray-700 leading-relaxed">{caseStudy.content}</div>
+                        {!hasCaseStudyReport(caseStudy.slug) && (
+                            <div className="whitespace-pre-wrap text-gray-700 leading-relaxed">{caseStudy.content}</div>
+                        )}
                     </div>
 
                     {caseStudy.results != null && (
@@ -112,6 +118,14 @@ export default async function CaseStudyDetailPage({ params }: { params: Promise<
                     )}
                 </div>
             </section>
+
+            {hasCaseStudyReport(caseStudy.slug) && (
+                <section className="pb-16">
+                    <div className="max-w-5xl mx-auto px-6 lg:px-8">
+                        <CaseStudyReport slug={caseStudy.slug} locale="en" />
+                    </div>
+                </section>
+            )}
 
             {relatedCaseStudies.length > 0 && (
                 <section className="py-16 bg-gray-50">

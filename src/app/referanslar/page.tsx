@@ -11,6 +11,9 @@ import { pageMetadata } from "@/lib/seo/site";
 import { JsonLd } from "@/components/seo/json-ld";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 
+// Case studies live in the database: render on request so new ones appear without a redeploy.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = pageMetadata({
     locale: "tr",
     path: "/referanslar",

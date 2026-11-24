@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { sendContactNotification } from "@/lib/email/resend";
+import { getNotificationSettings } from "@/lib/settings";
 
 const contactSchema = z.object({
     name: z.string().trim().min(2).max(200),
@@ -80,8 +81,10 @@ export async function POST(request: NextRequest) {
         console.error("Failed to save contact message:", error);
     }
 
-    const notificationEmail = process.env.CONTACT_NOTIFICATION_EMAIL;
-    if (process.env.RESEND_API_KEY && notificationEmail) {
+    const notifications = await getNotificationSettings();
+    const notificationEmail = notifications.contactEnabled ? notifications.contactEmail : "";
+    const canNotify = Boolean(process.env.RESEND_API_KEY && notificationEmail);
+    if (canNotify) {
         try {
             await sendContactNotification({
                 to: notificationEmail,
@@ -97,7 +100,7 @@ export async function POST(request: NextRequest) {
         }
     }
 
-    if (dbSaveFailed && !(process.env.RESEND_API_KEY && notificationEmail)) {
+    if (dbSaveFailed && !canNotify) {
         return NextResponse.json(
             { error: "Mesajınız kaydedilemedi. Lütfen tekrar deneyin." },
             { status: 500 }

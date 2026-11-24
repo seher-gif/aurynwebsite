@@ -61,6 +61,20 @@ export async function sendContactNotification({
   });
 }
 
+export async function sendTestNotification(to: string) {
+  return resend.emails.send({
+    from: 'Auryn Bildirim <no-reply@auryndijital.com>',
+    to: [to],
+    subject: 'Test bildirimi - Auryn Dijital yönetim paneli',
+    html: `
+      <h2>Bildirimler çalışıyor</h2>
+      <p>Bu e-posta, yönetim panelindeki <strong>Bildirimler</strong> ayarlarından gönderilen bir test iletisidir.</p>
+      <p>Yeni iletişim formu mesajları bu adrese iletilecektir.</p>
+      <p><small>${new Date().toLocaleString('tr-TR')}</small></p>
+    `,
+  });
+}
+
 interface SeoDbFailureParams {
   to: string;
   domain: string;

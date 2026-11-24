@@ -1,6 +1,6 @@
 'use server';
 
-import { signIn } from '@/auth';
+import { auth, signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 import { prisma } from './prisma';
 import bcrypt from 'bcryptjs';
@@ -40,6 +40,13 @@ export async function updateUserPassword(
     formData: FormData,
 ): Promise<string | null | undefined> {
     try {
+        // Sunucu aksiyonları herhangi bir istemciden çağrılabilir; yalnızca oturum açmış
+        // yöneticiler başka kullanıcıların şifresini değiştirebilmeli.
+        const session = await auth();
+        if (!session?.user || session.user.role !== 'ADMIN') {
+            return 'Bu işlem için yetkiniz yok.';
+        }
+
         const email = formData.get('email') as string;
         const password = formData.get('password') as string;
         const confirmPassword = formData.get('confirmPassword') as string;

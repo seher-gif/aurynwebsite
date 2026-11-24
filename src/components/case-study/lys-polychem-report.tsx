@@ -7,6 +7,7 @@ import {
     Funnel,
     KpiGrid,
     Panel,
+    PositionStrip,
     ReportSection,
     ScoreBars,
     StackedShare,
@@ -370,6 +371,161 @@ export function LysPolychemReport({ locale }: { locale: Locale }) {
                 />
             </ReportSection>
 
+            {/* 7b. KEYWORD POSITIONS 2025 -> 2026 */}
+            <ReportSection
+                id="pozisyon-kiyas"
+                eyebrow={t("Anahtar kelime pozisyonları", "Keyword positions")}
+                title={t("Temmuz 2025'ten Kasım 2026'ya pozisyon değişimi", "Position change from July 2025 to November 2026")}
+                intro={t(
+                    "Başlangıç raporundaki (Haziran–Temmuz 2025) Search Console sorgu pozisyonları ile son rapordaki (25 Ekim – 23 Kasım 2026) pozisyonlar aynı 1–100 ölçeğinde yan yana. Başlangıçta sorguların hiçbiri ilk 10'da değildi; bugün sitenin öne çıkan sorgularının çoğu ilk 10'da, bir kısmı 1–2. sırada.",
+                    "Search Console query positions from the baseline report (June–July 2025) and the latest report (25 October – 23 November 2026) side by side on the same 1–100 scale. At the start none of the queries were in the top 10; today most of the site's standout queries are in the top 10, and several are in positions 1–2.",
+                )}
+            >
+                <KpiGrid
+                    cols={3}
+                    items={[
+                        { value: tr ? "≈33,9 → 12,4" : "≈33.9 → 12.4", label: t("Ortalama pozisyon", "Average position"), sub: t("Önceki 12 ay → Kasım 2026 (Search Console)", "Previous 12 months → November 2026 (Search Console)") },
+                        { value: "9 → 560", label: t("Görünür olunan sorgu", "Queries appeared for"), sub: t("Temmuz 2025 → Ekim–Kasım 2026", "July 2025 → Oct–Nov 2026") },
+                        { value: n(14204), label: t("Aylık organik gösterim", "Monthly organic impressions"), sub: t("Temmuz 2025'te 55 (Almanya filtreli)", "55 in July 2025 (Germany filter)") },
+                    ]}
+                />
+
+                <Panel
+                    title={t("Ortalama pozisyon (Search Console, düşük sayı = daha iyi)", "Average position (Search Console, lower number = better)")}
+                    note={t(
+                        "İlk değer, 2025–2026 raporundaki “%50,8 iyileşme” bilgisinden geriye hesaplanmış yaklaşık değerdir (16,66 ÷ 0,492). Üç değer farklı uzunlukta dönemleri kapsar.",
+                        "The first value is approximated backwards from the “50.8% improvement” in the 2025–2026 report (16.66 ÷ 0.492). The three values cover periods of different lengths.",
+                    )}
+                >
+                    <BarList
+                        max={40}
+                        rows={[
+                            { label: t("Önceki 12 ay (≈)", "Previous 12 months (≈)"), value: 33.86, valueLabel: "≈" + dec(33.9, 1), color: "#9ca3af" },
+                            { label: t("Temmuz 2025 – Temmuz 2026", "July 2025 – July 2026"), value: 16.66, valueLabel: dec(16.66, 2), color: COLORS.purple },
+                            { label: t("25 Ekim – 23 Kasım 2026", "25 Oct – 23 Nov 2026"), value: 12.36, valueLabel: dec(12.36, 2), color: COLORS.brand },
+                        ]}
+                    />
+                </Panel>
+
+                <Panel
+                    title={t("Sorgu pozisyonları: iki rapor, aynı ölçek", "Query positions: two reports, one scale")}
+                    note={t(
+                        "Temmuz 2025 verisi Almanya filtreli ve yalnızca 55 gösterimden oluşuyor; Kasım 2026 verisi tüm ülkeleri kapsıyor ve 560 sorgu arasından marka ve ürün/konu sorgularından seçilmiş öne çıkan örnekleri gösteriyor. İki küme birebir aynı sorgulardan oluşmadığı için bu grafik tek tek sorgu kıyası değil, sitenin sıralama konumundaki genel kaymayı gösterir.",
+                        "The July 2025 data is Germany-filtered and consists of only 55 impressions; the November 2026 data covers all countries and shows selected standout brand and product/topic queries out of 560 queries. Because the two sets are not made of exactly the same queries, this chart shows the overall shift in the site's ranking position, not a query-by-query comparison.",
+                    )}
+                >
+                    <PositionStrip
+                        countLabel={t("sorgu", "queries")}
+                        rows={[
+                            {
+                                name: t("Temmuz 2025 (Almanya filtreli)", "July 2025 (Germany filter)"),
+                                color: "#9ca3af",
+                                points: [
+                                    { label: "hffr", pos: 71.1 },
+                                    { label: "hffr cable", pos: 47 },
+                                    { label: "hffr cable compounding", pos: 10.75 },
+                                    { label: "hffr compound formulation", pos: 24.25 },
+                                    { label: "hffr material", pos: 26.25 },
+                                    { label: "hffr cable compound", pos: 31.67 },
+                                    { label: "pvc-compounds", pos: 90.67 },
+                                    { label: "hffr kabel compounds", pos: 56 },
+                                    { label: "hffr kunststoff", pos: 17 },
+                                ],
+                            },
+                            {
+                                name: t("Ekim–Kasım 2026 (tüm ülkeler)", "Oct–Nov 2026 (all countries)"),
+                                color: COLORS.brand,
+                                points: [
+                                    { label: "lys polychem", pos: 1.02 },
+                                    { label: "hffr nedir", pos: 1.65 },
+                                    { label: "lszh kablo", pos: 2.33 },
+                                    { label: "hffr kablo", pos: 4.36 },
+                                    { label: "ayakkabı pvc nedir", pos: 4.42 },
+                                    { label: "ayakkabıda pvc ne demek", pos: 4.43 },
+                                    { label: "granür nedir", pos: 6.88 },
+                                    { label: "granül plastik", pos: 7.29 },
+                                    { label: "polychem", pos: 7.3 },
+                                    { label: "granül", pos: 8.79 },
+                                    { label: "hffr kablo nedir", pos: 13.2 },
+                                ],
+                            },
+                        ]}
+                    />
+                </Panel>
+
+                <div className="grid gap-6 lg:grid-cols-2">
+                    <Panel title={t("Temmuz 2025: başlangıç sorguları", "July 2025: starting queries")}>
+                        <div className="overflow-x-auto">
+                            <table className="w-full min-w-[260px] text-sm tabular-nums">
+                                <thead>
+                                    <tr className="border-b border-gray-200 text-left text-xs uppercase tracking-wide text-gray-500">
+                                        <th className="py-2 pr-3 font-semibold">{t("Sorgu", "Query")}</th>
+                                        <th className="py-2 font-semibold">{t("Ort. poz.", "Avg. pos.")}</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-gray-100">
+                                    {[
+                                        ["hffr cable compounding", 10.75],
+                                        ["hffr kunststoff", 17],
+                                        ["hffr compound formulation", 24.25],
+                                        ["hffr material", 26.25],
+                                        ["hffr cable compound", 31.67],
+                                        ["hffr cable", 47],
+                                        ["hffr kabel compounds", 56],
+                                        ["hffr", 71.1],
+                                        ["pvc-compounds", 90.67],
+                                    ].map(([q, pos]) => (
+                                        <tr key={q as string}>
+                                            <td className="py-2 pr-3 font-medium text-gray-900">{q}</td>
+                                            <td className="py-2 text-gray-600">{dec(pos as number, 2)}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </Panel>
+                    <Panel title={t("Ekim–Kasım 2026: öne çıkan sorgular", "Oct–Nov 2026: standout queries")}>
+                        <div className="overflow-x-auto">
+                            <table className="w-full min-w-[320px] text-sm tabular-nums">
+                                <thead>
+                                    <tr className="border-b border-gray-200 text-left text-xs uppercase tracking-wide text-gray-500">
+                                        <th className="py-2 pr-3 font-semibold">{t("Sorgu", "Query")}</th>
+                                        <th className="py-2 pr-3 font-semibold">{t("Gösterim", "Impr.")}</th>
+                                        <th className="py-2 font-semibold">{t("Ort. poz.", "Avg. pos.")}</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-gray-100">
+                                    {[
+                                        ["lys polychem", 47, 1.02],
+                                        ["hffr nedir", 37, 1.65],
+                                        ["lszh kablo", 78, 2.33],
+                                        ["hffr kablo", 88, 4.36],
+                                        ["ayakkabı pvc nedir", 26, 4.42],
+                                        ["ayakkabıda pvc ne demek", 68, 4.43],
+                                        ["granür nedir", 396, 6.88],
+                                        ["granül plastik", 93, 7.29],
+                                        ["polychem", 54, 7.3],
+                                        ["granül", 1573, 8.79],
+                                    ].map(([q, imp, pos]) => (
+                                        <tr key={q as string}>
+                                            <td className="py-2 pr-3 font-medium text-gray-900">{q}</td>
+                                            <td className="py-2 pr-3 text-gray-600">{n(imp as number)}</td>
+                                            <td className="py-2 font-bold text-gray-900">{dec(pos as number, 2)}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </Panel>
+                </div>
+                <Callout>
+                    {t(
+                        "“lszh kablo” sorgusu Semrush takibinde Nisan 2026'da 5. sıradan Ağustos'ta 2. sıraya yükselmişti; Kasım 2026 Search Console verisinde ortalama 2,33 ile bu konum korunuyor.",
+                        "The query “lszh kablo” rose from position 5 in April 2026 to position 2 in August in Semrush tracking; in the November 2026 Search Console data it holds that position at an average of 2.33.",
+                    )}
+                </Callout>
+            </ReportSection>
+
             {/* 8. TECHNICAL */}
             <ReportSection
                 id="teknik"
@@ -442,8 +598,8 @@ export function LysPolychemReport({ locale }: { locale: Locale }) {
 
                 <p className="text-xs leading-relaxed text-gray-500">
                     {t(
-                        "Kaynaklar: Google Analytics 4, Google Ads, Google Search Console (Temmuz 2025 – Temmuz 2026), Semrush Position Tracking (29 Nisan – 12 Ağustos 2026, masaüstü, Türkiye), Google PageSpeed Insights (14 Ağustos 2026) ve Haziran–Temmuz 2025 başlangıç ölçümü. Önceki dönem neredeyse sıfır olduğundan yüzdesel büyüme oranları yerine mutlak rakamlar paylaşılmıştır.",
-                        "Sources: Google Analytics 4, Google Ads, Google Search Console (July 2025 – July 2026), Semrush Position Tracking (29 April – 12 August 2026, desktop, Türkiye), Google PageSpeed Insights (14 August 2026) and the June–July 2025 baseline snapshot. Because the previous period was close to zero, absolute figures are shown instead of percentage growth rates.",
+                        "Kaynaklar: Google Analytics 4, Google Ads, Google Search Console (Haziran 2025 – Kasım 2026), Semrush Position Tracking (29 Nisan – 12 Ağustos 2026, masaüstü, Türkiye), Google PageSpeed Insights (14 Ağustos 2026) Haziran–Temmuz 2025 başlangıç ölçümü ve 25 Ekim – 23 Kasım 2026 güncel ölçümü. Önceki dönem neredeyse sıfır olduğundan yüzdesel büyüme oranları yerine mutlak rakamlar paylaşılmıştır.",
+                        "Sources: Google Analytics 4, Google Ads, Google Search Console (June 2025 – November 2026), Semrush Position Tracking (29 April – 12 August 2026, desktop, Türkiye), Google PageSpeed Insights (14 August 2026) the June–July 2025 baseline snapshot and the 25 October – 23 November 2026 update. Because the previous period was close to zero, absolute figures are shown instead of percentage growth rates.",
                     )}
                 </p>
             </ReportSection>

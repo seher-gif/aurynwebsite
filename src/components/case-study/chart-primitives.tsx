@@ -294,3 +294,54 @@ export function Callout({ tone = "brand", children }: { tone?: "brand" | "warn";
         </div>
     );
 }
+
+export interface StripPoint {
+    label: string;
+    pos: number;
+}
+
+export interface StripRow {
+    name: string;
+    color: string;
+    points: StripPoint[];
+}
+
+/** Dots on a 1–100 position scale (left = better) so two snapshots can be compared at a glance. */
+export function PositionStrip({ rows, max = 100, countLabel }: { rows: StripRow[]; max?: number; countLabel: string }) {
+    const ticks = [1, 10, 25, 50, 100];
+    return (
+        <div className="space-y-6">
+            {rows.map((r) => (
+                <div key={r.name}>
+                    <div className="mb-2 flex items-baseline justify-between gap-3 text-sm">
+                        <span className="font-semibold text-gray-900">{r.name}</span>
+                        <span className="text-xs text-gray-500">{r.points.length} {countLabel}</span>
+                    </div>
+                    <div className="relative h-8 rounded-full" style={{ background: COLORS.track }} role="img"
+                        aria-label={r.points.map((pt) => `${pt.label}: ${pt.pos}`).join(", ")}>
+                        {r.points.map((pt) => (
+                            <span
+                                key={pt.label}
+                                title={`${pt.label}: ${pt.pos}`}
+                                className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+                                style={{
+                                    left: `${Math.min((pt.pos / max) * 100, 99)}%`,
+                                    width: 16,
+                                    height: 16,
+                                    background: r.color,
+                                    border: "2px solid #ffffff",
+                                    boxSizing: "border-box",
+                                }}
+                            />
+                        ))}
+                    </div>
+                </div>
+            ))}
+            <div className="relative h-4 text-[10px] text-gray-500">
+                {ticks.map((t) => (
+                    <span key={t} className="absolute -translate-x-1/2 tabular-nums" style={{ left: `${Math.min((t / max) * 100, 99)}%` }}>{t}</span>
+                ))}
+            </div>
+        </div>
+    );
+}

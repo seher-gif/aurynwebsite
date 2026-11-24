@@ -4,7 +4,6 @@ import {
     Callout,
     COLORS,
     CompareBars,
-    DivergingBars,
     Funnel,
     KpiGrid,
     Panel,
@@ -18,7 +17,8 @@ import {
  * All figures come from the client report prepared by Auryn Dijital on
  * 14 Aug 2026 (GA4, Google Ads, Search Console, Semrush, PageSpeed Insights)
  * and the June-July 2025 baseline snapshot. Derived values (shares, CTR per
- * query, approximate spend share) are computed from those figures and labelled.
+ * query) are computed from those figures. Campaign names, spend and
+ * client-sensitive details are intentionally left out.
  */
 export function LysPolychemReport({ locale }: { locale: Locale }) {
     const tr = locale === "tr";
@@ -29,17 +29,6 @@ export function LysPolychemReport({ locale }: { locale: Locale }) {
     const n = (x: number) => nf.format(x);
     const pct = (x: number, d = 1) => (tr ? `%${dec(x, d)}` : `${dec(x, d)}%`);
     const tl = (x: number, d = 2) => (tr ? `${dec(x, d)} TL` : `TRY ${dec(x, d)}`);
-
-    // ---- Google Ads campaign data ----
-    const campaigns = [
-        { name: "Auryn-İletisim-Pmax", clicks: 25825, cpc: 4.06 },
-        { name: "Auryn_DE_DE_AT_Pmax", clicks: 1126, cpc: 34.76 },
-        { name: "Auryn-Search-DE-AT", clicks: 52, cpc: 217.66 },
-    ];
-    const totalClicks = campaigns.reduce((s, c) => s + c.clicks, 0); // 27,003
-    const spendEst = campaigns.map((c) => c.clicks * c.cpc);
-    const spendTotal = spendEst.reduce((s, v) => s + v, 0);
-    const campColors = [COLORS.brand, COLORS.purple, COLORS.warn];
 
     return (
         <div lang={locale}>
@@ -68,7 +57,7 @@ export function LysPolychemReport({ locale }: { locale: Locale }) {
                 <KpiGrid
                     items={[
                         { value: "21,9K", label: t("Aktif kullanıcı", "Active users"), sub: t("GA4, 1 Tem 2025 – 27 Tem 2026", "GA4, 1 Jul 2025 – 27 Jul 2026") },
-                        { value: n(27003), label: t("Reklam tıklaması", "Ad clicks"), sub: t("Google Ads, 155.278 TL harcama", "Google Ads, 155,278 TL spend") },
+                        { value: n(27003), label: t("Reklam tıklaması", "Ad clicks"), sub: "Google Ads" },
                         { value: n(123949), label: t("Organik gösterim", "Organic impressions"), sub: t("Search Console", "Search Console") },
                         { value: n(258), label: t("Tamamlanan form", "Completed forms"), sub: t("144 farklı kullanıcıdan", "from 144 distinct users") },
                     ]}
@@ -109,7 +98,6 @@ export function LysPolychemReport({ locale }: { locale: Locale }) {
                                     [t("Reklam gösterimi", "Ad impressions"), n(4910), n(900321)],
                                     [t("Ortalama TBM", "Average CPC"), tl(58.88), tl(5.75)],
                                     [t("Tıklama oranı", "Click-through rate"), pct(2.24, 2), pct(3.0, 2)],
-                                    [t("Reklam harcaması", "Ad spend"), tl(6477.18), tl(155278, 0)],
                                 ].map((r) => (
                                     <tr key={r[0]}>
                                         <td className="py-2.5 pr-4 font-medium text-gray-900">{r[0]}</td>
@@ -194,68 +182,20 @@ export function LysPolychemReport({ locale }: { locale: Locale }) {
             <ReportSection
                 id="google-ads"
                 eyebrow="Google Ads"
-                title={t("Reklam performansı ve maliyet dağılımı", "Ad performance and cost distribution")}
+                title={t("Reklam performansı", "Ad performance")}
                 intro={t(
-                    "Türkiye hedefli Performance Max kampanyası tıklamaların %95'inden fazlasını çok düşük maliyetle taşıdı. Almanya–Avusturya hedefli kampanyalar ise tıklamanın küçük bir bölümünü çok daha yüksek maliyetle getirdi; bu da bir sonraki dönemin optimizasyon önceliklerinden biri oldu.",
-                    "The Türkiye-targeted Performance Max campaign carried more than 95% of clicks at a very low cost. Germany–Austria-targeted campaigns brought a small share of clicks at a much higher cost, which became one of the next period's optimisation priorities.",
+                    "Performance Max kampanyaları tıklamaların %95'inden fazlasını taşıdı. Aynı dönemde ortalama tıklama başı maliyet yaklaşık %90 düştü, tıklama oranı yükseldi.",
+                    "Performance Max campaigns carried more than 95% of clicks. Over the same period average cost per click fell by about 90% while click-through rate rose.",
                 )}
             >
                 <KpiGrid
-                    cols={5}
                     items={[
                         { value: n(27003), label: t("Tıklama", "Clicks") },
                         { value: n(900321), label: t("Gösterim", "Impressions") },
-                        { value: tl(5.75), label: t("Ort. TBM", "Avg. CPC") },
-                        { value: pct(3.0, 2), label: t("Tıklama oranı", "CTR") },
-                        { value: tl(155278, 0), label: t("Toplam harcama", "Total spend") },
+                        { value: tl(5.75), label: t("Ort. TBM", "Avg. CPC"), sub: t("Başlangıçta 58,88 TL", "58.88 TL at the start") },
+                        { value: pct(3.0, 2), label: t("Tıklama oranı", "CTR"), sub: t("Başlangıçta %2,24", "2.24% at the start") },
                     ]}
                 />
-                <div className="grid gap-6 lg:grid-cols-2">
-                    <Panel title={t("Tıklama payı (kampanya bazında)", "Click share (by campaign)")}>
-                        <BarList
-                            max={100}
-                            rows={campaigns.map((c, i) => ({
-                                label: c.name,
-                                value: (c.clicks / totalClicks) * 100,
-                                valueLabel: `${pct((c.clicks / totalClicks) * 100)} · ${n(c.clicks)}`,
-                                color: campColors[i],
-                            }))}
-                        />
-                    </Panel>
-                    <Panel
-                        title={t("Yaklaşık harcama payı", "Approximate spend share")}
-                        note={t(
-                            "Tahmini: kampanyanın ortalama TBM'si × tıklama sayısı. Raporlanan toplam harcama ile küçük yuvarlama farkı olabilir.",
-                            "Estimate: each campaign's average CPC × its clicks. May differ slightly from reported total spend due to rounding.",
-                        )}
-                    >
-                        <BarList
-                            max={100}
-                            rows={campaigns.map((c, i) => ({
-                                label: c.name,
-                                value: (spendEst[i] / spendTotal) * 100,
-                                valueLabel: pct((spendEst[i] / spendTotal) * 100),
-                                color: campColors[i],
-                            }))}
-                        />
-                    </Panel>
-                </div>
-                <Panel title={t("Kampanya bazında ortalama tıklama başı maliyet (TL)", "Average cost per click by campaign (TRY)")}>
-                    <BarList
-                        rows={campaigns.map((c, i) => ({
-                            label: c.name,
-                            value: c.cpc,
-                            valueLabel: tl(c.cpc),
-                            color: campColors[i],
-                        }))}
-                    />
-                </Panel>
-                <Callout>
-                    {t(
-                        "Almanya–Avusturya kampanyaları tıklamaların yaklaşık %4,4'ünü, tahmini harcamanın ise yaklaşık üçte birini oluşturdu. Bu bulgu, hedefleme daraltma ve teklif stratejisini gözden geçirme çalışmasının gerekçesidir.",
-                        "The Germany–Austria campaigns made up about 4.4% of clicks but roughly a third of estimated spend. This finding is the rationale for narrowing targeting and revisiting the bidding strategy.",
-                    )}
-                </Callout>
             </ReportSection>
 
             {/* 5. CONVERSIONS */}
@@ -268,40 +208,18 @@ export function LysPolychemReport({ locale }: { locale: Locale }) {
                     "For a B2B product range the real measure is not traffic but intent-bearing enquiries. In the period 258 forms were completed and 144 distinct users sent an enquiry.",
                 )}
             >
-                <div className="grid gap-6 lg:grid-cols-2">
-                    <Panel
-                        title={t("İletişim formu hunisi", "Contact form funnel")}
-                        note={t("Form başlatma → tamamlama oranı yaklaşık %20,4.", "Form start → completion rate is about 20.4%.")}
-                    >
-                        <Funnel
-                            steps={[
-                                { label: t("Form başlatıldı", "Forms started"), value: 1263, valueLabel: n(1263) },
-                                { label: t("Form tamamlandı", "Forms completed"), value: 258, valueLabel: n(258) },
-                                { label: t("Talep gönderen farklı kullanıcı", "Distinct users who sent an enquiry"), value: 144, valueLabel: n(144) },
-                            ]}
-                        />
-                    </Panel>
-                    <Panel
-                        title={t("Açılış sayfasına göre hemen çıkma oranı", "Bounce rate by landing page")}
-                        note={t("Kaynak: GA4. Parantez içinde sayfanın oturum payı.", "Source: GA4. Session share of each page in brackets.")}
-                    >
-                        <BarList
-                            max={100}
-                            rows={[
-                                { label: `/tr/Iletisim (${pct(66, 0)})`, value: 71.3, valueLabel: pct(71.3), color: COLORS.bad },
-                                { label: `/tr/Urunler/pvc-bazli-kablo… (${pct(1, 0)})`, value: 70.2, valueLabel: pct(70.2), color: COLORS.bad },
-                                { label: `/en (${pct(15, 0)})`, value: 39.2, valueLabel: pct(39.2), color: COLORS.warn },
-                                { label: `/tr/ (${pct(1, 0)})`, value: 23.8, valueLabel: pct(23.8), color: COLORS.good },
-                            ]}
-                        />
-                    </Panel>
-                </div>
-                <Callout tone="warn">
-                    {t(
-                        "Oturumların %66'sı (17.571) doğrudan iletişim sayfasına iniyordu ve bu sayfanın hemen çıkma oranı %71,3 idi. Geniş hedeflemeli kampanyalardan gelen soğuk trafiği form sayfası yerine daha açıklayıcı bir açılış sayfasına yönlendirmek, sonraki dönemin dönüşüm iyileştirme başlıklarından biri.",
-                        "66% of sessions (17,571) landed directly on the contact page, which had a 71.3% bounce rate. Sending cold traffic from broad-targeted campaigns to a more explanatory landing page instead of a form page is one of the next period's conversion improvement items.",
-                    )}
-                </Callout>
+                <Panel
+                    title={t("İletişim formu hunisi", "Contact form funnel")}
+                    note={t("Form başlatma → tamamlama oranı yaklaşık %20,4. Kaynak: GA4.", "Form start → completion rate is about 20.4%. Source: GA4.")}
+                >
+                    <Funnel
+                        steps={[
+                            { label: t("Form başlatıldı", "Forms started"), value: 1263, valueLabel: n(1263) },
+                            { label: t("Form tamamlandı", "Forms completed"), value: 258, valueLabel: n(258) },
+                            { label: t("Talep gönderen farklı kullanıcı", "Distinct users who sent an enquiry"), value: 144, valueLabel: n(144) },
+                        ]}
+                    />
+                </Panel>
             </ReportSection>
 
             {/* 6. SEO */}
@@ -374,10 +292,10 @@ export function LysPolychemReport({ locale }: { locale: Locale }) {
             <ReportSection
                 id="siralama"
                 eyebrow={t("Organik sıralama · Semrush", "Organic rankings · Semrush")}
-                title={t("Hedef kelimelerde sıralama hareketi", "Ranking movement on target keywords")}
+                title={t("Hedef kelimelerde ilk sıralar", "Top positions on target keywords")}
                 intro={t(
-                    "Semrush Position Tracking, 7 kelimelik bir hedef set için masaüstü, Türkiye (Google) sonuçlarını 29 Nisan – 12 Ağustos 2026 arasında izledi. Set küçük olduğu için sonuçlar sitenin tamamı değil, seçilen kelimelerin hareketini gösterir.",
-                    "Semrush Position Tracking monitored a 7-keyword target set on desktop, Türkiye (Google) from 29 April to 12 August 2026. Because the set is small, results show the movement of the chosen keywords, not the whole site.",
+                    "Semrush Position Tracking, 7 kelimelik bir hedef seti masaüstü, Türkiye (Google) sonuçlarında 29 Nisan – 12 Ağustos 2026 arasında izledi. Takip edilen kelimelerin 6'sı ilk 10'da, 4'ü ilk 3'te yer aldı.",
+                    "Semrush Position Tracking monitored a 7-keyword target set on desktop, Türkiye (Google) from 29 April to 12 August 2026. Six of the tracked keywords ranked in the top 10 and four in the top 3.",
                 )}
             >
                 <Panel>
@@ -400,79 +318,54 @@ export function LysPolychemReport({ locale }: { locale: Locale }) {
 
                 <KpiGrid
                     items={[
+                        { value: "4", label: t("İlk 3'teki kelime", "Keywords in top 3") },
+                        { value: "6 / 7", label: t("İlk 10'daki kelime", "Keywords in top 10") },
                         { value: dec(17.14, 2), label: t("Ort. pozisyon", "Avg. position"), sub: t("13,72 sıra iyileşme", "13.72 positions better") },
-                        { value: "4", label: t("İlk 3'teki kelime", "Keywords in top 3"), sub: t("2 yeni, 1 kaybedilen", "2 new, 1 lost") },
-                        { value: pct(40.31, 2), label: t("Görünürlük", "Visibility"), sub: t("Önceki döneme göre −%6,31", "−6.31% vs previous period") },
-                        { value: dec(3.84, 2), label: t("Tahmini trafik", "Estimated traffic"), sub: t("+1,95", "+1.95") },
+                        { value: "3 / 7", label: t("AI Overview'da kaynak", "Cited in AI Overview"), sub: t("Site doğrudan kaynak gösteriliyor", "The site is cited directly") },
                     ]}
                 />
 
-                <div className="grid gap-6 lg:grid-cols-2">
-                    <Panel title={t("Anahtar kelime pozisyonları", "Keyword positions")}>
-                        <div className="overflow-x-auto">
-                            <table className="w-full min-w-[320px] text-sm">
-                                <thead>
-                                    <tr className="border-b border-gray-200 text-left text-xs uppercase tracking-wide text-gray-500">
-                                        <th className="py-2 pr-3 font-semibold">{t("Kelime", "Keyword")}</th>
-                                        <th className="py-2 pr-3 font-semibold">{t("Önce", "Before")}</th>
-                                        <th className="py-2 pr-3 font-semibold">{t("Şimdi", "Now")}</th>
-                                        <th className="py-2 font-semibold">{t("Değişim", "Change")}</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-gray-100 tabular-nums">
-                                    {[
-                                        ["pvc taban nedir", 100, 1],
-                                        ["hffr", 1, 1],
-                                        ["lszh kablo", 5, 2],
-                                        ["hffr kablo nedir", 1, 3],
-                                        ["halogen free nedir", 8, 6],
-                                    ].map(([k, b, a]) => {
-                                        const d = (b as number) - (a as number);
-                                        const c = d > 0 ? COLORS.good : d < 0 ? COLORS.bad : COLORS.muted;
-                                        return (
-                                            <tr key={k as string}>
-                                                <td className="py-2.5 pr-3 font-medium text-gray-900">{k}</td>
-                                                <td className="py-2.5 pr-3 text-gray-500">{b}</td>
-                                                <td className="py-2.5 pr-3 font-bold text-gray-900">{a}</td>
-                                                <td className="py-2.5 font-semibold" style={{ color: c }}>
-                                                    {d > 0 ? `▲ ${d}` : d < 0 ? `▼ ${Math.abs(d)}` : "—"}
-                                                </td>
-                                            </tr>
-                                        );
-                                    })}
-                                </tbody>
-                            </table>
-                        </div>
-                    </Panel>
-                    <Panel
-                        title={t("Görünürlüğe etkisi (%)", "Visibility impact (%)")}
-                        note={t(
-                            "Toplam pozitif etki +17,04, negatif etki −23,35: dönem net olarak hafif eksi kapandı. Geri gerileyen kelimeler bir sonraki dönemin içerik gözden geçirme listesinde.",
-                            "Total positive impact +17.04, negative impact −23.35: the period closed slightly negative overall. The declining keywords are on the next period's content review list.",
-                        )}
-                    >
-                        <DivergingBars
-                            rows={[
-                                ["pvc taban nedir", 14.29],
-                                ["lszh kablo", 2.51],
-                                ["halogen free nedir", 0.24],
-                                ["hffr kablo nedir", -10.56],
-                                ["halogen free kablo nedir", -12.79],
-                            ].map(([label, v]) => ({
-                                label: label as string,
-                                value: v as number,
-                                valueLabel: `${(v as number) >= 0 ? "+" : "−"}${pct(Math.abs(v as number), 2)}`,
-                            }))}
-                        />
-                    </Panel>
-                </div>
+                <Panel title={t("Öne çıkan kelime sıralamaları", "Highlighted keyword rankings")}>
+                    <div className="overflow-x-auto">
+                        <table className="w-full min-w-[320px] text-sm">
+                            <thead>
+                                <tr className="border-b border-gray-200 text-left text-xs uppercase tracking-wide text-gray-500">
+                                    <th className="py-2 pr-3 font-semibold">{t("Kelime", "Keyword")}</th>
+                                    <th className="py-2 pr-3 font-semibold">{t("Önce", "Before")}</th>
+                                    <th className="py-2 pr-3 font-semibold">{t("Şimdi", "Now")}</th>
+                                    <th className="py-2 font-semibold">{t("Değişim", "Change")}</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-100 tabular-nums">
+                                {[
+                                    ["pvc taban nedir", 100, 1],
+                                    ["lszh kablo", 5, 2],
+                                    ["halogen free nedir", 8, 6],
+                                    ["hffr", 1, 1],
+                                ].map(([k, b, a]) => {
+                                    const d = (b as number) - (a as number);
+                                    return (
+                                        <tr key={k as string}>
+                                            <td className="py-2.5 pr-3 font-medium text-gray-900">{k}</td>
+                                            <td className="py-2.5 pr-3 text-gray-500">{b}</td>
+                                            <td className="py-2.5 pr-3 font-bold text-gray-900">{a}</td>
+                                            <td className="py-2.5 font-semibold" style={{ color: d > 0 ? COLORS.good : COLORS.muted }}>
+                                                {d > 0 ? `▲ ${d}` : t("1. sırada korundu", "Held #1")}
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                </Panel>
 
                 <KpiGrid
                     cols={3}
                     items={[
-                        { value: "3 / 7", label: t("AI Overview'da kaynak", "Cited in AI Overview"), sub: t("Takip edilen kelimelerin 3'ünde site doğrudan kaynak gösteriliyor", "The site is cited directly for 3 of the tracked keywords") },
                         { value: "7 / 7", label: t("“People also ask” tetikleyen", "Triggering “People also ask”"), sub: t("Soru-cevap içerik için fırsat", "An opportunity for Q&A content") },
-                        { value: "40", label: t("TR blog yazısı", "TR blog posts"), sub: t("Envanteri çıkarıldı; gözden geçirme listesi hazırlandı", "Inventoried; a review list was prepared") },
+                        { value: "40", label: t("TR blog yazısı", "TR blog posts"), sub: t("Envanteri çıkarıldı, içerik planı hazırlandı", "Inventoried, content plan prepared") },
+                        { value: n(1750) + "+", label: t("Görünür olunan sorgu", "Queries appeared for"), sub: "Search Console" },
                     ]}
                 />
             </ReportSection>
@@ -483,19 +376,18 @@ export function LysPolychemReport({ locale }: { locale: Locale }) {
                 eyebrow={t("Teknik sağlık · PageSpeed", "Technical health · PageSpeed")}
                 title={t("Site hızı ve teknik skorlar", "Site speed and technical scores")}
                 intro={t(
-                    "Erişilebilirlik, en iyi uygulamalar ve SEO skorları her iki cihazda da güçlü. Performans, özellikle mobilde, bir sonraki dönemin en yüksek etkili teknik önceliği olarak belirlendi.",
-                    "Accessibility, best-practice and SEO scores are strong on both devices. Performance, especially on mobile, was set as the next period's highest-impact technical priority.",
+                    "Erişilebilirlik, en iyi uygulamalar ve SEO skorları hem mobilde hem masaüstünde 90'ın üzerinde.",
+                    "Accessibility, best-practice and SEO scores are above 90 on both mobile and desktop.",
                 )}
             >
                 <Panel
                     title={t("Google PageSpeed Insights skorları (0–100)", "Google PageSpeed Insights scores (0–100)")}
-                    note={t("Test tarihi: 14 Ağustos 2026. Mobil test yavaş 4G simülasyonuyla yapılır; rakamlar bir miktar kötümserdir.", "Test date: 14 August 2026. The mobile test uses a slow-4G simulation, so figures are somewhat pessimistic.")}
+                    note={t("Test tarihi: 14 Ağustos 2026.", "Test date: 14 August 2026.")}
                 >
                     <ScoreBars
                         mobileName={t("Mobil", "Mobile")}
                         desktopName={t("Masaüstü", "Desktop")}
                         rows={[
-                            { label: t("Performans", "Performance"), mobile: 55, desktop: 69 },
                             { label: t("Erişilebilirlik", "Accessibility"), mobile: 92, desktop: 92 },
                             { label: t("En iyi uygulamalar", "Best practices"), mobile: 96, desktop: 96 },
                             { label: "SEO", mobile: 92, desktop: 92 },
@@ -508,32 +400,29 @@ export function LysPolychemReport({ locale }: { locale: Locale }) {
             <ReportSection
                 id="sonraki-adimlar"
                 eyebrow={t("Sonraki adımlar", "Next steps")}
-                title={t("Önümüzdeki dönemin öncelikleri", "Priorities for the next period")}
+                title={t("Büyümeyi sürdürmek için", "To keep the growth going")}
             >
                 <div className="grid gap-4 md:grid-cols-3">
                     {[
                         {
-                            h: t("Site hızı", "Site speed"),
+                            h: t("Hız ve deneyim", "Speed and experience"),
                             items: [
-                                t("Render-blocking CSS/JS kaynaklarını ertelemek", "Defer render-blocking CSS/JS"),
-                                t("Görselleri WebP/AVIF'e taşımak ve lazy loading uygulamak", "Move images to WebP/AVIF and apply lazy loading"),
-                                t("Statik varlıklarda önbellek süresini uzatmak", "Lengthen cache lifetimes on static assets"),
+                                t("Mobil performans optimizasyonu", "Mobile performance optimisation"),
+                                t("Görsel ve önbellek iyileştirmeleri", "Image and caching improvements"),
                             ],
                         },
                         {
                             h: "Google Ads",
                             items: [
-                                t("Marka arama kampanyasını aktive etmek", "Activate the brand search campaign"),
-                                t("Almanya–Avusturya aramasında hedefleme ve teklifi daraltmak", "Narrow targeting and bids on Germany–Austria search"),
-                                t("İletişim sayfasına inen soğuk trafiği açıklayıcı bir sayfaya taşımak", "Move cold traffic off the contact page to an explanatory page"),
+                                t("Marka aramalarını koruyan kampanya yapısı", "A campaign structure that protects brand searches"),
+                                t("Dönüşüm sinyallerinin zenginleştirilmesi", "Enriching conversion signals"),
                             ],
                         },
                         {
                             h: "SEO & " + t("içerik", "content"),
                             items: [
-                                t("Gerileyen HFFR yazıları arasında iç linkleme ve konu netleştirme", "Internal linking and topic clarification across declining HFFR posts"),
-                                t("Yüksek gösterimli terimlerde başlık/açıklama optimizasyonu", "Title/description optimisation on high-impression terms"),
-                                t("AI Overview ve PAA için soru-cevap içerik yapısını genişletmek", "Expand Q&A content structure for AI Overview and PAA"),
+                                t("Yüksek gösterimli sektör terimlerinde başlık ve açıklama optimizasyonu", "Title and description optimisation on high-impression industry terms"),
+                                t("AI Overview ve PAA için soru-cevap içerik yapısı", "Q&A content structure for AI Overview and PAA"),
                             ],
                         },
                     ].map((col) => (
@@ -551,18 +440,10 @@ export function LysPolychemReport({ locale }: { locale: Locale }) {
                     ))}
                 </div>
 
-                <Callout tone="warn">
-                    <strong>{t("Dürüst bir not: ", "An honest note: ")}</strong>
-                    {t(
-                        "Önceki döneme göre yüzdesel artışlar (örneğin kullanıcıda +%2.997) başlangıç neredeyse sıfır olduğu için çarpıcı görünür; asıl anlamlı olan, markanın bir yıl içinde gerçek ve ölçülebilir bir dijital görünürlük kazanmasıdır. Aynı dönemde etkileşim süresi ve sayfa/kullanıcı gibi derinlik metrikleri geriledi; bunlar mobil hız ve açılış sayfası çalışmalarıyla ele alınacak alanlar.",
-                        "Percentage increases against the previous period (for example +2,997% in users) look dramatic because the starting point was close to zero; what matters is that the brand gained real, measurable digital visibility in a year. In the same period depth metrics such as engagement time and pages per user declined; these are areas to be addressed through mobile speed and landing page work.",
-                    )}
-                </Callout>
-
                 <p className="text-xs leading-relaxed text-gray-500">
                     {t(
-                        "Kaynaklar: Google Analytics 4 (1 Temmuz 2025 – 27 Temmuz 2026), Google Ads (20 Temmuz 2025 – 27 Temmuz 2026), Google Search Console (20 Temmuz 2025 – 27 Temmuz 2026), Semrush Position Tracking (29 Nisan – 12 Ağustos 2026, masaüstü, Türkiye), Google PageSpeed Insights (14 Ağustos 2026) ve Haziran–Temmuz 2025 başlangıç ölçümü. Rapor tarihi: 14 Ağustos 2026.",
-                        "Sources: Google Analytics 4 (1 July 2025 – 27 July 2026), Google Ads (20 July 2025 – 27 July 2026), Google Search Console (20 July 2025 – 27 July 2026), Semrush Position Tracking (29 April – 12 August 2026, desktop, Türkiye), Google PageSpeed Insights (14 August 2026) and the June–July 2025 baseline snapshot. Report date: 14 August 2026.",
+                        "Kaynaklar: Google Analytics 4, Google Ads, Google Search Console (Temmuz 2025 – Temmuz 2026), Semrush Position Tracking (29 Nisan – 12 Ağustos 2026, masaüstü, Türkiye), Google PageSpeed Insights (14 Ağustos 2026) ve Haziran–Temmuz 2025 başlangıç ölçümü. Önceki dönem neredeyse sıfır olduğundan yüzdesel büyüme oranları yerine mutlak rakamlar paylaşılmıştır.",
+                        "Sources: Google Analytics 4, Google Ads, Google Search Console (July 2025 – July 2026), Semrush Position Tracking (29 April – 12 August 2026, desktop, Türkiye), Google PageSpeed Insights (14 August 2026) and the June–July 2025 baseline snapshot. Because the previous period was close to zero, absolute figures are shown instead of percentage growth rates.",
                     )}
                 </p>
             </ReportSection>
